@@ -14,3 +14,4 @@ buildNumber.properties
 *:Zone.Identifier
 .vscode
 *.log
+.DS_Store
