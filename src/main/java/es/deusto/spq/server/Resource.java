@@ -6,11 +6,9 @@ import javax.jdo.Query;
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
-import es.deusto.spq.server.jdo.User;
-import es.deusto.spq.server.jdo.Message;
-import es.deusto.spq.pojo.DirectMessage;
-import es.deusto.spq.pojo.MessageData;
-import es.deusto.spq.pojo.UsuarioData;
+import es.deusto.spq.server.jdo.Usuario;
+import es.deusto.spq.server.jdo.Entrada;
+import es.deusto.spq.server.jdo.Evento;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -39,66 +37,28 @@ public class Resource {
 		this.tx = pm.currentTransaction();
 	}
 
-	@POST
-	@Path("/sayMessage")
-	public Response sayMessage(DirectMessage directMessage) {
-		User user = null;
-		try{
-			tx.begin();
-			logger.info("Creating query ...");
-			
-			try (Query<?> q = pm.newQuery("SELECT FROM " + User.class.getName() + " WHERE login == \"" + directMessage.getUserData().getLogin() + "\" &&  password == \"" + directMessage.getUserData().getPassword() + "\"")) {
-				q.setUnique(true);
-				user = (User)q.execute();
-				
-				logger.info("User retrieved: {}", user);
-				if (user != null)  {
-					Message message = new Message(directMessage.getMessageData().getMessage());
-					user.getMessages().add(message);
-					pm.makePersistent(user);					 
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		}
-		
-		if (user != null) {
-			cont++;
-			logger.info(" * Client number: {}", cont);
-			MessageData messageData = new MessageData();
-			messageData.setMessage(directMessage.getMessageData().getMessage());
-			return Response.ok(messageData).build();
-		} else {
-			return Response.status(Status.BAD_REQUEST).entity("Login details supplied for message delivery are not correct").build();
-		}
-	}
 	
 	@POST
 	@Path("/register")
-	public Response registerUser(UsuarioData userData) {
+	public Response registerUser(Usuario usuario) {
 		try
         {	
             tx.begin();
-            logger.info("Checking whether the user already exits or not: '{}'", userData.getLogin());
-			User user = null;
+            logger.info("Checking whether the user already exits or not: '{}'", usuario.getDni());
+			Usuario user = null;
 			try {
-				user = pm.getObjectById(User.class, userData.getLogin());
+				user = pm.getObjectById(Usuario.class, usuario.getDni());
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
 			}
 			logger.info("User: {}", user);
 			if (user != null) {
 				logger.info("Setting password user: {}", user);
-				user.setPassword(userData.getPassword());
+				user.setContrasenya(usuario.getContrasenya());
 				logger.info("Password set user: {}", user);
 			} else {
 				logger.info("Creating user: {}", user);
-				user = new User(userData.getLogin(), userData.getPassword());
+				//user = new Usuario(usuario.getLogin(), usuario.getContrasenya());
 				pm.makePersistent(user);					 
 				logger.info("User created: {}", user);
 			}
