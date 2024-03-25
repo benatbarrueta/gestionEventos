@@ -2,6 +2,8 @@ package es.deusto.spq.client;
 
 import java.util.Date;
 
+import java.awt.EventQueue;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -12,6 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.server.jdo.Usuario;
+import es.deusto.spq.client.gui.LoginWindow;
 import es.deusto.spq.server.jdo.TipoUsuario;
 
 import org.apache.logging.log4j.LogManager;
@@ -54,6 +57,13 @@ public class ExampleClient {
 		String port = args[1];
 
 		ExampleClient exampleClient = new ExampleClient(hostname, port);
-		exampleClient.registerUser("David", "Pina", "dipina", "dipina", "a", "a", "a", TipoUsuario.CLIENTE, new Date(System.currentTimeMillis()), "12345678A");
+		LoginWindow loginWindow = new LoginWindow();
+
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				loginWindow.setVisible(true);
+			}
+		});
 	}
 }
