@@ -62,7 +62,7 @@ public class Resource {
 				logger.error("Exception: {}", e.getMessage());
 			}
 
-			if (user != null && user.getContrasenya().equals(usuario.getContrasenya())) {
+			if (user != null && user.getEmail().equals(usuario.getEmail()) && user.getContrasenya().equals(usuario.getContrasenya())) {
 				logger.info("User logged in successfully!");
 				tx.commit();
 				return Response.ok().build();
