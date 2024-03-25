@@ -10,7 +10,7 @@ import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.server.jdo.Message;
 import es.deusto.spq.pojo.DirectMessage;
 import es.deusto.spq.pojo.MessageData;
-import es.deusto.spq.pojo.UserData;
+import es.deusto.spq.pojo.UsuarioData;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -80,7 +80,7 @@ public class Resource {
 	
 	@POST
 	@Path("/register")
-	public Response registerUser(UserData userData) {
+	public Response registerUser(UsuarioData userData) {
 		try
         {	
             tx.begin();
