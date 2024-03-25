@@ -2,8 +2,6 @@ package es.deusto.spq.client;
 
 import java.util.Date;
 
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -14,8 +12,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.server.jdo.Usuario;
-import es.deusto.spq.server.jdo.Evento;
-import es.deusto.spq.server.jdo.Entrada;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,9 +19,6 @@ import org.apache.logging.log4j.Logger;
 public class ExampleClient {
 
 	protected static final Logger logger = LogManager.getLogger();
-
-	private static final String USER = "dipina";
-	private static final String PASSWORD = "dipina";
 
 
 	private Client client;
