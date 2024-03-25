@@ -40,8 +40,7 @@ public class Resource {
         {	
             tx.begin();
 
-			logger.info("Usuario: '{}'", usuario.getNombre());
-            logger.info("Checking whether user with identify number '{}' already exits or not", usuario.getDni(), usuario.getDni());
+            logger.info("Checking whether user with identify number '{}' already exits or not", usuario.getDni());
 
 
             logger.info("Checking whether the user already exits or not: '{}'", usuario.getDni());
