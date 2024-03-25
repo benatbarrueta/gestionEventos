@@ -12,16 +12,16 @@ public class Entrada {
     private long id;
     @Persistent
     private Usuario usuario;
-    //private Evento evento; 
+    private Evento evento; 
 
     public Entrada() {
         this.usuario = new Usuario();
-        //this.evento = new Evento();
+        this.evento = new Evento();
     }
 
-    public Entrada(Usuario usuario /*, Evento evento */) {
+    public Entrada(Usuario usuario , Evento evento ) {
         this.usuario = usuario;
-     // this.evento = evento;
+        this.evento = evento;
     }
 
     public Usuario getUsuario() {
@@ -32,13 +32,22 @@ public class Entrada {
         this.usuario = usuario;
     }
 
-   // public Evento getEvento() {
-     //   return evento;
-    //}
+    public Evento getEvento() {
+        return evento;
+    }
 
-   //public void setEvento(Evento evento) {
-     //   this.evento = evento;
-    //}
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    @Override
+    public String toString() {
+        return "Entrada{" +
+                "id=" + id +
+                ", usuario=" + usuario +
+                ", evento=" + evento +
+                '}';
+    }
 }
 
    
