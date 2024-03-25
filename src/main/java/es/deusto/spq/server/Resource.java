@@ -31,45 +31,7 @@ public class Resource {
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
 	}
-	@POST
-	@Path("/login")
-	public Response loginUser(String email, String password) {
-		try
-		{	
-			tx.begin();
-			logger.info("Checking whether the user already exits or not: '{}'", usuario.getDni());
-			Usuario user = null;
-			try {
-				user = pm.getObjectById(Usuario.class, usuario.getDni());
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				logger.info("Exception launched: {}", jonfe.getMessage());
-			}
-			logger.info("User: {}", user);
-			if (user != null) {
-				logger.info("Checking password user: {}", user);
-				if (user.getContrasenya().equals(usuario.getContrasenya())) {
-					logger.info("Password correct user: {}", user);
-					tx.commit();
-					return Response.ok().build();
-				} else {
-					logger.info("Password incorrect user: {}", user);
-					tx.commit();
-					return Response.status(Status.UNAUTHORIZED).build();
-				}
-			} else {
-				logger.info("User not found: {}", user);
-				tx.commit();
-				return Response.status(Status.NOT_FOUND).build();
-			}
-		}
-		finally
-		{
-			if (tx.isActive())
-			{
-				tx.rollback();
-			}
-		}
-	}
+	
 	
 	@POST
 	@Path("/register")
