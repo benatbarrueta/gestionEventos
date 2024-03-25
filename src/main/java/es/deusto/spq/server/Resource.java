@@ -2,6 +2,12 @@ package es.deusto.spq.server;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
@@ -15,6 +21,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.Logger;
+
+import com.mysql.*;
+
 import org.apache.logging.log4j.LogManager;
 
 @Path("/resource")
@@ -26,11 +35,49 @@ public class Resource {
 	private PersistenceManager pm=null;
 	private Transaction tx=null;
 
+
 	public Resource() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
 	}
+
+	@POST
+    @Path("/login")
+    public Response loginUser(String email, String contrasenya) {
+        try {
+            tx.begin();
+
+            logger.info("Attempting to log in user with email '{}'", email);
+
+            Usuario user = null;
+            try {
+                Query query = pm.newQuery(Usuario.class);
+                query.setFilter("email == emailParam");
+                query.declareParameters("String emailParam");
+                List<Usuario> results = (List<Usuario>) query.execute(email);
+                if (!results.isEmpty()) {
+                    user = results.get(0);
+                }
+            } catch (Exception e) {
+                logger.error("Exception: {}", e.getMessage());
+            }
+
+            if (user != null && user.getContrasenya().equals(contrasenya)) {
+                logger.info("User logged in successfully!");
+                tx.commit();
+                return Response.ok().build();
+            } else {
+                logger.info("Invalid email or password");
+                tx.rollback();
+                return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid email or password").build();
+            }
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
 	
 	
 	@POST
