@@ -77,13 +77,13 @@ public class Resource {
 		try
         {	
             tx.begin();
-<<<<<<< Updated upstream
+
 			logger.info("Usuario: '{}'", usuario.getNombre());
             logger.info("Checking whether user with identify number '{}' already exits or not", usuario.getDni(), usuario.getDni());
-=======
+
 
             logger.info("Checking whether the user already exits or not: '{}'", usuario.getDni());
->>>>>>> Stashed changes
+
 			Usuario user = null;
 			try {
 				user = pm.getObjectById(Usuario.class, usuario.getDni());
