@@ -5,8 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.toedter.calendar.JDateChooser;
-
 
 public class LoginWindow extends JFrame {
 
@@ -29,13 +27,11 @@ public class LoginWindow extends JFrame {
 
         JPanel formularioPanel = new JPanel(new GridLayout(2, 2));
         JPanel botoneraPanel = new JPanel(new FlowLayout());
-
+        
         JLabel usernameLabel = new JLabel("Username:");
         usernameField = new JTextField();
-        usernameField.setPreferredSize(new Dimension(200, 20));
         JLabel passwordLabel = new JLabel("Password:");
         passwordField = new JPasswordField();
-        passwordField.setPreferredSize(new Dimension(200, 20));
 
         
 
@@ -46,6 +42,8 @@ public class LoginWindow extends JFrame {
         formularioPanel.add(usernameField);
         formularioPanel.add(passwordLabel);
         formularioPanel.add(passwordField);
+
+        formularioPanel.setPreferredSize(new Dimension(450, 100));
 
         botoneraPanel.add(loginButton);
         botoneraPanel.add(registerButton);
@@ -65,9 +63,16 @@ public class LoginWindow extends JFrame {
                 JOptionPane.showMessageDialog(LoginWindow.this, "Username: " + username + "\nPassword: " + password);
             }
         });
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialogoRegistro();
+            }
+        });
     }
 
     public void dialogoRegistro() {
+        
         JPanel panel = new JPanel(new GridLayout(0, 2));
 
         JTextField nombreField = new JTextField();
@@ -77,7 +82,30 @@ public class LoginWindow extends JFrame {
         JTextField emailField = new JTextField();
         JTextField direccionField = new JTextField();
         JTextField telefonoField = new JTextField();
-        JDateChooser fechaNacimientoField = new JDateChooser();
+        JTextField fechaField = new JTextField();
         JTextField dniField = new JTextField();
+
+        panel.add(new JLabel("Nombre:"));
+        panel.add(nombreField);
+        panel.add(new JLabel("Apellidos:"));
+        panel.add(apellidosField);
+        panel.add(new JLabel("Nombre de usuario:"));
+        panel.add(nombreUsuarioField);
+        panel.add(new JLabel("Contraseña:"));
+        panel.add(contrasenyaField);
+        panel.add(new JLabel("Email:"));
+        panel.add(emailField);
+        panel.add(new JLabel("Dirección:"));
+        panel.add(direccionField);
+        panel.add(new JLabel("Teléfono:"));
+        panel.add(telefonoField);
+        panel.add(new JLabel("Fecha de nacimiento(yyyy-mm-dd):"));
+        panel.add(fechaField);
+        panel.add(new JLabel("DNI:"));
+        panel.add(dniField);
+
+        panel.setPreferredSize(new Dimension(450, 200));
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Registro", JOptionPane.OK_CANCEL_OPTION);
     }
 }
