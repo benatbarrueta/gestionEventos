@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.toedter.calendar.JDateChooser;
+
 
 public class LoginWindow extends JFrame {
 
@@ -75,6 +77,7 @@ public class LoginWindow extends JFrame {
         JTextField emailField = new JTextField();
         JTextField direccionField = new JTextField();
         JTextField telefonoField = new JTextField();
+        JDateChooser fechaNacimientoField = new JDateChooser();
         JTextField dniField = new JTextField();
     }
 }
