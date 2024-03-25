@@ -8,6 +8,7 @@ import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
+import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
 
 import javax.ws.rs.GET;
@@ -102,7 +103,7 @@ public class Resource {
 				logger.info("User already exists!");
 			} else {
 				logger.info("Creating user: {}", user);
-				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), usuario.getRol(), usuario.getFechaNacimiento(), usuario.getDni());
+				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), TipoUsuario.CLIENTE, usuario.getFechaNacimiento(), usuario.getDni());
 				pm.makePersistent(user);					 
 				logger.info("User created: {}", user);
 			}

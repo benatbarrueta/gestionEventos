@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.server.jdo.Usuario;
+import es.deusto.spq.server.jdo.TipoUsuario;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,7 +30,7 @@ public class ExampleClient {
 		webTarget = client.target(String.format("http://%s:%s/rest/resource", hostname, port));
 	}
 
-	public void registerUser(String nombre, String apellidos, String nombreUsuario, String contrasenya, String email, String direccion, String telefono, String rol, Date fechaNacimiento, String dni) {
+	public void registerUser(String nombre, String apellidos, String nombreUsuario, String contrasenya, String email, String direccion, String telefono, TipoUsuario rol, Date fechaNacimiento, String dni) {
 		WebTarget registerUserWebTarget = webTarget.path("register");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 
@@ -53,6 +54,6 @@ public class ExampleClient {
 		String port = args[1];
 
 		ExampleClient exampleClient = new ExampleClient(hostname, port);
-		exampleClient.registerUser("David", "Pina", "dipina", "dipina", "a", "a", "a", "a", new Date(System.currentTimeMillis()), "12345678A");
+		exampleClient.registerUser("David", "Pina", "dipina", "dipina", "a", "a", "a", TipoUsuario.CLIENTE, new Date(System.currentTimeMillis()), "12345678A");
 	}
 }

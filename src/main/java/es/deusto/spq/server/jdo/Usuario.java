@@ -14,11 +14,11 @@ public class Usuario {
     @Persistent private String email;
     @Persistent private String direccion;
     @Persistent private String telefono;
-    @Persistent private tipoUsuario rol;   
+    @Persistent private TipoUsuario rol;   
     @Persistent private Date fechaNacimiento; 
     @PrimaryKey private String dni;
     
-    public Usuario(String nombre, String apellidos, String nombreUsuario, String contrasenya, String email, String direccion, String telefono, tipoUsuario rol, Date fechaNacimiento, String dni) {
+    public Usuario(String nombre, String apellidos, String nombreUsuario, String contrasenya, String email, String direccion, String telefono, TipoUsuario rol, Date fechaNacimiento, String dni) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.nombreUsuario = nombreUsuario;
@@ -39,7 +39,7 @@ public class Usuario {
         this.email = "";
         this.direccion = "";
         this.telefono = "";
-        this.rol = tipoUsuario.CLIENTE;
+        this.rol = TipoUsuario.CLIENTE;
         this.fechaNacimiento = new Date();
         this.dni = "";
     } 
@@ -101,11 +101,11 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public tipoUsuario getRol() {
+    public TipoUsuario getRol() {
         return rol;
     }
 
-    public void setRol(tipoUsuario rol) {
+    public void setRol(TipoUsuario rol) {
         this.rol = rol;
     }
 
