@@ -88,4 +88,19 @@ public class Evento {
     public void setOrganizador(String organizador) {
         this.organizador = organizador;
     }
+
+    @Override
+    public String toString() {
+        return "Evento{" +
+                "nombre='" + nombre + '\'' +
+                ", lugar='" + lugar + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", hora='" + hora + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", aforo='" + aforo + '\'' +
+                ", precio='" + precio + '\'' +
+                ", organizador='" + organizador + '\'' +
+                '}';
+    }
+
 }
