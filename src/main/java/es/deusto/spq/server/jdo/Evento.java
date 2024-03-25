@@ -1,14 +1,23 @@
 package es.deusto.spq.server.jdo;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+@PersistenceCapable
 public class Evento {
-   private String nombre;
-   private String lugar;
-   private String fecha;
-   private String hora;
-   private String descripcion;
-   private String aforo;
-   private String precio;
-   private String organizador;
+    @PrimaryKey
+    @Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+    private long id;
+    @Persistent private String nombre;
+    @Persistent private String lugar;
+    @Persistent private String fecha;
+    @Persistent  private String hora;
+    @Persistent private String descripcion;
+    @Persistent private String aforo;
+    @Persistent private String precio;
+    @Persistent private String organizador;
 
 
     public Evento() {
