@@ -1,6 +1,16 @@
 package es.deusto.spq.server.jdo;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+@PersistenceCapable
 public class Entrada {
+    @PrimaryKey
+    @Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+    private long id;
+    @Persistent
     private Usuario usuario;
     //private Evento evento; 
 

@@ -1,18 +1,22 @@
 package es.deusto.spq.server.jdo;
 
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.*;
+
 import java.util.Date;
 
+@PersistenceCapable
 public class Usuario {
-    private String nombre;
-    private String apellidos; 
-    private String nombreUsuario;  
-    private String contrasenya;
-    private String email;
-    private String direccion;
-    private String telefono;
-    private String rol;   
-    private Date fechaNacimiento; 
-    private String dni;
+    @Persistent private String nombre;
+    @Persistent private String apellidos; 
+    @Persistent private String nombreUsuario;  
+    @Persistent private String contrasenya;
+    @Persistent private String email;
+    @Persistent private String direccion;
+    @Persistent private String telefono;
+    @Persistent private String rol;   
+    @Persistent private Date fechaNacimiento; 
+    @PrimaryKey private String dni;
     
     public Usuario(String nombre, String apellidos, String nombreUsuario, String contrasenya, String email, String direccion, String telefono, String rol, Date fechaNacimiento, String dni) {
         this.nombre = nombre;
