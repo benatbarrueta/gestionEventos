@@ -1,12 +1,15 @@
 package es.deusto.spq.client.gui;
 
 import javax.swing.*;
+
+import es.deusto.spq.client.Main;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class LoginWindow extends JFrame {
@@ -17,8 +20,10 @@ public class LoginWindow extends JFrame {
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton registerButton;
+    private JLabel msgError;
+    private JPanel error;
 
-    public LoginWindow() {
+    public LoginWindow(Main exampleClient) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(false);
@@ -36,56 +41,63 @@ public class LoginWindow extends JFrame {
         JLabel passwordLabel = new JLabel("Password:");
         passwordField = new JPasswordField();
 
-        
-
         loginButton = new JButton("Login");
         registerButton = new JButton("Registro");
+
+        msgError = new JLabel("");
+        msgError.setForeground(Color.RED);
+
+        error = new JPanel(new FlowLayout());
+
+        formularioPanel.add(usernameLabel);
+        formularioPanel.add(usernameField);
+        formularioPanel.add(passwordLabel);
+        formularioPanel.add(passwordField);
+
+        botoneraPanel.add(loginButton);
+        botoneraPanel.add(registerButton);
+
+        contentPane.add(formularioPanel, BorderLayout.CENTER);
+        contentPane.add(botoneraPanel, BorderLayout.SOUTH);
+
+        error.add(msgError);
+
+        add(error, BorderLayout.NORTH);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
+                msgError.setText("");
 
-                // TODO: Add your login logic here
-                try {
-                    URL url = new URL("http://tu-servidor/resource/login");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setDoOutput(true);
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Content-Type", "application/json");
-
-                    String input = "{\"email\":\"" + usernameLabel.getText() + "\",\"contrasenya\":\"" + passwordLabel.getText() + "\"}";
-
-                    OutputStream os = conn.getOutputStream();
-                    os.write(input.getBytes());
-                    os.flush();
-
-                    if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                        System.out.println("Error al iniciar sesión. Código de respuesta: " + conn.getResponseCode());
+                if(username.equals("") && password.equals("")){
+                    msgError.setText("Introduce un usuario y contraseña");
+                } else if (username.equals("") && !password.equals("")){
+                    msgError.setText("Introduce un usuario");
+                } else if (!username.equals("") && password.equals("")){
+                    msgError.setText("Introduce una contraseña");
+                } else {
+                    if (exampleClient.loginUsuario(username, password)) {
+                        Main.mainWindow.setVisible(true);
+                        Main.loginWindow.setVisible(false);
                     } else {
-                        System.out.println("Inicio de sesión exitoso.");
-                        // Aquí puedes realizar acciones adicionales, como redirigir a otra ventana, etc.
+                        msgError.setText("Usuario o contraseña incorrectos");
+                        usernameField.setText("");
+                        passwordField.setText("");
                     }
-
-                    conn.disconnect();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
-
-                // For now, let's just display the entered username and password
-                JOptionPane.showMessageDialog(LoginWindow.this, "Username: " + username + "\nPassword: " + password);
             }
         });
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dialogoRegistro();
+                dialogoRegistro(exampleClient);
             }
         });
     }
 
-    public void dialogoRegistro() {
+    public void dialogoRegistro(Main exampleClient) {
         
         JPanel panel = new JPanel(new GridLayout(0, 2));
 
@@ -121,5 +133,27 @@ public class LoginWindow extends JFrame {
         panel.setPreferredSize(new Dimension(450, 200));
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Registro", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION){
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+            String nombre = nombreField.getText();
+            String apellidos = apellidosField.getText();
+            String nombreUsuario = nombreUsuarioField.getText();
+            String contrasenya = new String(contrasenyaField.getPassword());
+            String email = emailField.getText();
+            String direccion = direccionField.getText();
+            String telefono = telefonoField.getText();
+            String f = fechaField.getText();
+            Date fecha = null;
+            try {
+                fecha = formato.parse(f);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String dni = dniField.getText();
+
+            exampleClient.registroUsuario(nombre, apellidos, nombreUsuario, contrasenya, email, direccion, telefono, fecha, dni);
+        }
     }
 }

@@ -46,16 +46,16 @@ public class Resource {
 		try {
 			tx.begin();
 
-			logger.info("Attempting to log in user with email '{}'", usuario.getEmail());
+			logger.info("Attempting to log in user with username '{}'", usuario.getNombreUsuario());
 
 			Usuario user = null;
 			try {
 				@SuppressWarnings("rawtypes")
 				Query query = pm.newQuery(Usuario.class);
-				query.setFilter("email == emailParam");
-				query.declareParameters("String emailParam");
+				query.setFilter("nombreUsuario == nombreUsuarioParam");
+				query.declareParameters("String nombreUsuarioParam");
 				@SuppressWarnings("unchecked")
-				List<Usuario> results = (List<Usuario>) query.execute(usuario.getEmail());
+				List<Usuario> results = (List<Usuario>) query.execute(usuario.getNombreUsuario());
 				if (!results.isEmpty()) {
 					user = results.get(0);
 				}
@@ -63,7 +63,7 @@ public class Resource {
 				logger.error("Exception: {}", e.getMessage());
 			}
 
-			if (user != null && user.getEmail().equals(usuario.getEmail()) && user.getContrasenya().equals(usuario.getContrasenya())) {
+			if (user != null && user.getNombreUsuario().equals(usuario.getNombreUsuario()) && user.getContrasenya().equals(usuario.getContrasenya())) {
 				logger.info("User logged in successfully!");
 				tx.commit();
 				return Response.ok().build();
