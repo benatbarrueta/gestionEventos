@@ -67,6 +67,10 @@ public class Main {
 		}
 	}
 
+	public void logout(){
+		
+	}
+
 	public static void main(String[] args) {
 		if (args.length != 2) {
 			logger.info("Use: java Client.Client [host] [port]");

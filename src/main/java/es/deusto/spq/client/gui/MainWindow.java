@@ -14,5 +14,23 @@ public class MainWindow extends JFrame{
         this.setSize(1000, 800);
         this.setLocationRelativeTo(null);
         this.setTitle("Main Window");
+        this.setLayout(new FLowLayout());
+
+        JMenuBar menuBar = new JMenuBar
+        JMenu menu = new JMenu("Menu");
+        JMenuItem menuItem = new JMenuItem("Cerrar Sesion");
+        
+        this.setJMenuBar(menuBar);
+        menorBar.add(menu);
+        menu.add(menuItem);
+        
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.logout();
+                this.setVisible(false);
+                main.loginWindow.setVisible(true);
+            }
+        });
     }
 }
