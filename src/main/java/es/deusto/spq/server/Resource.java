@@ -8,6 +8,8 @@ import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
+import es.deusto.spq.server.jdo.Entrada;
+import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
 
@@ -117,6 +119,42 @@ public class Resource {
                 tx.rollback();
             }
       
+		}
+	}
+	@POST
+	@Path("/crearEvento")
+	public Response crearEvento(Evento evento) {
+		try {
+			tx.begin();
+
+			logger.info("Creating event: {}", evento);
+
+			Evento event = null;
+
+			try {
+				event = pm.getObjectById(Evento.class, evento.getId());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			} 
+
+			if(event != null){
+				logger.info("Event already exists!");
+			}else{
+				logger.info("Creating event: {}", event);
+				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getHora(),evento.getDescripcion(), evento.getAforo(), evento.getPrecio(), evento.getOrganizador());
+				pm.makePersistent(event);
+				logger.info("Event created: {}", event);
+			}
+
+			tx.commit();
+			return Response.ok().build();
+		} 
+		finally 
+		{
+			if (tx.isActive()) 
+			{
+				tx.rollback();
+			}
 		}
 	}
 

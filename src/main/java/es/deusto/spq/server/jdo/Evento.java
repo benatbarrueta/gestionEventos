@@ -34,6 +34,10 @@ public class Evento {
         this.organizador = organizador;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getNombre() {
         return nombre;
     }
