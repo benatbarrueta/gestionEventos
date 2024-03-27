@@ -14,7 +14,7 @@ public class MainWindowClient extends JFrame{
         this.setVisible(false);
         this.setSize(1000, 800);
         this.setLocationRelativeTo(null);
-        this.setTitle("Main Window");
+        this.setTitle("Client window");
        
         
 

@@ -1,10 +1,12 @@
 
 package es.deusto.spq.client;
 
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.Map;
 import java.awt.EventQueue;
 
+import javax.jdo.annotations.Persistent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -15,9 +17,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.server.jdo.Usuario;
+import es.deusto.spq.client.gui.EventoWindow;
 import es.deusto.spq.client.gui.LoginWindow;
 import es.deusto.spq.client.gui.MainWindowClient;
 import es.deusto.spq.client.gui.MainWindowWorker;
+import es.deusto.spq.server.jdo.Evento;
+import es.deusto.spq.server.jdo.SectoresEvento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +35,7 @@ public class Main {
 	public static LoginWindow loginWindow;
 	public static MainWindowClient mainWindowClient;
 	public static MainWindowWorker mainWindowWorker;
+	public static EventoWindow eventoWindow;
 
 	private Client client;
 	private WebTarget webTarget;
@@ -57,7 +63,7 @@ public class Main {
 		WebTarget registerUserWebTarget = webTarget.path("login");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 
-		Usuario userData = new Usuario("", "", nombreUsuario, contrasenya, "", "", "", TipoUsuario.CLIENTE, null, "");
+		Usuario userData = new Usuario(nombreUsuario, contrasenya);
 		
 		Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
@@ -71,6 +77,28 @@ public class Main {
 
 	public void logout(){
 		
+	}
+	@Persistent private String nombre;
+    @Persistent private String lugar;
+    @Persistent private Date fecha;
+    @Persistent private String descripcion;
+    @Persistent private int aforo;
+    @Persistent private String organizador;
+    @Persistent private ArrayList<SectoresEvento> sectores;
+    @Persistent private Map<SectoresEvento, Integer> precioSector;
+
+	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, Map<SectoresEvento, Integer> precio, String organizador, ArrayList<SectoresEvento> sector) {
+		WebTarget registerUserWebTarget = webTarget.path("crearEvento");
+		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Evento eventoData = new Evento(nombre, lugar, fecha, descripcion, aforo, precio, organizador, sector);
+		
+		Response response = invocationBuilder.post(Entity.entity(eventoData, MediaType.APPLICATION_JSON));
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+		} else {
+			logger.info("Event correctly registered");
+		}
 	}
 
 	public static void main(String[] args) {
@@ -86,6 +114,7 @@ public class Main {
 		loginWindow = new LoginWindow(exampleClient);
 		mainWindowClient = new MainWindowClient(exampleClient);
 		mainWindowWorker = new MainWindowWorker(exampleClient);
+		eventoWindow = new EventoWindow(exampleClient);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override

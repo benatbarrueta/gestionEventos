@@ -1,6 +1,8 @@
 package es.deusto.spq.server.jdo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -17,22 +19,23 @@ public class Evento {
     @Persistent private Date fecha;
     @Persistent private String descripcion;
     @Persistent private int aforo;
-    @Persistent private int precio;
     @Persistent private String organizador;
-    @Persistent private SectoresEvento sector;
+    @Persistent private ArrayList<SectoresEvento> sectores;
+    @Persistent private Map<SectoresEvento, Integer> precioSector;
 
 
     public Evento() {
     }
 
-    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, int precio, String organizador, SectoresEvento sector) {
+    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, Map<SectoresEvento, Integer> precio, String organizador, ArrayList<SectoresEvento> sector) {
         this.nombre = nombre;
         this.lugar = lugar;
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.aforo = aforo;
-        this.precio = precio;
+        this.precioSector = precio;
         this.organizador = organizador;
+        this.sectores = sector;
     }
 
     public long getId() {
@@ -79,12 +82,12 @@ public class Evento {
         this.aforo = aforo;
     }
 
-    public int getPrecio() {
-        return precio;
+    public Map<SectoresEvento, Integer> getPrecio() {
+        return precioSector;
     }
 
-    public void setPrecio(int precio) {
-    this.precio = precio;
+    public void setPrecio(Map<SectoresEvento, Integer> precio) {
+    this.precioSector = precio;
     }
 
     public String getOrganizador() {
@@ -95,25 +98,26 @@ public class Evento {
         this.organizador = organizador;
     }
 
-    public SectoresEvento getSector() {
-        return sector;
+    public ArrayList<SectoresEvento> getSector() {
+        return sectores;
     }
 
-    public void setSector(SectoresEvento sector) {
-        this.sector = sector;
+    public void setSector(ArrayList<SectoresEvento> sector) {
+        this.sectores = sector;
     }
 
     @Override
     public String toString() {
         return "Evento{" +
-                "nombre='" + nombre + '\'' +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
                 ", lugar='" + lugar + '\'' +
-                ", fecha='" + fecha + '\'' +
+                ", fecha=" + fecha +
                 ", descripcion='" + descripcion + '\'' +
-                ", aforo='" + aforo + '\'' +
-                ", precio='" + precio + '\'' +
+                ", aforo=" + aforo +
                 ", organizador='" + organizador + '\'' +
-                ", sector='" + sector + '\'' +
+                ", sectores=" + sectores +
+                ", precio=" + precioSector +
                 '}';
     }
 

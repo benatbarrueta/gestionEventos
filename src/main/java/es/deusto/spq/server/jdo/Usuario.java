@@ -42,7 +42,12 @@ public class Usuario {
         this.rol = TipoUsuario.CLIENTE;
         this.fechaNacimiento = new Date();
         this.dni = "";
-    } 
+    }
+
+    public Usuario(String nombreUsuario, String contrasenya) {
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenya = contrasenya;
+    }
 
 
     public String getNombre() {

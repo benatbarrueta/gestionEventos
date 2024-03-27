@@ -67,13 +67,18 @@ public class Resource {
 			if (user != null && user.getNombreUsuario().equals(usuario.getNombreUsuario()) && user.getContrasenya().equals(usuario.getContrasenya())) {
 				logger.info("User logged in successfully!");
 				tx.commit();
-				if (usuario.getRol() == TipoUsuario.CLIENTE) {
+				logger.info(user.getRol());
+				if (user.getRol() == TipoUsuario.CLIENTE) {
 					return Response.status(200).entity("CLIENTE").build();
-				} else if (usuario.getRol() == TipoUsuario.VENDEDOR || usuario.getRol() == TipoUsuario.GERENTE || usuario.getRol() == TipoUsuario.USUARIO){
-					return Response.status(200).entity("TRABAJADOR").build();
+				} else if (user.getRol() == TipoUsuario.GERENTE) {
+					return Response.status(200).entity("GERENTE").build();
+				} else if (user.getRol() == TipoUsuario.USUARIO) {
+					return Response.status(200).entity("USUARIO").build();
+				} else if (user.getRol() == TipoUsuario.VENDEDOR){
+					return Response.status(200).entity("VENDEDOR").build();
+				} else {
+					return Response.status(Response.Status.UNAUTHORIZED).entity("No more types of user").build();
 				}
-
-				return Response.status(200).entity(usuario.getRol()).build();
 			} else {
 				logger.info("Invalid email or password");
 				tx.rollback();
@@ -110,7 +115,7 @@ public class Resource {
 				logger.info("User already exists!");
 			} else {
 				logger.info("Creating user: {}", user);
-				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), TipoUsuario.CLIENTE, usuario.getFechaNacimiento(), usuario.getDni());
+				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), TipoUsuario.GERENTE, usuario.getFechaNacimiento(), usuario.getDni());
 				pm.makePersistent(user);					 
 				logger.info("User created: {}", user);
 			}

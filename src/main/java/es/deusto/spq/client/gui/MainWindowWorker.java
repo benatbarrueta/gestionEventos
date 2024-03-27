@@ -17,18 +17,24 @@ public class MainWindowWorker extends JFrame{
         this.setVisible(false);
         this.setSize(1000, 800);
         this.setLocationRelativeTo(null);
-        this.setTitle("Main Window");
+        this.setTitle("Worker window");
        
         
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
         JMenuItem logOutItem = new JMenuItem("Cerrar Sesion");
+        JMenuItem verEventosItem = new JMenuItem("Ver Eventos");
         
         this.setJMenuBar(menuBar);
         menuBar.add(menu);
+        menu.add(verEventosItem);
         menu.add(logOutItem);
         
+        verEventosItem.addActionListener(e -> {
+            this.dispose();
+            Main.eventoWindow.setVisible(true);
+        });
 
         logOutItem.addActionListener(e -> {
             main.logout();
