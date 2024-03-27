@@ -67,7 +67,13 @@ public class Resource {
 			if (user != null && user.getNombreUsuario().equals(usuario.getNombreUsuario()) && user.getContrasenya().equals(usuario.getContrasenya())) {
 				logger.info("User logged in successfully!");
 				tx.commit();
-				return Response.ok().build();
+				if (usuario.getRol() == TipoUsuario.CLIENTE) {
+					return Response.status(200).entity("CLIENTE").build();
+				} else if (usuario.getRol() == TipoUsuario.VENDEDOR || usuario.getRol() == TipoUsuario.GERENTE || usuario.getRol() == TipoUsuario.USUARIO){
+					return Response.status(200).entity("TRABAJADOR").build();
+				}
+
+				return Response.status(200).entity(usuario.getRol()).build();
 			} else {
 				logger.info("Invalid email or password");
 				tx.rollback();

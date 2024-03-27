@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import es.deusto.spq.client.Main;
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,8 +79,11 @@ public class LoginWindow extends JFrame {
                 } else if (!username.equals("") && password.equals("")){
                     msgError.setText("Introduce una contraseña");
                 } else {
-                    if (exampleClient.loginUsuario(username, password)) {
-                        Main.mainWindow.setVisible(true);
+                    if (exampleClient.loginUsuario(username, password).equals("CLIENTE".toString())) {
+                        Main.mainWindowClient.setVisible(true);
+                        Main.loginWindow.setVisible(false);
+                    } else if (exampleClient.loginUsuario(username, password).equals("TRABAJADOR".toString())) {
+                        Main.mainWindowWorker.setVisible(true);
                         Main.loginWindow.setVisible(false);
                     } else {
                         msgError.setText("Usuario o contraseña incorrectos");

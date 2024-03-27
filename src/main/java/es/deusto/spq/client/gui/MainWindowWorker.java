@@ -1,14 +1,17 @@
 package es.deusto.spq.client.gui;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import es.deusto.spq.client.Main;
 
-public class MainWindow extends JFrame{
+public class MainWindowWorker extends JFrame{
+
     private static final long serialVersionUID = 1L;
 
-    public MainWindow(Main main) {
+    public MainWindowWorker(Main main) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(false);
@@ -32,6 +35,5 @@ public class MainWindow extends JFrame{
             this.dispose();
             Main.loginWindow.setVisible(true);
         });
-        
     }
 }

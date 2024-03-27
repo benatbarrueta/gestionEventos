@@ -16,7 +16,8 @@ import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.server.jdo.Usuario;
 import es.deusto.spq.client.gui.LoginWindow;
-import es.deusto.spq.client.gui.MainWindow;
+import es.deusto.spq.client.gui.MainWindowClient;
+import es.deusto.spq.client.gui.MainWindowWorker;
 import es.deusto.spq.server.jdo.TipoUsuario;
 
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +28,8 @@ public class Main {
 	protected static final Logger logger = LogManager.getLogger();
 
 	public static LoginWindow loginWindow;
-	public static MainWindow mainWindow;
+	public static MainWindowClient mainWindowClient;
+	public static MainWindowWorker mainWindowWorker;
 
 	private Client client;
 	private WebTarget webTarget;
@@ -51,7 +53,7 @@ public class Main {
 		}
 	}
 
-	public Boolean loginUsuario(String nombreUsuario, String contrasenya) {
+	public String loginUsuario(String nombreUsuario, String contrasenya) {
 		WebTarget registerUserWebTarget = webTarget.path("login");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 
@@ -60,10 +62,10 @@ public class Main {
 		Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
-			return false;
+			return "";
 		} else {
-			logger.info("User correctly registered");
-			return true;
+			logger.info("User correctly logged");
+			return response.readEntity(String.class);
 		}
 	}
 
@@ -82,7 +84,8 @@ public class Main {
 
 		Main exampleClient = new Main(hostname, port);
 		loginWindow = new LoginWindow(exampleClient);
-		mainWindow = new MainWindow(exampleClient);
+		mainWindowClient = new MainWindowClient(exampleClient);
+		mainWindowWorker = new MainWindowWorker(exampleClient);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
