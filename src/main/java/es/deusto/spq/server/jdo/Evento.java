@@ -1,5 +1,7 @@
 package es.deusto.spq.server.jdo;
 
+import java.util.Date;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -12,22 +14,21 @@ public class Evento {
     private long id;
     @Persistent private String nombre;
     @Persistent private String lugar;
-    @Persistent private String fecha;
-    @Persistent  private String hora;
+    @Persistent private Date fecha;
     @Persistent private String descripcion;
-    @Persistent private String aforo;
-    @Persistent private String precio;
+    @Persistent private int aforo;
+    @Persistent private int precio;
     @Persistent private String organizador;
+    @Persistent private SectoresEvento sector;
 
 
     public Evento() {
     }
 
-    public Evento(String nombre, String lugar, String fecha, String hora, String descripcion, String aforo, String precio, String organizador) {
+    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, int precio, String organizador, SectoresEvento sector) {
         this.nombre = nombre;
         this.lugar = lugar;
         this.fecha = fecha;
-        this.hora = hora;
         this.descripcion = descripcion;
         this.aforo = aforo;
         this.precio = precio;
@@ -54,20 +55,12 @@ public class Evento {
         this.lugar = lugar;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
+        
     }
-
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
     }
 
     public String getDescripcion() {
@@ -78,20 +71,20 @@ public class Evento {
         this.descripcion = descripcion;
     }
 
-    public String getAforo() {
+    public int getAforo() {
         return aforo;
     }
 
-    public void setAforo(String aforo) {
+    public void setAforo(int aforo) {
         this.aforo = aforo;
     }
 
-    public String getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
-        this.precio = precio;
+    public void setPrecio(int precio) {
+    this.precio = precio;
     }
 
     public String getOrganizador() {
@@ -102,17 +95,25 @@ public class Evento {
         this.organizador = organizador;
     }
 
+    public SectoresEvento getSector() {
+        return sector;
+    }
+
+    public void setSector(SectoresEvento sector) {
+        this.sector = sector;
+    }
+
     @Override
     public String toString() {
         return "Evento{" +
                 "nombre='" + nombre + '\'' +
                 ", lugar='" + lugar + '\'' +
                 ", fecha='" + fecha + '\'' +
-                ", hora='" + hora + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", aforo='" + aforo + '\'' +
                 ", precio='" + precio + '\'' +
                 ", organizador='" + organizador + '\'' +
+                ", sector='" + sector + '\'' +
                 '}';
     }
 

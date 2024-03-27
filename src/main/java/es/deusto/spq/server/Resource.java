@@ -140,7 +140,7 @@ public class Resource {
 				logger.info("Event already exists!");
 			}else{
 				logger.info("Creating event: {}", event);
-				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getHora(),evento.getDescripcion(), evento.getAforo(), evento.getPrecio(), evento.getOrganizador());
+				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getPrecio(), evento.getOrganizador(), evento.getSector());
 				pm.makePersistent(event);
 				logger.info("Event created: {}", event);
 			}
