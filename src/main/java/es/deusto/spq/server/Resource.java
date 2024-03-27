@@ -8,7 +8,6 @@ import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
-import es.deusto.spq.server.jdo.Entrada;
 import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
