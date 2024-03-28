@@ -70,6 +70,7 @@ public class EventoWindow extends JFrame{
         List<Evento> eventos = main.getEventos();
         for (Evento evento : eventos) {
             eventoListModel.addElement(evento);
+            
         }
 
 
@@ -78,6 +79,7 @@ public class EventoWindow extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dialogoNewEvento(main);
+                scrollPane.repaint();
             }
         });
 
@@ -183,6 +185,8 @@ public class EventoWindow extends JFrame{
             }
 
             main.newEvento(nombre, lugar, fechaHora, descripcion, aforo, precioSectores, organizador, sectores);
+            eventoListModel.addElement(main.getEventos().get(main.getEventos().size() - 1));
+            
         }
     }
 }
