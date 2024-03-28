@@ -90,7 +90,7 @@ public class EventoWindow extends JFrame{
                 int index = eventoList.getSelectedIndex();
                 if (index != -1) {
                     Evento evento = eventoListModel.getElementAt(index);
-                    main.eliminarEvento(evento);
+                    main.deleteEvento(evento);
                     eventoListModel.remove(index);
 
                 }
@@ -184,7 +184,7 @@ public class EventoWindow extends JFrame{
                 precioSectores.put(SectoresEvento.VIP, 100);
             }
 
-            main.newEvento(nombre, lugar, fechaHora, descripcion, aforo, precioSectores, organizador, sectores);
+            main.newEvento(nombre, lugar, fechaHora, descripcion, aforo, precioSectores, organizador, sectores, precioSectores);
             eventoListModel.addElement(main.getEventos().get(main.getEventos().size() - 1));
             
         }

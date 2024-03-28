@@ -7,17 +7,12 @@ import java.util.Map;
 import java.awt.EventQueue;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-import javax.jdo.annotations.Persistent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -69,8 +64,8 @@ public class Main {
 	}
 
 	public String loginUsuario(String nombreUsuario, String contrasenya) {
-		WebTarget registerUserWebTarget = webTarget.path("login");
-		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+		WebTarget loginUserWebTarget = webTarget.path("login");
+		Invocation.Builder invocationBuilder = loginUserWebTarget.request(MediaType.APPLICATION_JSON);
 
 		Usuario userData = new Usuario(nombreUsuario, contrasenya);
 		
@@ -87,20 +82,12 @@ public class Main {
 	public void logout(){
 		
 	}
-	@Persistent private String nombre;
-    @Persistent private String lugar;
-    @Persistent private Date fecha;
-    @Persistent private String descripcion;
-    @Persistent private int aforo;
-    @Persistent private String organizador;
-    @Persistent private ArrayList<SectoresEvento> sectores;
-    @Persistent private Map<SectoresEvento, Integer> precioSector;
 
-	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, Map<SectoresEvento, Integer> precio, String organizador, ArrayList<SectoresEvento> sector) {
-		WebTarget registerUserWebTarget = webTarget.path("crearEvento");
-		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, Map<SectoresEvento, Integer> precio, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector) {
+		WebTarget newEventWebTarget = webTarget.path("crearEvento");
+		Invocation.Builder invocationBuilder = newEventWebTarget.request(MediaType.APPLICATION_JSON);
 
-		Evento eventoData = new Evento(nombre, lugar, fecha, descripcion, aforo, precio, organizador, sector);
+		Evento eventoData = new Evento(nombre, lugar, fecha, descripcion, aforo, precio, organizador, sector, precioSector);
 		
 		Response response = invocationBuilder.post(Entity.entity(eventoData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
@@ -109,29 +96,32 @@ public class Main {
 			logger.info("Event correctly registered");
 		}
 	}
-
-	public List<Evento> getEventos() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-
-		try {
-			tx.begin();
-			Query<Evento> query = pm.newQuery(Evento.class);
-			@SuppressWarnings("unchecked")
-			List<Evento> eventos = (List<Evento>) query.execute();
-			tx.commit();
-			return eventos;
-		} catch (Exception e) {
-			logger.error("Error getting events: {}", e.getMessage());
-			return null;
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
 	
+	public List<Evento> getEventos() {
+		WebTarget newEventWebTarget = webTarget.path("getEventos");
+		Invocation.Builder invocationBuilder = newEventWebTarget.request(MediaType.APPLICATION_JSON);
+		
+		Response response = invocationBuilder.get();
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return null;
+		} else {
+			logger.info("Event correctly registered");
+			List<Evento> eventos = response.readEntity(new GenericType<List<Evento>>() {});
+			return eventos;
+		}
+	}
+
+	public void deleteEvento(Evento evento) {
+		WebTarget newEventWebTarget = webTarget.path("eliminarEvento/" + evento.getId());
+		Invocation.Builder invocationBuilder = newEventWebTarget.request(MediaType.APPLICATION_JSON);
+		
+		Response response = invocationBuilder.delete();
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+		} else {
+			logger.info("Event correctly deleted");
+		}
 	}
 
 	public static void main(String[] args) {
@@ -155,24 +145,5 @@ public class Main {
 				loginWindow.setVisible(true);
 			}
 		});
-	}
-
-	public void eliminarEvento(Evento evento) {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-
-		try  {
-			tx.begin();
-			pm.deletePersistent(evento);
-			tx.commit();
-		} catch (Exception e) {
-			if(tx.isActive()) {
-				tx.rollback();
-			}	
-			e.printStackTrace();
-		}finally{
-			pm.close();
-		}
 	}
 }

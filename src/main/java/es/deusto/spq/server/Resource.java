@@ -12,9 +12,11 @@ import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -113,14 +115,16 @@ public class Resource {
 
 			if (user != null) {
 				logger.info("User already exists!");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("User already exists").build();
 			} else {
 				logger.info("Creating user: {}", user);
 				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), TipoUsuario.GERENTE, usuario.getFechaNacimiento(), usuario.getDni());
 				pm.makePersistent(user);					 
 				logger.info("User created: {}", user);
+				tx.commit();
+				return Response.ok().build();
 			}
-			tx.commit();
-			return Response.ok().build();
         }
         finally
         {
@@ -149,15 +153,16 @@ public class Resource {
 
 			if(event != null){
 				logger.info("Event already exists!");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
 			}else{
 				logger.info("Creating event: {}", event);
-				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getPrecio(), evento.getOrganizador(), evento.getSector());
+				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getPrecio(), evento.getOrganizador(), evento.getSector(), evento.getPrecioSector());
 				pm.makePersistent(event);
 				logger.info("Event created: {}", event);
+				tx.commit();
+				return Response.ok().build();
 			}
-
-			tx.commit();
-			return Response.ok().build();
 		} 
 		finally 
 		{
@@ -169,9 +174,62 @@ public class Resource {
 	}
 
 	@GET
-	@Path("/hello")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response sayHello() {
-		return Response.ok("Hello world!").build();
+	@Path("/getEventos")
+	public Response getEventos() {
+		try {
+			tx.begin();
+			Query<Evento> query = pm.newQuery(Evento.class);
+			@SuppressWarnings("unchecked")
+			List<Evento> eventos = (List<Evento>) query.execute();
+			if (eventos != null) {
+				logger.info("{} events found", eventos.size());
+				tx.commit();
+				return Response.ok(eventos).build();
+			} else {
+				logger.info("No events found");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	
+	}
+
+	@DELETE
+	@Path("/eliminarEvento/{id}")
+	public Response eliminarEvento(@PathParam("id") String id) {
+		try {
+			tx.begin();
+
+			logger.info("Deleting event with id '{}'", id);
+
+			Evento event = null;
+
+			try {
+				event = pm.getObjectById(Evento.class, id);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+
+			if (event != null) {
+				logger.info("Deleting event: {}", event);
+				pm.deletePersistent(event);
+				tx.commit();
+				return Response.ok().build();
+			} else {
+				logger.info("Event not found");
+				tx.rollback();
+				return Response.status(Response.Status.NOT_FOUND).entity("Event not found").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 	}
 }

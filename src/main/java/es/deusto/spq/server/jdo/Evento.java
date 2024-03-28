@@ -27,7 +27,7 @@ public class Evento {
     public Evento() {
     }
 
-    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, Map<SectoresEvento, Integer> precio, String organizador, ArrayList<SectoresEvento> sector) {
+    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, Map<SectoresEvento, Integer> precio, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector) {
         this.nombre = nombre;
         this.lugar = lugar;
         this.fecha = fecha;
@@ -36,6 +36,7 @@ public class Evento {
         this.precioSector = precio;
         this.organizador = organizador;
         this.sectores = sector;
+        this.precioSector = precioSector;
     }
 
     public long getId() {
@@ -106,19 +107,25 @@ public class Evento {
         this.sectores = sector;
     }
 
+    public Map<SectoresEvento, Integer> getPrecioSector() {
+        return precioSector;
+    }
+
+    public void setPrecioSector(Map<SectoresEvento, Integer> precioSector) {
+        this.precioSector = precioSector;
+    }
+
     @Override
     public String toString() {
-        return "Evento{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", lugar='" + lugar + '\'' +
-                ", fecha=" + fecha +
-                ", descripcion='" + descripcion + '\'' +
-                ", aforo=" + aforo +
-                ", organizador='" + organizador + '\'' +
-                ", sectores=" + sectores +
-                ", precio=" + precioSector +
-                '}';
+        return "Evento " + id +
+                "-> nombre:'" + nombre +
+                ", lugar:'" + lugar +
+                ", fecha:" + fecha +
+                ", descripcion:'" + descripcion +
+                ", aforo:" + aforo +
+                ", organizador:'" + organizador + 
+                ", sectores disponibles:" + sectores +
+                ", precios disponibles:" + precioSector;
     }
 
 }
