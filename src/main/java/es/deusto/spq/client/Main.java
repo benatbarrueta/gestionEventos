@@ -5,7 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.awt.EventQueue;
+import java.util.List;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 import javax.jdo.annotations.Persistent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -28,6 +34,7 @@ import es.deusto.spq.server.jdo.TipoUsuario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 public class Main {
 
 	protected static final Logger logger = LogManager.getLogger();
@@ -39,6 +46,8 @@ public class Main {
 
 	private Client client;
 	private WebTarget webTarget;
+
+	
 
 	public Main(String hostname, String port) {
 		client = ClientBuilder.newClient();
@@ -101,6 +110,30 @@ public class Main {
 		}
 	}
 
+	public List<Evento> getEventos() {
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+
+		try {
+			tx.begin();
+			Query<Evento> query = pm.newQuery(Evento.class);
+			@SuppressWarnings("unchecked")
+			List<Evento> eventos = (List<Evento>) query.execute();
+			tx.commit();
+			return eventos;
+		} catch (Exception e) {
+			logger.error("Error getting events: {}", e.getMessage());
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	
+	}
+
 	public static void main(String[] args) {
 		if (args.length != 2) {
 			logger.info("Use: java Client.Client [host] [port]");
@@ -122,5 +155,24 @@ public class Main {
 				loginWindow.setVisible(true);
 			}
 		});
+	}
+
+	public void eliminarEvento(Evento evento) {
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+
+		try  {
+			tx.begin();
+			pm.deletePersistent(evento);
+			tx.commit();
+		} catch (Exception e) {
+			if(tx.isActive()) {
+				tx.rollback();
+			}	
+			e.printStackTrace();
+		}finally{
+			pm.close();
+		}
 	}
 }

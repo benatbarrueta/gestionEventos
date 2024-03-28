@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,13 +24,23 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import es.deusto.spq.client.Main;
+import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.SectoresEvento;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class EventoWindow extends JFrame{
 
     public static final long serialVersionUID = 1L;
     public JButton anyadirEvento;
     public JButton eliminarEvento;
+    public JList<Evento> eventoList;
+    public DefaultListModel<Evento> eventoListModel;
+
+    
+
+    
 
     public EventoWindow(Main main) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,11 +62,36 @@ public class EventoWindow extends JFrame{
 
         cp.add(botoneraPanel, BorderLayout.SOUTH);
 
+        eventoListModel = new DefaultListModel<>();
+        eventoList = new JList<>(eventoListModel);
+
+        JScrollPane scrollPane = new JScrollPane(eventoList);
+        cp.add(scrollPane, BorderLayout.CENTER);
+        List<Evento> eventos = main.getEventos();
+        for (Evento evento : eventos) {
+            eventoListModel.addElement(evento);
+        }
+
+
         anyadirEvento.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 dialogoNewEvento(main);
+            }
+        });
+
+        eliminarEvento.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = eventoList.getSelectedIndex();
+                if (index != -1) {
+                    Evento evento = eventoListModel.getElementAt(index);
+                    main.eliminarEvento(evento);
+                    eventoListModel.remove(index);
+
+                }
             }
         });
 
