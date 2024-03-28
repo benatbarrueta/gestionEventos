@@ -8,6 +8,7 @@ import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
+import es.deusto.spq.server.jdo.Entrada;
 import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
@@ -171,6 +172,46 @@ public class Resource {
 				tx.rollback();
 			}
 		}
+	}
+
+
+	@POST
+	@Path("/crearEntrada")
+	public Response crearEntrada(Entrada entrada){
+
+		try{
+			tx.begin();
+
+			logger.info("Creating ticket: {}", entrada);
+
+			Entrada ticket = null;
+
+			try{
+				ticket = pm.getObjectById(Entrada.class, entrada.getId());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe){
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+
+			if(ticket != null){
+				logger.info("Ticket already exists!");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Ticket already exists").build();
+			}else{
+				logger.info("Creating ticket: {}", ticket);
+				ticket = new Entrada(entrada.getUsuario(), entrada.getEvento());
+				pm.makePersistent(ticket);
+				logger.info("Ticket created: {}", ticket);
+				tx.commit();
+				return Response.ok().build();
+			}
+		}
+		finally{
+			if(tx.isActive()){
+				tx.rollback();
+			}
+		
+		}
+
 	}
 
 	@GET
