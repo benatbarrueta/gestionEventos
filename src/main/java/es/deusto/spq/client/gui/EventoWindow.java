@@ -28,6 +28,9 @@ import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.SectoresEvento;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 
 public class EventoWindow extends JFrame{
@@ -37,10 +40,10 @@ public class EventoWindow extends JFrame{
     public JButton eliminarEvento;
     public JList<Evento> eventoList;
     public DefaultListModel<Evento> eventoListModel;
-
-    
-
-    
+    public JMenuBar menuBar;
+    public JMenu menu;
+    public JMenuItem inicioItem;
+    public JMenuItem logOutItem;
 
     public EventoWindow(Main main) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,6 +76,26 @@ public class EventoWindow extends JFrame{
             
         }
 
+        menuBar = new JMenuBar();
+        menu = new JMenu("Menu");
+        inicioItem = new JMenuItem("Inicio");
+        logOutItem = new JMenuItem("Cerrar Sesion");
+
+        this.setJMenuBar(menuBar);
+        menuBar.add(menu);
+        menu.add(inicioItem);
+        menu.add(logOutItem);
+        
+        inicioItem.addActionListener(e -> {
+            Main.eventoWindow.setVisible(false);
+            Main.mainWindowClient.setVisible(true);
+        });
+
+        logOutItem.addActionListener(e -> {
+            main.logout();
+            Main.eventoWindow.setVisible(false);
+            Main.loginWindow.setVisible(true);
+        });
 
         anyadirEvento.addActionListener(new ActionListener() {
 
@@ -146,8 +169,8 @@ public class EventoWindow extends JFrame{
         if (result == JOptionPane.OK_OPTION) {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd:HH:mm");
 
-            String nombre = nombreField.getText();
-            String lugar = lugarField.getText();
+            String nombre = nombreField.getText().toUpperCase();
+            String lugar = lugarField.getText().toUpperCase();
             String fecha = fechaField.getText();
             String hora = horaField.getText();
 
@@ -164,27 +187,34 @@ public class EventoWindow extends JFrame{
             String organizador = organizadorField.getText();
             ArrayList<SectoresEvento> sectores = new ArrayList<SectoresEvento>();
             HashMap<SectoresEvento, Integer> precioSectores = new HashMap<SectoresEvento, Integer>();
+            HashMap<SectoresEvento, Integer> entradasSectores = new HashMap<SectoresEvento, Integer>();
             if (pistaButton.isSelected()) {
                 sectores.add(SectoresEvento.PISTA);
                 precioSectores.put(SectoresEvento.PISTA, 60);
+                entradasSectores.put(SectoresEvento.PISTA, (int) (aforo * 0.3));
             } else if(frontStageButton.isSelected()) {
                 sectores.add(SectoresEvento.FRONT_STAGE);
                 precioSectores.put(SectoresEvento.FRONT_STAGE, 80);
+                entradasSectores.put(SectoresEvento.FRONT_STAGE, (int) (aforo * 0.04));
             } else if(gradaAltaButton.isSelected()) {
                 sectores.add(SectoresEvento.GRADA_ALTA);
                 precioSectores.put(SectoresEvento.GRADA_ALTA, 20);
+                entradasSectores.put(SectoresEvento.GRADA_ALTA, (int) (aforo * 0.01));
             } else if(gradaMediaButton.isSelected()) {
                 sectores.add(SectoresEvento.GRADA_MEDIA);
                 precioSectores.put(SectoresEvento.GRADA_MEDIA, 30);
+                entradasSectores.put(SectoresEvento.GRADA_MEDIA, (int) (aforo * 0.2));
             } else if(gradaBajaButton.isSelected()) {
                 sectores.add(SectoresEvento.GRADA_BAJA);
                 precioSectores.put(SectoresEvento.GRADA_BAJA, 40);
+                entradasSectores.put(SectoresEvento.GRADA_BAJA, (int) (aforo * 0.25));
             } else if(VIPButton.isSelected()) {
                 sectores.add(SectoresEvento.VIP);
                 precioSectores.put(SectoresEvento.VIP, 100);
+                entradasSectores.put(SectoresEvento.VIP, (int) (aforo * 0.2));
             }
 
-            main.newEvento(nombre, lugar, fechaHora, descripcion, aforo, precioSectores, organizador, sectores, precioSectores);
+            main.newEvento(nombre, lugar, fechaHora, descripcion, aforo, organizador, sectores, precioSectores, entradasSectores);
             eventoListModel.addElement(main.getEventos().get(main.getEventos().size() - 1));
             
         }

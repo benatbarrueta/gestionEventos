@@ -83,10 +83,14 @@ public class LoginWindow extends JFrame {
                         System.out.println(exampleClient.loginUsuario(username, password));
                         Main.mainWindowClient.setVisible(true);
                         Main.loginWindow.setVisible(false);
+                        usernameField.setText("");
+                        passwordField.setText("");
                     } else if (exampleClient.loginUsuario(username, password).equals("GERENTE".toString())) {
                         System.out.println(exampleClient.loginUsuario(username, password));
                         Main.mainWindowWorker.setVisible(true);
                         Main.loginWindow.setVisible(false);
+                        usernameField.setText("");
+                        passwordField.setText("");
                     } else {
                         msgError.setText("Usuario o contraseña incorrectos");
                         usernameField.setText("");

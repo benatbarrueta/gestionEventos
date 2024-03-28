@@ -32,14 +32,12 @@ public class Entrada {
         this.usuario = new Usuario();
         this.evento = new Evento();
     }
-    public Entrada(Evento evento ) {
-        this.usuario = null;
-        this.evento = evento;
-    }
 
-    public Entrada(Usuario usuario , Evento evento ) {
+    public Entrada(Usuario usuario , Evento evento, int precio, SectoresEvento sector) {
         this.usuario = usuario;
         this.evento = evento;
+        this.precio = precio;
+        this.sector = sector;
     }
 
     public long getId() {
@@ -64,11 +62,13 @@ public class Entrada {
 
     @Override
     public String toString() {
-        return "Entrada{" +
-                "id=" + id +
-                ", usuario=" + usuario +
-                ", evento=" + evento +
-                '}';
+        return "Entrada" + id +
+                ", usuario: " + usuario.getNombre() +
+                ", evento: " + evento.getNombre();
+    }
+
+    public String toStringCorto() {
+        return "Entrada para evento: " + evento.getNombre();
     }
 }
 

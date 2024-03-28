@@ -3,6 +3,7 @@ package es.deusto.spq.client;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.awt.EventQueue;
 import java.util.List;
@@ -22,6 +23,7 @@ import es.deusto.spq.client.gui.EventoWindow;
 import es.deusto.spq.client.gui.LoginWindow;
 import es.deusto.spq.client.gui.MainWindowClient;
 import es.deusto.spq.client.gui.MainWindowWorker;
+import es.deusto.spq.server.jdo.Entrada;
 import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.SectoresEvento;
 import es.deusto.spq.server.jdo.TipoUsuario;
@@ -38,6 +40,8 @@ public class Main {
 	public static MainWindowClient mainWindowClient;
 	public static MainWindowWorker mainWindowWorker;
 	public static EventoWindow eventoWindow;
+
+	public static Usuario user;
 
 	private Client client;
 	private WebTarget webTarget;
@@ -75,7 +79,9 @@ public class Main {
 			return "";
 		} else {
 			logger.info("User correctly logged");
-			return response.readEntity(String.class);
+			Usuario user = response.readEntity(Usuario.class);
+			Main.user = user;
+			return user.getRol().toString();
 		}
 	}
 
@@ -83,11 +89,11 @@ public class Main {
 		
 	}
 
-	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, Map<SectoresEvento, Integer> precio, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector) {
+	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector, Map<SectoresEvento, Integer> entradasSector) {
 		WebTarget newEventWebTarget = webTarget.path("crearEvento");
 		Invocation.Builder invocationBuilder = newEventWebTarget.request(MediaType.APPLICATION_JSON);
 
-		Evento eventoData = new Evento(nombre, lugar, fecha, descripcion, aforo, precio, organizador, sector, precioSector);
+		Evento eventoData = new Evento(nombre, lugar, fecha, descripcion, aforo, organizador, sector, precioSector, entradasSector);
 		
 		Response response = invocationBuilder.post(Entity.entity(eventoData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
@@ -98,8 +104,8 @@ public class Main {
 	}
 	
 	public List<Evento> getEventos() {
-		WebTarget newEventWebTarget = webTarget.path("getEventos");
-		Invocation.Builder invocationBuilder = newEventWebTarget.request(MediaType.APPLICATION_JSON);
+		WebTarget getEventsWebTarget = webTarget.path("getEventos");
+		Invocation.Builder invocationBuilder = getEventsWebTarget.request(MediaType.APPLICATION_JSON);
 		
 		Response response = invocationBuilder.get();
 		if (response.getStatus() != Status.OK.getStatusCode()) {
@@ -108,19 +114,92 @@ public class Main {
 		} else {
 			logger.info("Event correctly registered");
 			List<Evento> eventos = response.readEntity(new GenericType<List<Evento>>() {});
+			ArrayList<SectoresEvento> sectores = new ArrayList<SectoresEvento>();
+			HashMap<SectoresEvento, Integer> precioSector = new HashMap<SectoresEvento, Integer>();
+			HashMap<SectoresEvento, Integer> entradasSector = new HashMap<SectoresEvento, Integer>();
+
+			sectores.add(SectoresEvento.PISTA);
+			sectores.add(SectoresEvento.FRONT_STAGE);
+			sectores.add(SectoresEvento.VIP);
+			sectores.add(SectoresEvento.GRADA_ALTA);
+			sectores.add(SectoresEvento.GRADA_BAJA);
+			sectores.add(SectoresEvento.GRADA_MEDIA);
+
+			precioSector.put(SectoresEvento.PISTA, 60);
+			precioSector.put(SectoresEvento.FRONT_STAGE, 80);
+			precioSector.put(SectoresEvento.VIP, 100);
+			precioSector.put(SectoresEvento.GRADA_ALTA, 20);
+			precioSector.put(SectoresEvento.GRADA_BAJA, 40);
+			precioSector.put(SectoresEvento.GRADA_MEDIA, 30);
+
+			for (Evento evento : eventos) {
+				entradasSector.put(SectoresEvento.PISTA, (int) (evento.getAforo() * 0.3));
+				entradasSector.put(SectoresEvento.FRONT_STAGE, (int) (evento.getAforo() * 0.04));
+				entradasSector.put(SectoresEvento.VIP, (int) (evento.getAforo() * 0.01));
+				entradasSector.put(SectoresEvento.GRADA_ALTA, (int) (evento.getAforo() * 0.2));
+				entradasSector.put(SectoresEvento.GRADA_BAJA, (int) (evento.getAforo() * 0.2));
+				entradasSector.put(SectoresEvento.GRADA_MEDIA, (int) (evento.getAforo() * 0.25));
+
+				evento.setSector(sectores);
+				evento.setPrecioSector(precioSector);
+				evento.setEntradasSector(entradasSector);
+			}
+
 			return eventos;
 		}
 	}
 
+	public Evento getEvento(String id) {
+		WebTarget deleteEventWebTarget = webTarget.path("getEventoId/" + id);
+		Invocation.Builder invocationBuilder = deleteEventWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Response response = invocationBuilder.get();
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return null;
+		} else {
+			logger.info("Event correctly deleted");
+			return response.readEntity(Evento.class);
+		}
+	}
+
 	public void deleteEvento(Evento evento) {
-		WebTarget newEventWebTarget = webTarget.path("eliminarEvento/" + evento.getId());
-		Invocation.Builder invocationBuilder = newEventWebTarget.request(MediaType.APPLICATION_JSON);
-		
+		WebTarget deleteEventWebTarget = webTarget.path("eliminarEvento/" + evento.getId());
+		Invocation.Builder invocationBuilder = deleteEventWebTarget.request(MediaType.APPLICATION_JSON);
+
 		Response response = invocationBuilder.delete();
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
 		} else {
 			logger.info("Event correctly deleted");
+		}
+	}
+
+	public void comprarEntrada(Evento evento, Usuario usuario, SectoresEvento sector, int numEntradas) {
+		WebTarget comprarEntradaWebTarget = webTarget.path("comprarEntrada/" + evento.getId() + "/" + usuario.getDni() + "/" + sector.toString() + "/" + numEntradas);
+		Invocation.Builder invocationBuilder = comprarEntradaWebTarget.request(MediaType.APPLICATION_JSON);
+	
+		Response response = invocationBuilder.get();
+
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+		} else {
+			logger.info("Event correctly deleted");
+		}
+	}
+
+	public List<Entrada> getEntradas() {
+		WebTarget getEventsWebTarget = webTarget.path("getEntradas");
+		Invocation.Builder invocationBuilder = getEventsWebTarget.request(MediaType.APPLICATION_JSON);
+		
+		Response response = invocationBuilder.get();
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+			return null;
+		} else {
+			logger.info("Event correctly registered");
+			List<Entrada> entradas = response.readEntity(new GenericType<List<Entrada>>() {});
+			return entradas;
 		}
 	}
 

@@ -10,6 +10,7 @@ import javax.jdo.Transaction;
 
 import es.deusto.spq.server.jdo.Entrada;
 import es.deusto.spq.server.jdo.Evento;
+import es.deusto.spq.server.jdo.SectoresEvento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
 
@@ -50,8 +51,6 @@ public class Resource {
 		try {
 			tx.begin();
 
-			logger.info("Attempting to log in user with username '{}'", usuario.getNombreUsuario());
-
 			Usuario user = null;
 			try {
 				@SuppressWarnings("rawtypes")
@@ -68,20 +67,11 @@ public class Resource {
 			}
 
 			if (user != null && user.getNombreUsuario().equals(usuario.getNombreUsuario()) && user.getContrasenya().equals(usuario.getContrasenya())) {
-				logger.info("User logged in successfully!");
+				logger.info("User {} logged in successfully!", user.getNombreUsuario());
 				tx.commit();
-				logger.info(user.getRol());
-				if (user.getRol() == TipoUsuario.CLIENTE) {
-					return Response.status(200).entity("CLIENTE").build();
-				} else if (user.getRol() == TipoUsuario.GERENTE) {
-					return Response.status(200).entity("GERENTE").build();
-				} else if (user.getRol() == TipoUsuario.USUARIO) {
-					return Response.status(200).entity("USUARIO").build();
-				} else if (user.getRol() == TipoUsuario.VENDEDOR){
-					return Response.status(200).entity("VENDEDOR").build();
-				} else {
-					return Response.status(Response.Status.UNAUTHORIZED).entity("No more types of user").build();
-				}
+
+				return Response.status(200).entity(user).build();
+			
 			} else {
 				logger.info("Invalid email or password");
 				tx.rollback();
@@ -101,11 +91,6 @@ public class Resource {
 		try
         {	
             tx.begin();
-
-            logger.info("Checking whether user with identify number '{}' already exits or not", usuario.getDni());
-
-
-            logger.info("Checking whether the user already exits or not: '{}'", usuario.getDni());
 
 			Usuario user = null;
 			try {
@@ -142,8 +127,6 @@ public class Resource {
 		try {
 			tx.begin();
 
-			logger.info("Creating event: {}", evento);
-
 			Evento event = null;
 
 			try {
@@ -158,7 +141,7 @@ public class Resource {
 				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
 			}else{
 				logger.info("Creating event: {}", event);
-				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getPrecio(), evento.getOrganizador(), evento.getSector(), evento.getPrecioSector());
+				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getOrganizador(), evento.getSector(), evento.getPrecioSector(), evento.getEntradasSector());
 				pm.makePersistent(event);
 				logger.info("Event created: {}", event);
 				tx.commit();
@@ -174,48 +157,6 @@ public class Resource {
 		}
 	}
 
-
-	@POST
-	@Path("/comprarEntrada")
-	public Response comprarEntrada(Evento evento, Usuario usuario){
-		Entrada entrada = new Entrada(usuario, evento);
-
-		try{
-			tx.begin();
-
-			logger.info("Creating ticket: {}", entrada);
-
-			Entrada ticket = null;
-
-			try{
-				ticket = pm.getObjectById(Entrada.class, entrada.getId());
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe){
-				logger.info("Exception launched: {}", jonfe.getMessage());
-			}
-
-			if(ticket != null){
-				logger.info("Ticket already exists!");
-				tx.rollback();
-				return Response.status(Response.Status.UNAUTHORIZED).entity("Ticket already exists").build();
-			}else{
-				logger.info("Creating ticket: {}", ticket);
-				ticket = new Entrada(usuario ,evento);
-				pm.makePersistent(ticket);
-				logger.info("Ticket created: {}", ticket);
-				tx.commit();
-				return Response.ok().build();
-			}
-		}
-		finally{
-			if(tx.isActive()){
-				tx.rollback();
-			}
-		
-		}
-
-	}
-
-
 	@GET
 	@Path("/getEventos")
 	public Response getEventos() {
@@ -224,10 +165,44 @@ public class Resource {
 			Query<Evento> query = pm.newQuery(Evento.class);
 			@SuppressWarnings("unchecked")
 			List<Evento> eventos = (List<Evento>) query.execute();
+			
+
 			if (eventos != null) {
 				logger.info("{} events found", eventos.size());
 				tx.commit();
 				return Response.ok(eventos).build();
+			} else {
+				logger.info("No events found");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	
+	}
+
+	@GET
+	@Path("/getEventoId/{id}")
+	public Response getEventos(@PathParam("id") String id) {
+		try {
+			tx.begin();
+			Evento event = null;
+
+			try {
+				event = pm.getObjectById(Evento.class, id);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			
+
+			if (event != null) {
+				logger.info("Event found: {}", event.getNombre());
+				tx.commit();
+				return Response.ok(event).build();
 			} else {
 				logger.info("No events found");
 				tx.rollback();
@@ -247,8 +222,6 @@ public class Resource {
 	public Response eliminarEvento(@PathParam("id") String id) {
 		try {
 			tx.begin();
-
-			logger.info("Deleting event with id '{}'", id);
 
 			Evento event = null;
 
@@ -274,5 +247,149 @@ public class Resource {
 			}
 			pm.close();
 		}
+	}
+
+	@POST
+	@Path("/actualizarEvento")
+	public Response actualizarEvento(Evento evento) {
+		try {
+			tx.begin();
+
+			Evento event = null;
+
+			try {
+				event = pm.getObjectById(Evento.class, evento.getId());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+
+			if (event != null) {
+				Response response = eliminarEvento(String.valueOf(event.getId()));
+				if(response.getStatus() == 200) {
+					event.setNombre(evento.getNombre());
+					event.setLugar(evento.getLugar());
+					event.setFecha(evento.getFecha());
+					event.setDescripcion(evento.getDescripcion());
+					event.setAforo(evento.getAforo());
+					event.setOrganizador(evento.getOrganizador());
+					event.setSector(evento.getSector());
+					event.setPrecioSector(evento.getPrecioSector());
+					event.setEntradasSector(evento.getEntradasSector());
+
+					logger.info("Event updated: {}", event);
+					tx.commit();
+					return Response.ok().build();
+				} else {
+					logger.info("Event not found");
+					tx.rollback();
+					return Response.status(Response.Status.NOT_FOUND).entity("Event not deleted").build();}
+			} else {
+				logger.info("Event not found");
+				tx.rollback();
+				return Response.status(Response.Status.NOT_FOUND).entity("Event not found").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	@GET
+	@Path("/comprarEntrada/{idEvento}/{idUsuario}/{sector}/{cantidad}")
+	public Response comprarEntrada(@PathParam("idEvento") String eventId, @PathParam("idUsuario") String userId, @PathParam("sector") String sector, @PathParam("cantidad") String cantidad) {
+		try{
+			tx.begin();
+
+			Entrada ticket = null;
+			Evento event = null;
+			Usuario user = null;
+
+			try {
+				event = pm.getObjectById(Evento.class, eventId);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			
+			try {
+				user = pm.getObjectById(Usuario.class, userId);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+
+			Entrada entrada = null;
+			
+
+			if (SectoresEvento.VIP.toString().equals(sector)){
+				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.VIP);
+			} else if (SectoresEvento.GRADA_ALTA.toString().equals(sector)){
+				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.GRADA_ALTA);
+			} else if (SectoresEvento.GRADA_MEDIA.toString().equals(sector)){
+				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.GRADA_MEDIA);
+			} else if (SectoresEvento.GRADA_BAJA.toString().equals(sector)){
+				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.GRADA_BAJA);
+			} else if (SectoresEvento.PISTA.toString().equals(sector)){
+				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.PISTA);
+			} else if (SectoresEvento.FRONT_STAGE.toString().equals(sector)){
+				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.FRONT_STAGE);
+			}
+
+			try{
+				ticket = pm.getObjectById(Entrada.class, entrada.getId());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe){
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+
+			if(ticket != null){
+				logger.info("Ticket already exists!");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Ticket already exists").build();
+			} else {
+				logger.info("Creating ticket: {}", ticket);
+				ticket = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.fromString(sector));			
+
+				pm.makePersistent(ticket);
+				logger.info("Ticket created: {}", ticket);
+				tx.commit();
+				return Response.ok().build();
+			}
+		}
+		finally{
+			if(tx.isActive()){
+				tx.rollback();
+			}
+		
+		}
+
+	}
+
+	@GET
+	@Path("/getEntradas")
+	public Response getEntradas() {
+		try {
+			tx.begin();
+			
+			Query<Entrada> query = pm.newQuery(Entrada.class);
+			
+			@SuppressWarnings("unchecked")
+			List<Entrada> entradas = (List<Entrada>) query.execute();
+
+			if (entradas != null) {
+				logger.info("{} tickets found", entradas.size());
+				tx.commit();
+				return Response.ok(entradas).build();
+			} else {
+				logger.info("No tickets found");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("No tickets found").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	
 	}
 }

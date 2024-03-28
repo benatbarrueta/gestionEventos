@@ -22,21 +22,22 @@ public class Evento {
     @Persistent private String organizador;
     @Persistent private ArrayList<SectoresEvento> sectores;
     @Persistent private Map<SectoresEvento, Integer> precioSector;
+    @Persistent private Map<SectoresEvento, Integer> entradasSector;
 
 
     public Evento() {
     }
 
-    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, Map<SectoresEvento, Integer> precio, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector) {
+    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector, Map<SectoresEvento, Integer> entradasSector) {
         this.nombre = nombre;
         this.lugar = lugar;
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.aforo = aforo;
-        this.precioSector = precio;
         this.organizador = organizador;
         this.sectores = sector;
         this.precioSector = precioSector;
+        this.entradasSector = entradasSector;
     }
 
     public long getId() {
@@ -83,14 +84,6 @@ public class Evento {
         this.aforo = aforo;
     }
 
-    public Map<SectoresEvento, Integer> getPrecio() {
-        return precioSector;
-    }
-
-    public void setPrecio(Map<SectoresEvento, Integer> precio) {
-    this.precioSector = precio;
-    }
-
     public String getOrganizador() {
         return organizador;
     }
@@ -115,17 +108,37 @@ public class Evento {
         this.precioSector = precioSector;
     }
 
+    public Map<SectoresEvento, Integer> getEntradasSector() {
+        return entradasSector;
+    }
+
+    public void setEntradasSector(Map<SectoresEvento, Integer> entradasSector) {
+        this.entradasSector = entradasSector;
+    }
+
     @Override
     public String toString() {
+        
+
         return "Evento " + id +
-                "-> nombre:'" + nombre +
-                ", lugar:'" + lugar +
-                ", fecha:" + fecha +
-                ", descripcion:'" + descripcion +
-                ", aforo:" + aforo +
-                ", organizador:'" + organizador + 
-                ", sectores disponibles:" + sectores +
-                ", precios disponibles:" + precioSector;
+                "-> nombre: " + nombre +
+                ", lugar: " + lugar +
+                ", fecha: " + fecha +
+                ", descripcion: " + descripcion +
+                ", aforo: " + aforo +
+                ", organizador: " + organizador + 
+                ", sectores disponibles: " + sectores +
+                ", precios disponibles: " + precioSector +
+                ", entradas disponibles: " + entradasSector;
+    }
+
+    public String toStringCorto() {
+        
+
+        return "Nombre: " + nombre +
+                ", lugar: " + lugar +
+                ", fecha: " + fecha;
+                
     }
 
 }
