@@ -22,12 +22,19 @@ public class Entrada {
     @Column(name="evento_id")
     private Evento evento;
 
+    @Persistent private int precio;
+    @Persistent private SectoresEvento sector;
+
     
 
     
     public Entrada() {
         this.usuario = new Usuario();
         this.evento = new Evento();
+    }
+    public Entrada(Evento evento ) {
+        this.usuario = null;
+        this.evento = evento;
     }
 
     public Entrada(Usuario usuario , Evento evento ) {

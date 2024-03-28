@@ -176,8 +176,9 @@ public class Resource {
 
 
 	@POST
-	@Path("/crearEntrada")
-	public Response crearEntrada(Entrada entrada){
+	@Path("/comprarEntrada")
+	public Response comprarEntrada(Evento evento, Usuario usuario){
+		Entrada entrada = new Entrada(usuario, evento);
 
 		try{
 			tx.begin();
@@ -198,7 +199,7 @@ public class Resource {
 				return Response.status(Response.Status.UNAUTHORIZED).entity("Ticket already exists").build();
 			}else{
 				logger.info("Creating ticket: {}", ticket);
-				ticket = new Entrada(entrada.getUsuario(), entrada.getEvento());
+				ticket = new Entrada(usuario ,evento);
 				pm.makePersistent(ticket);
 				logger.info("Ticket created: {}", ticket);
 				tx.commit();
@@ -213,6 +214,7 @@ public class Resource {
 		}
 
 	}
+
 
 	@GET
 	@Path("/getEventos")
