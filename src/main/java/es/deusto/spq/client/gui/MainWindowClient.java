@@ -22,6 +22,7 @@ public class MainWindowClient extends JFrame{
     
     public JMenuBar menuBar;
     public JMenu menu;
+    public JMenuItem modificarCuentaItem;
     public JMenuItem logOutItem;
     public JList<String> eventoList;
     public static DefaultListModel<String> eventoListModel;
@@ -138,10 +139,12 @@ public class MainWindowClient extends JFrame{
 
         menuBar = new JMenuBar();
         menu = new JMenu("Menu");
+        modificarCuentaItem = new JMenuItem("Modificar Cuenta");
         logOutItem = new JMenuItem("Cerrar Sesion");
         
         this.setJMenuBar(menuBar);
         menuBar.add(menu);
+        menu.add(modificarCuentaItem);
         menu.add(logOutItem);
         
 
@@ -149,6 +152,11 @@ public class MainWindowClient extends JFrame{
             main.logout();
             this.dispose();
             Main.loginWindow.setVisible(true);
+        });
+
+        modificarCuentaItem.addActionListener(e -> {
+            this.dispose();
+            Main.editUserWindow.setVisible(true);
         });
         
     }

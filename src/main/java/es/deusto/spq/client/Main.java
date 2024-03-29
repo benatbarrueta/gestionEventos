@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import es.deusto.spq.server.jdo.Usuario;
+import es.deusto.spq.client.gui.EditUserWindow;
 import es.deusto.spq.client.gui.EventoWindow;
 import es.deusto.spq.client.gui.LoginWindow;
 import es.deusto.spq.client.gui.MainWindowClient;
@@ -40,6 +41,7 @@ public class Main {
 	public static MainWindowClient mainWindowClient;
 	public static MainWindowWorker mainWindowWorker;
 	public static EventoWindow eventoWindow;
+	public static EditUserWindow editUserWindow;
 
 	public static Usuario user;
 
@@ -86,6 +88,10 @@ public class Main {
 	}
 
 	public void logout(){
+		
+	}
+
+	public void eliminarCuenta(){
 		
 	}
 
@@ -230,6 +236,7 @@ public class Main {
 		mainWindowClient = new MainWindowClient(exampleClient);
 		mainWindowWorker = new MainWindowWorker(exampleClient);
 		eventoWindow = new EventoWindow(exampleClient);
+		editUserWindow = new EditUserWindow(exampleClient);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
