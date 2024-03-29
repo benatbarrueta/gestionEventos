@@ -52,15 +52,17 @@ public class EditUserWindow extends JFrame{
 
         JPanel UsuarioPanel = new JPanel(new GridLayout(0,2));
 
-        JTextField nombreTextField = new JTextField(Main.user.getNombre());
-        JTextField apellidosTextField = new JTextField(Main.user.getApellidos());
-        JTextField nombreUsuarioTextField = new JTextField(Main.user.getNombreUsuario());   
-        JTextField contrasenyaTextField = new JTextField(Main.user.getContrasenya());
-        JTextField emailTextField  = new JTextField(Main.user.getEmail());
-        JTextField direccionTextField = new JTextField(Main.user.getDireccion());
-        JTextField telefonoTextField = new JTextField(Main.user.getTelefono());
-        //JTextField fechaNacimientoTextField = new JTextField();
-        //JTextField dniTextField;
+        
+
+        JTextField nombreTextField = new JTextField();
+        JTextField apellidosTextField = new JTextField();
+        JTextField nombreUsuarioTextField = new JTextField();   
+        JTextField contrasenyaTextField = new JTextField();
+        JTextField emailTextField  = new JTextField();
+        JTextField direccionTextField = new JTextField();
+        JTextField telefonoTextField = new JTextField();
+        JTextField fechaNacimientoTextField = new JTextField();
+        JTextField dniTextField = new JTextField();
 
         UsuarioPanel.add(new JLabel("Nombre:"));
         UsuarioPanel.add(nombreTextField);
@@ -76,6 +78,10 @@ public class EditUserWindow extends JFrame{
         UsuarioPanel.add(direccionTextField);
         UsuarioPanel.add(new JLabel("Telefono:"));
         UsuarioPanel.add(telefonoTextField);
+        UsuarioPanel.add(new JLabel("Fecha de Nacimiento (AAAA-mm-dd):"));
+        UsuarioPanel.add(fechaNacimientoTextField);
+        UsuarioPanel.add(new JLabel("DNI:"));
+        UsuarioPanel.add(dniTextField);
 
         cp.add(UsuarioPanel, BorderLayout.CENTER);
 
