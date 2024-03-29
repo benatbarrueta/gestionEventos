@@ -19,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
@@ -132,12 +131,6 @@ public class EventoWindow extends JFrame{
         JTextField descripcionField = new JTextField();
         JSpinner aforoField = new JSpinner();
         JTextField organizadorField = new JTextField();
-        JRadioButton pistaButton = new JRadioButton("PISTA (60€)");
-        JRadioButton frontStageButton = new JRadioButton("FRONT STAGE (80€)");
-        JRadioButton gradaAltaButton = new JRadioButton("GRADA ALTA (20€)");
-        JRadioButton gradaMediaButton = new JRadioButton("GRADA MEDIA (30€)");
-        JRadioButton gradaBajaButton = new JRadioButton("GRADA BAJA (40€)");
-        JRadioButton VIPButton = new JRadioButton("VIP (100€)");
 
         panel.add(new JLabel("Nombre"));
         panel.add(nombreField);
@@ -155,12 +148,6 @@ public class EventoWindow extends JFrame{
         panel.add(organizadorField);
         panel.add(new JLabel("Sector"));
         panel.add(new JLabel(""));
-        panel.add(pistaButton);
-        panel.add(frontStageButton);
-        panel.add(gradaAltaButton);
-        panel.add(gradaMediaButton);
-        panel.add(gradaBajaButton);
-        panel.add(VIPButton);
 
         panel.setPreferredSize(new Dimension(350, 200));
 
@@ -188,31 +175,6 @@ public class EventoWindow extends JFrame{
             ArrayList<SectoresEvento> sectores = new ArrayList<SectoresEvento>();
             HashMap<SectoresEvento, Integer> precioSectores = new HashMap<SectoresEvento, Integer>();
             HashMap<SectoresEvento, Integer> entradasSectores = new HashMap<SectoresEvento, Integer>();
-            if (pistaButton.isSelected()) {
-                sectores.add(SectoresEvento.PISTA);
-                precioSectores.put(SectoresEvento.PISTA, 60);
-                entradasSectores.put(SectoresEvento.PISTA, (int) (aforo * 0.3));
-            } else if(frontStageButton.isSelected()) {
-                sectores.add(SectoresEvento.FRONT_STAGE);
-                precioSectores.put(SectoresEvento.FRONT_STAGE, 80);
-                entradasSectores.put(SectoresEvento.FRONT_STAGE, (int) (aforo * 0.04));
-            } else if(gradaAltaButton.isSelected()) {
-                sectores.add(SectoresEvento.GRADA_ALTA);
-                precioSectores.put(SectoresEvento.GRADA_ALTA, 20);
-                entradasSectores.put(SectoresEvento.GRADA_ALTA, (int) (aforo * 0.01));
-            } else if(gradaMediaButton.isSelected()) {
-                sectores.add(SectoresEvento.GRADA_MEDIA);
-                precioSectores.put(SectoresEvento.GRADA_MEDIA, 30);
-                entradasSectores.put(SectoresEvento.GRADA_MEDIA, (int) (aforo * 0.2));
-            } else if(gradaBajaButton.isSelected()) {
-                sectores.add(SectoresEvento.GRADA_BAJA);
-                precioSectores.put(SectoresEvento.GRADA_BAJA, 40);
-                entradasSectores.put(SectoresEvento.GRADA_BAJA, (int) (aforo * 0.25));
-            } else if(VIPButton.isSelected()) {
-                sectores.add(SectoresEvento.VIP);
-                precioSectores.put(SectoresEvento.VIP, 100);
-                entradasSectores.put(SectoresEvento.VIP, (int) (aforo * 0.2));
-            }
 
             main.newEvento(nombre, lugar, fechaHora, descripcion, aforo, organizador, sectores, precioSectores, entradasSectores);
             eventoListModel.addElement(main.getEventos().get(main.getEventos().size() - 1));

@@ -112,8 +112,9 @@ public class Main {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
 			return null;
 		} else {
-			logger.info("Event correctly registered");
 			List<Evento> eventos = response.readEntity(new GenericType<List<Evento>>() {});
+			logger.info("{} events downloaded", eventos.size());
+			
 			ArrayList<SectoresEvento> sectores = new ArrayList<SectoresEvento>();
 			HashMap<SectoresEvento, Integer> precioSector = new HashMap<SectoresEvento, Integer>();
 			HashMap<SectoresEvento, Integer> entradasSector = new HashMap<SectoresEvento, Integer>();
@@ -158,7 +159,7 @@ public class Main {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
 			return null;
 		} else {
-			logger.info("Event correctly deleted");
+			logger.info("Event with id: {} downloaded", id);
 			return response.readEntity(Evento.class);
 		}
 	}
@@ -184,7 +185,7 @@ public class Main {
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
 		} else {
-			logger.info("Event correctly deleted");
+			logger.info("Ticket correctly registered");
 		}
 	}
 
@@ -197,8 +198,8 @@ public class Main {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
 			return null;
 		} else {
-			logger.info("Event correctly registered");
 			List<Entrada> entradas = response.readEntity(new GenericType<List<Entrada>>() {});
+			logger.info("{} tickets downloaded", entradas.size());
 			return entradas;
 		}
 	}

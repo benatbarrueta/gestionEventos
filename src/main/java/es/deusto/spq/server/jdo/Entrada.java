@@ -4,22 +4,17 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.ForeignKey;
-import javax.jdo.annotations.Column;
+
 @PersistenceCapable
 public class Entrada {
     @PrimaryKey
     @Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
     private long id;
 
-    @Persistent
-    @ForeignKey(name="entrada_usuario_fk")
-    @Column(name="usuario_dni")
+    @Persistent(defaultFetchGroup = "true")
     private Usuario usuario;
 
-    @Persistent
-    @ForeignKey(name="entrada_evento_fk")
-    @Column(name="evento_id")
+    @Persistent(defaultFetchGroup = "true")
     private Evento evento;
 
     @Persistent private int precio;

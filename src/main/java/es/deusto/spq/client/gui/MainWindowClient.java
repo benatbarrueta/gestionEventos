@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import java.util.List;
 
 import javax.swing.*;
@@ -20,7 +23,7 @@ public class MainWindowClient extends JFrame{
     public JMenu menu;
     public JMenuItem logOutItem;
     public JList<String> eventoList;
-    public DefaultListModel<String> eventoListModel;
+    public static DefaultListModel<String> eventoListModel;
     public JList<String> entradasList;
     public DefaultListModel<String> entradasListModel;
 
@@ -56,31 +59,42 @@ public class MainWindowClient extends JFrame{
         JScrollPane scrollPane = new JScrollPane(eventoList);
         eventoPanel.add(scrollPane, BorderLayout.CENTER);
 
-        List<Evento> eventos = main.getEventos();
-        if(eventos != null && eventos.size() > 0){
-            System.out.println(eventos);
-            for (Evento evento : eventos) {
-                eventoListModel.addElement(evento.toStringCorto());
-            }
-        } else {;
-            eventoListModel.addElement("No hay eventos disponibles");
-        }
-
         entradasListModel = new DefaultListModel<>();
         entradasList = new JList<>(entradasListModel);
 
         JScrollPane scrollPaneEntradas = new JScrollPane(entradasList);
         entradasPanel.add(scrollPaneEntradas, BorderLayout.CENTER);
 
-        List<Entrada> entradas = main.getEntradas();
-        if(entradas != null && entradas.size() > 0){
-            for (Entrada entrada : entradas) {
-                entradasListModel.addElement(entrada.toStringCorto());
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+                List<Evento> eventos = main.getEventos();
+                if(eventos != null && eventos.size() > 0){
+                    for (Evento evento : eventos) {
+                        eventoListModel.addElement(evento.toStringCorto());
+                    }
+                } else {;
+                    eventoListModel.addElement("No hay eventos disponibles");
+                }
+
+                List<Entrada> entradas = main.getEntradas();
+
+                if(entradas != null && entradas.size() > 0){
+                    for (Entrada entrada : entradas) {
+                        if(entrada.getUsuario().getDni().equals(Main.user.getDni())) {
+                            entradasListModel.addElement(entrada.toStringCorto());   
+                        }
+                    }
+                }
             }
-        } else {
-            System.out.println(entradas);
-            entradasListModel.addElement("No hay entradas disponibles");
-        }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                eventoListModel.removeAllElements();
+                entradasListModel.removeAllElements();
+            }
+        });
 
         JPanel botonera = new JPanel(new FlowLayout());
         JButton comprarEntrada = new JButton("Comprar Entrada");
@@ -118,6 +132,7 @@ public class MainWindowClient extends JFrame{
     }
 
     public void dialogoNewEntrada(Main main){
+
         JPanel panel = new JPanel(new GridLayout(0, 2));
 
         JTextField idEvento = new JTextField();
@@ -147,10 +162,8 @@ public class MainWindowClient extends JFrame{
                     evento.getEntradasSector().remove(seleccionado);
                     evento.getEntradasSector().put(seleccionado, numEntradas);
 
-                    main.comprarEntrada(evento, Main.user, seleccionado, (int) numeroEntradas.getValue());
-                    //entradasListModel.addElement((main.getEntradas().get(main.getEntradas().size())).toStringCorto());
-                    
-                    //System.out.println(main.getEntradas().get(main.getEntradas().size()));
+                    main.comprarEntrada(evento, Main.user, seleccionado, evento.getPrecioSector().get(seleccionado));
+                    entradasListModel.addElement((main.getEntradas().get(main.getEntradas().size() - 1)).toStringCorto());
                 }
             }
         }

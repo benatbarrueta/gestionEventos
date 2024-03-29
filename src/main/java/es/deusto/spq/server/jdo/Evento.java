@@ -1,5 +1,6 @@
 package es.deusto.spq.server.jdo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -133,11 +134,13 @@ public class Evento {
     }
 
     public String toStringCorto() {
-        
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String fechaFormateada = formato.format(this.fecha);
 
-        return "Nombre: " + nombre +
+        return "ID: " + id +
+                ", nombre: " + nombre +
                 ", lugar: " + lugar +
-                ", fecha: " + fecha;
+                ", fecha: " + fechaFormateada;
                 
     }
 
