@@ -89,11 +89,11 @@ public class Main {
 		
 	}
 
-	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector, Map<SectoresEvento, Integer> entradasSector) {
+	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, int aforoTotal, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector, Map<SectoresEvento, Integer> entradasSector) {
 		WebTarget newEventWebTarget = webTarget.path("crearEvento");
 		Invocation.Builder invocationBuilder = newEventWebTarget.request(MediaType.APPLICATION_JSON);
 
-		Evento eventoData = new Evento(nombre, lugar, fecha, descripcion, aforo, organizador, sector, precioSector, entradasSector);
+		Evento eventoData = new Evento(nombre, lugar, fecha, descripcion, aforo, aforoTotal, organizador, sector, precioSector, entradasSector);
 		
 		Response response = invocationBuilder.post(Entity.entity(eventoData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
@@ -201,6 +201,18 @@ public class Main {
 			List<Entrada> entradas = response.readEntity(new GenericType<List<Entrada>>() {});
 			logger.info("{} tickets downloaded", entradas.size());
 			return entradas;
+		}
+	}
+
+	public void eliminarEntrada(Entrada entrada) {
+		WebTarget deleteEventWebTarget = webTarget.path("eliminarEntrada/" + entrada.getId());
+		Invocation.Builder invocationBuilder = deleteEventWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Response response = invocationBuilder.delete();
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+		} else {
+			logger.info("Ticket correctly deleted");
 		}
 	}
 

@@ -63,7 +63,7 @@ public class Entrada {
     }
 
     public String toStringCorto() {
-        return "Entrada para evento: " + evento.getNombre();
+        return "Entrada para evento " + id + " -> "  + evento.getNombre();
     }
 }
 

@@ -20,6 +20,7 @@ public class Evento {
     @Persistent private Date fecha;
     @Persistent private String descripcion;
     @Persistent private int aforo;
+    @Persistent private int aforoTotal;
     @Persistent private String organizador;
     @Persistent private ArrayList<SectoresEvento> sectores;
     @Persistent private Map<SectoresEvento, Integer> precioSector;
@@ -29,12 +30,13 @@ public class Evento {
     public Evento() {
     }
 
-    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector, Map<SectoresEvento, Integer> entradasSector) {
+    public Evento(String nombre, String lugar, Date fecha, String descripcion, int aforo, int aforoTotal, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector, Map<SectoresEvento, Integer> entradasSector) {
         this.nombre = nombre;
         this.lugar = lugar;
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.aforo = aforo;
+        this.aforoTotal = aforoTotal;
         this.organizador = organizador;
         this.sectores = sector;
         this.precioSector = precioSector;
@@ -83,6 +85,14 @@ public class Evento {
 
     public void setAforo(int aforo) {
         this.aforo = aforo;
+    }
+
+    public int getAforoTotal() {
+        return aforoTotal;
+    }
+
+    public void setAforoTotal(int aforoTotal) {
+        this.aforoTotal = aforoTotal;
     }
 
     public String getOrganizador() {

@@ -176,9 +176,8 @@ public class EventoWindow extends JFrame{
             HashMap<SectoresEvento, Integer> precioSectores = new HashMap<SectoresEvento, Integer>();
             HashMap<SectoresEvento, Integer> entradasSectores = new HashMap<SectoresEvento, Integer>();
 
-            main.newEvento(nombre, lugar, fechaHora, descripcion, aforo, organizador, sectores, precioSectores, entradasSectores);
-            eventoListModel.addElement(main.getEventos().get(main.getEventos().size() - 1));
-            
+            main.newEvento(nombre, lugar, fechaHora, descripcion, aforo, aforo, organizador, sectores, precioSectores, entradasSectores);
+            eventoListModel.addElement(main.getEventos().get(main.getEventos().size() - 1)); 
         }
     }
 }

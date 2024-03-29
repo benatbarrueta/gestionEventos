@@ -142,7 +142,7 @@ public class Resource {
 				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
 			}else{
 				logger.info("Creating event: {}", event);
-				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getOrganizador(), evento.getSector(), evento.getPrecioSector(), evento.getEntradasSector());
+				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getAforoTotal(), evento.getOrganizador(), evento.getSector(), evento.getPrecioSector(), evento.getEntradasSector());
 				pm.makePersistent(event);
 				logger.info("Event created: {}", event);
 				tx.commit();
@@ -392,5 +392,37 @@ public class Resource {
 			pm.close();
 		}
 	
+	}
+
+	@DELETE
+	@Path("/eliminarEntrada/{id}")
+	public Response eliminarEntrada(@PathParam("id") String id) {
+		try {
+			tx.begin();
+
+			Entrada entrada = null;
+
+			try {
+				entrada = pm.getObjectById(Entrada.class, id);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+
+			if (entrada != null) {
+				logger.info("Deleting ticket: {}", entrada);
+				pm.deletePersistent(entrada);
+				tx.commit();
+				return Response.ok().build();
+			} else {
+				logger.info("Ticket not found");
+				tx.rollback();
+				return Response.status(Response.Status.NOT_FOUND).entity("Ticket not found").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 	}
 }

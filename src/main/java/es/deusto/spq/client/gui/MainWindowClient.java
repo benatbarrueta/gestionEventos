@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -114,6 +115,27 @@ public class MainWindowClient extends JFrame{
             dialogoNewEntrada(main);
         });
 
+        eliminarEntrada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                int index = entradasList.getSelectedIndex();
+                if (index != -1) {
+                    String entrada = entradasListModel.getElementAt(index);
+                    String[] parts = entrada.split(" ");
+                    String id = parts[3];
+                    List<Entrada> entradas = main.getEntradas();
+                    for (Entrada entrad : entradas) {
+                        if (entrad.getId() == Integer.parseInt(id)) {
+                            main.eliminarEntrada(entrad);
+                            entradasListModel.remove(index);
+                        }
+                    }
+                }
+                
+            }
+        
+        });
+
         menuBar = new JMenuBar();
         menu = new JMenu("Menu");
         logOutItem = new JMenuItem("Cerrar Sesion");
@@ -153,17 +175,19 @@ public class MainWindowClient extends JFrame{
 
             for(Evento evento: eventos) {
                 if(evento.getId() == Integer.parseInt(idEvento.getText())) {
-                    SectoresEvento seleccionado = (SectoresEvento) sectorComboBox.getSelectedItem();
+                    for (int i = 0; i < (int) numeroEntradas.getValue(); i++) {
+                        SectoresEvento seleccionado = (SectoresEvento) sectorComboBox.getSelectedItem();
 
-                    int aforo = evento.getAforo() - (int) numeroEntradas.getValue();
-                    evento.setAforo(aforo);
+                        int aforo = evento.getAforo() - (int) numeroEntradas.getValue();
+                        evento.setAforo(aforo);
 
-                    int numEntradas = evento.getEntradasSector().get(sectorComboBox.getSelectedItem()) - (int) numeroEntradas.getValue();
-                    evento.getEntradasSector().remove(seleccionado);
-                    evento.getEntradasSector().put(seleccionado, numEntradas);
+                        int numEntradas = evento.getEntradasSector().get(sectorComboBox.getSelectedItem()) - (int) numeroEntradas.getValue();
+                        evento.getEntradasSector().remove(seleccionado);
+                        evento.getEntradasSector().put(seleccionado, numEntradas);
 
-                    main.comprarEntrada(evento, Main.user, seleccionado, evento.getPrecioSector().get(seleccionado));
-                    entradasListModel.addElement((main.getEntradas().get(main.getEntradas().size() - 1)).toStringCorto());
+                        main.comprarEntrada(evento, Main.user, seleccionado, evento.getPrecioSector().get(seleccionado));
+                        entradasListModel.addElement(main.getEntradas().get(main.getEntradas().size() - 1).toStringCorto());
+                    }
                 }
             }
         }
