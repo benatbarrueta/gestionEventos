@@ -19,6 +19,15 @@ public class EditUserWindow extends JFrame{
     public JMenuItem inicioItem;
     public JMenuItem logOutItem;
 
+    public JTextField nombreTextField;
+    public JTextField apellidosTextField;
+    public JTextField nombreUsuarioTextField;
+    public JTextField contrasenyaTextField;
+    public JTextField emailTextField;
+    public JTextField direccionTextField;
+    public JTextField telefonoTextField;
+    public JTextField fechaNacimientoTextField;
+    public JTextField dniTextField;
 
     public EditUserWindow(Main main){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,6 +49,37 @@ public class EditUserWindow extends JFrame{
         botonerPanel.add(eliminarCuenta);
 
         cp.add(botonerPanel, BorderLayout.SOUTH);
+
+        JPanel UsuarioPanel = new JPanel(new GridLayout(0,2));
+
+        JTextField nombreTextField = new JTextField(Main.user.getNombre());
+        JTextField apellidosTextField = new JTextField(Main.user.getApellidos());
+        JTextField nombreUsuarioTextField = new JTextField(Main.user.getNombreUsuario());   
+        JTextField contrasenyaTextField = new JTextField(Main.user.getContrasenya());
+        JTextField emailTextField  = new JTextField(Main.user.getEmail());
+        JTextField direccionTextField = new JTextField(Main.user.getDireccion());
+        JTextField telefonoTextField = new JTextField(Main.user.getTelefono());
+        //JTextField fechaNacimientoTextField = new JTextField();
+        //JTextField dniTextField;
+
+        UsuarioPanel.add(new JLabel("Nombre:"));
+        UsuarioPanel.add(nombreTextField);
+        UsuarioPanel.add(new JLabel("Apellidos:"));
+        UsuarioPanel.add(apellidosTextField);
+        UsuarioPanel.add(new JLabel("UserName:"));
+        UsuarioPanel.add(nombreUsuarioTextField);
+        UsuarioPanel.add(new JLabel("Contraseña:"));
+        UsuarioPanel.add(contrasenyaTextField);
+        UsuarioPanel.add(new JLabel("Email:"));
+        UsuarioPanel.add(emailTextField);
+        UsuarioPanel.add(new JLabel("Direccion:"));
+        UsuarioPanel.add(direccionTextField);
+        UsuarioPanel.add(new JLabel("Telefono:"));
+        UsuarioPanel.add(telefonoTextField);
+
+        cp.add(UsuarioPanel, BorderLayout.CENTER);
+
+
 
 
         menuBar = new JMenuBar();
@@ -103,7 +143,7 @@ public class EditUserWindow extends JFrame{
         
         }
 
-        
+
 }
 
     
