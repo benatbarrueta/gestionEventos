@@ -123,8 +123,6 @@ public class Resource {
 		}
 	}
 
-	
-
 
 	@POST
 	@Path("/crearEvento")

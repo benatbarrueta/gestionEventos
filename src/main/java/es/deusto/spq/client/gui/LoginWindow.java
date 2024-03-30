@@ -129,12 +129,6 @@ public class LoginWindow extends JFrame {
                 
             }
         });
-
-        
-
-        
-
-        
     }
 
 
