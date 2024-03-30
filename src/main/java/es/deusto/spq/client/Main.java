@@ -222,6 +222,12 @@ public class Main {
 		}
 	}
 
+	public void editarCuenta(Usuario usuario){
+
+	}
+
+	
+
 	public static void main(String[] args) {
 		if (args.length != 2) {
 			logger.info("Use: java Client.Client [host] [port]");
@@ -230,6 +236,8 @@ public class Main {
 
 		String hostname = args[0];
 		String port = args[1];
+
+
 
 		Main exampleClient = new Main(hostname, port);
 		loginWindow = new LoginWindow(exampleClient);

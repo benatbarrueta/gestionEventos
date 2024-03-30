@@ -122,6 +122,10 @@ public class Resource {
       
 		}
 	}
+
+	
+
+
 	@POST
 	@Path("/crearEvento")
 	public Response crearEvento(Evento evento) {

@@ -3,10 +3,14 @@ package es.deusto.spq.client.gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.*;
 
 import es.deusto.spq.client.Main;
+import es.deusto.spq.server.jdo.Usuario;
 
 
 public class EditUserWindow extends JFrame{
@@ -50,44 +54,6 @@ public class EditUserWindow extends JFrame{
 
         cp.add(botonerPanel, BorderLayout.SOUTH);
 
-        JPanel UsuarioPanel = new JPanel(new GridLayout(0,2));
-
-        
-
-        JTextField nombreTextField = new JTextField();
-        JTextField apellidosTextField = new JTextField();
-        JTextField nombreUsuarioTextField = new JTextField();   
-        JTextField contrasenyaTextField = new JTextField();
-        JTextField emailTextField  = new JTextField();
-        JTextField direccionTextField = new JTextField();
-        JTextField telefonoTextField = new JTextField();
-        JTextField fechaNacimientoTextField = new JTextField();
-        JTextField dniTextField = new JTextField();
-
-        UsuarioPanel.add(new JLabel("Nombre:"));
-        UsuarioPanel.add(nombreTextField);
-        UsuarioPanel.add(new JLabel("Apellidos:"));
-        UsuarioPanel.add(apellidosTextField);
-        UsuarioPanel.add(new JLabel("UserName:"));
-        UsuarioPanel.add(nombreUsuarioTextField);
-        UsuarioPanel.add(new JLabel("Contraseña:"));
-        UsuarioPanel.add(contrasenyaTextField);
-        UsuarioPanel.add(new JLabel("Email:"));
-        UsuarioPanel.add(emailTextField);
-        UsuarioPanel.add(new JLabel("Direccion:"));
-        UsuarioPanel.add(direccionTextField);
-        UsuarioPanel.add(new JLabel("Telefono:"));
-        UsuarioPanel.add(telefonoTextField);
-        UsuarioPanel.add(new JLabel("Fecha de Nacimiento (AAAA-mm-dd):"));
-        UsuarioPanel.add(fechaNacimientoTextField);
-        UsuarioPanel.add(new JLabel("DNI:"));
-        UsuarioPanel.add(dniTextField);
-
-        cp.add(UsuarioPanel, BorderLayout.CENTER);
-
-
-
-
         menuBar = new JMenuBar();
         menu = new JMenu("Menu");
         inicioItem = new JMenuItem("Inicio");
@@ -113,9 +79,7 @@ public class EditUserWindow extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e){
-                Main.editUserWindow.setVisible(false);
-                Main.editUserWindow.dispose();
-                Main.mainWindowClient.setVisible(true);
+                dialogoEditarCuenta(main);
             }
         });
 
@@ -126,6 +90,70 @@ public class EditUserWindow extends JFrame{
                 dialogoEliminarCuenta(main);
             }
         }); 
+
+    }
+    public void dialogoEditarCuenta(Main main){
+        JPanel usuarioPanel = new JPanel(new GridLayout(0,2));
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String fechaFormateada = formato.format(Main.user.getFechaNacimiento());
+
+        JTextField nombreTextField = new JTextField(Main.user.getNombre());
+        JTextField apellidosTextField = new JTextField(Main.user.getApellidos());
+        JTextField nombreUsuarioTextField = new JTextField(Main.user.getNombreUsuario());   
+        JTextField contrasenyaField = new JPasswordField(Main.user.getContrasenya());
+        JTextField emailTextField  = new JTextField(Main.user.getEmail());
+        JTextField direccionTextField = new JTextField(Main.user.getDireccion());
+        JTextField telefonoTextField = new JTextField(Main.user.getTelefono());
+        JTextField fechaNacimientoTextField = new JTextField(fechaFormateada);
+        JTextField dniTextField = new JTextField(Main.user.getDni());
+
+        usuarioPanel.add(new JLabel("Nombre:"));
+        usuarioPanel.add(nombreTextField);
+        usuarioPanel.add(new JLabel("Apellidos:"));
+        usuarioPanel.add(apellidosTextField);
+        usuarioPanel.add(new JLabel("UserName:"));
+        usuarioPanel.add(nombreUsuarioTextField);
+        usuarioPanel.add(new JLabel("Contraseña:"));
+        usuarioPanel.add(contrasenyaField);
+        usuarioPanel.add(new JLabel("Email:"));
+        usuarioPanel.add(emailTextField);
+        usuarioPanel.add(new JLabel("Direccion:"));
+        usuarioPanel.add(direccionTextField);
+        usuarioPanel.add(new JLabel("Telefono:"));
+        usuarioPanel.add(telefonoTextField);
+        usuarioPanel.add(new JLabel("Fecha de Nacimiento (AAAA-mm-dd):"));
+        usuarioPanel.add(fechaNacimientoTextField);
+        usuarioPanel.add(new JLabel("DNI:"));
+        usuarioPanel.add(dniTextField);
+
+        usuarioPanel.setPreferredSize(new Dimension(350, 200));
+
+        int restult = JOptionPane.showConfirmDialog(null, usuarioPanel, "Editar Cuenta", JOptionPane.OK_CANCEL_OPTION);
+
+        if(restult == JOptionPane.OK_OPTION){
+             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+            String nombre = nombreTextField.getText();
+            String apellidos = apellidosTextField.getText();
+            String nombreUsuario = nombreUsuarioTextField.getText();
+            String contrasenya = new String(((JPasswordField) contrasenyaField).getPassword());
+            String email = emailTextField.getText();
+            String direccion = direccionTextField.getText();
+            String telefono = telefonoTextField.getText();
+            String f = fechaNacimientoTextField.getText();
+            Date fecha = null;
+            try {
+                fecha = format.parse(f);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String dni = dniTextField.getText();
+
+
+            Usuario usuario = new Usuario(nombre, apellidos, nombreUsuario, contrasenya, email, direccion, telefono, Main.user.getRol(), fecha, dni);
+            main.editarCuenta(usuario);
+        }
 
     }
 

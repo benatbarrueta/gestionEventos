@@ -6,11 +6,15 @@ import es.deusto.spq.client.Main;
 
 
 import java.awt.*;
+
+import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 
 public class LoginWindow extends JFrame {
@@ -105,7 +109,34 @@ public class LoginWindow extends JFrame {
                 dialogoRegistro(exampleClient);
             }
         });
+
+        passwordField.addKeyListener(new KeyListener(){
+
+            @Override
+            public void keyPressed(final java.awt.event.KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    loginButton.doClick(); // Simular un clic en el botón de inicio de sesión
+                }
+            }
+
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                    
+            }
+
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
+                
+            }
+        });
+
+        
+
+        
+
+        
     }
+
 
     public void dialogoRegistro(Main exampleClient) {
         
