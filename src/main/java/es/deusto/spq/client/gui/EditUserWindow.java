@@ -71,7 +71,7 @@ public class EditUserWindow extends JFrame{
 
         logOutItem.addActionListener(e -> {
             main.logout();
-            Main.eventoWindow.setVisible(false);
+            Main.editUserWindow.setVisible(false);
             Main.loginWindow.setVisible(true);
         });
 
