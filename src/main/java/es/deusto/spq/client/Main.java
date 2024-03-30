@@ -92,7 +92,15 @@ public class Main {
 	}
 
 	public void eliminarCuenta(){
-		
+		WebTarget deleteUserWebTarget = webTarget.path("eliminarCuenta/" + user.getDni());
+		Invocation.Builder invocationBuilder = deleteUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Response response = invocationBuilder.delete();
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			logger.error("Error connecting with the server. Code: {}", response.getStatus());
+		} else {
+			logger.info("User correctly deleted");
+		}
 	}
 
 	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, int aforoTotal, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector, Map<SectoresEvento, Integer> entradasSector) {
