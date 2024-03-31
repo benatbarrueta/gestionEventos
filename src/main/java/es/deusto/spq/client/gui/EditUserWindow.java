@@ -21,8 +21,9 @@ import java.util.List;
 public class EditUserWindow extends JFrame{
     
     public static final long serialVersionUID = 1L;
-    public JButton modificarCuenta;
-    public JButton eliminarCuenta;
+    public JButton modificarCuentaButton;
+    public JButton eliminarCuentaButton;
+    public JButton volverButton;
 
     public JMenuBar menuBar;
     public JMenu menu;
@@ -88,17 +89,22 @@ public class EditUserWindow extends JFrame{
             }
         });
 
-        JPanel botonerPanel = new JPanel(new FlowLayout());
+        JPanel botoneraPanel = new JPanel(new FlowLayout());
+        
 
-        modificarCuenta = new JButton("Modificar Cuenta");
-        eliminarCuenta = new JButton("Eliminar Cuenta");
+        modificarCuentaButton = new JButton("Modificar Cuenta");
+        eliminarCuentaButton = new JButton("Eliminar Cuenta");
+        volverButton = new JButton("Volver");
 
-        botonerPanel.add(modificarCuenta);
-        botonerPanel.add(eliminarCuenta);
+        botoneraPanel.add(modificarCuentaButton);
+        botoneraPanel.add(eliminarCuentaButton);
+        botoneraPanel.add(volverButton);
 
         cp.add(usuarioPanel, BorderLayout.CENTER);
 
-        cp.add(botonerPanel, BorderLayout.SOUTH);
+              
+
+        cp.add(botoneraPanel, BorderLayout.SOUTH);
 
         menuBar = new JMenuBar();
         menu = new JMenu("Menu");
@@ -121,7 +127,7 @@ public class EditUserWindow extends JFrame{
             Main.loginWindow.setVisible(true);
         });
 
-        modificarCuenta.addActionListener(new ActionListener(){
+        modificarCuentaButton.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
@@ -129,13 +135,22 @@ public class EditUserWindow extends JFrame{
             }
         });
 
-        eliminarCuenta.addActionListener(new ActionListener(){
+        eliminarCuentaButton.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
                 dialogoEliminarCuenta(main);
             }
         }); 
+
+        volverButton.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+                Main.editUserWindow.setVisible(false);
+                Main.mainWindowClient.setVisible(true);
+            }
+        });
 
     }
     public void dialogoEditarCuenta(Main main){
