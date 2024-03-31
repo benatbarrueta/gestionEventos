@@ -106,7 +106,7 @@ public class EditUserWindow extends JFrame{
         JTextField direccionTextField = new JTextField(Main.user.getDireccion());
         JTextField telefonoTextField = new JTextField(Main.user.getTelefono());
         JTextField fechaNacimientoTextField = new JTextField(fechaFormateada);
-        JTextField dniTextField = new JTextField(Main.user.getDni());
+        
 
         usuarioPanel.add(new JLabel("Nombre:"));
         usuarioPanel.add(nombreTextField);
@@ -124,8 +124,7 @@ public class EditUserWindow extends JFrame{
         usuarioPanel.add(telefonoTextField);
         usuarioPanel.add(new JLabel("Fecha de Nacimiento (AAAA-mm-dd):"));
         usuarioPanel.add(fechaNacimientoTextField);
-        usuarioPanel.add(new JLabel("DNI:"));
-        usuarioPanel.add(dniTextField);
+        
 
         usuarioPanel.setPreferredSize(new Dimension(350, 200));
 
@@ -148,10 +147,10 @@ public class EditUserWindow extends JFrame{
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            String dni = dniTextField.getText();
+            
 
 
-            Usuario usuario = new Usuario(nombre, apellidos, nombreUsuario, contrasenya, email, direccion, telefono, Main.user.getRol(), fecha, dni);
+            Usuario usuario = new Usuario(nombre, apellidos, nombreUsuario, contrasenya, email, direccion, telefono, Main.user.getRol(), fecha, null);
             main.editarCuenta(usuario);
         }
 

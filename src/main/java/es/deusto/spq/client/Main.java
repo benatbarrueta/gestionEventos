@@ -103,6 +103,12 @@ public class Main {
 		}
 	}
 
+	public void editarUsuario(Usuario usuario) {
+		eliminarCuenta();
+		registroUsuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), usuario.getFechaNacimiento(), user.getDni());
+	}
+	
+
 	public void newEvento(String nombre, String lugar, Date fecha, String descripcion, int aforo, int aforoTotal, String organizador, ArrayList<SectoresEvento> sector, Map<SectoresEvento, Integer> precioSector, Map<SectoresEvento, Integer> entradasSector) {
 		WebTarget newEventWebTarget = webTarget.path("crearEvento");
 		Invocation.Builder invocationBuilder = newEventWebTarget.request(MediaType.APPLICATION_JSON);
@@ -116,6 +122,9 @@ public class Main {
 			logger.info("Event correctly registered");
 		}
 	}
+
+
+	
 	
 	public List<Evento> getEventos() {
 		WebTarget getEventsWebTarget = webTarget.path("getEventos");
