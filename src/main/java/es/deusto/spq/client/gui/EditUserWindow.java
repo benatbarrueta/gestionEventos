@@ -10,7 +10,10 @@ import java.util.Date;
 import javax.swing.*;
 
 import es.deusto.spq.client.Main;
+import es.deusto.spq.server.jdo.Entrada;
 import es.deusto.spq.server.jdo.Usuario;
+
+import java.util.List;
 
 
 public class EditUserWindow extends JFrame{
@@ -159,16 +162,19 @@ public class EditUserWindow extends JFrame{
     public void dialogoEliminarCuenta(Main main){
         JPanel panel = new JPanel(new GridLayout(1,1));
 
-
         panel.add(new JLabel("¿Estás seguro de que quieres eliminar tu cuenta?"));
         
-        
-
         panel.setPreferredSize(new Dimension(300, 100));
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Eliminar Cuenta", JOptionPane.OK_CANCEL_OPTION);
 
         if(result == JOptionPane.OK_OPTION){
+            List<Entrada> entradas = main.getEntradas();
+                for(Entrada entrada : entradas){
+                    if(entrada.getUsuario().getDni().equals(Main.user.getDni())){
+                        main.eliminarEntrada(entrada);
+                    }
+                }
             main.eliminarCuenta();
             this.setVisible(false);
             Main.loginWindow.setVisible(true);

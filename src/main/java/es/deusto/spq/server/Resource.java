@@ -123,6 +123,37 @@ public class Resource {
 		}
 	}
 
+	@DELETE
+	@Path("/eliminarCuenta/{dni}")
+	public Response eliminarCuenta(@PathParam("dni") String dni) {
+		try {
+			tx.begin();
+
+			Usuario usuario = null;
+
+			try {
+				usuario = pm.getObjectById(Usuario.class, dni);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+
+			if (usuario != null) {
+				logger.info("Deleting user: {}", usuario);
+				pm.deletePersistent(usuario);
+				tx.commit();
+				return Response.ok().build();
+			} else {
+				logger.info("User not found");
+				tx.rollback();
+				return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 
 	@POST
 	@Path("/crearEvento")
@@ -419,38 +450,6 @@ public class Resource {
 				logger.info("Ticket not found");
 				tx.rollback();
 				return Response.status(Response.Status.NOT_FOUND).entity("Ticket not found").build();
-			}
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-	}
-
-	@DELETE
-	@Path("/eliminarCuenta/{dni}")
-	public Response eliminarCuenta(@PathParam("dni") String dni) {
-		try {
-			tx.begin();
-
-			Usuario usuario = null;
-
-			try {
-				usuario = pm.getObjectById(Usuario.class, dni);
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				logger.info("Exception launched: {}", jonfe.getMessage());
-			}
-
-			if (usuario != null) {
-				logger.info("Deleting user: {}", usuario);
-				pm.deletePersistent(usuario);
-				tx.commit();
-				return Response.ok().build();
-			} else {
-				logger.info("User not found");
-				tx.rollback();
-				return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
 			}
 		} finally {
 			if (tx.isActive()) {

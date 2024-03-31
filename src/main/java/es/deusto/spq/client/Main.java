@@ -199,10 +199,10 @@ public class Main {
 		}
 	}
 
-public void editarEvento(Evento evento) {
-    deleteEvento(evento);
-    newEvento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getAforoTotal(), evento.getOrganizador(), evento.getSector(), evento.getPrecioSector(), evento.getEntradasSector());
-}
+	public void editarEvento(Evento evento) {
+    	deleteEvento(evento);
+    	newEvento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getAforoTotal(), evento.getOrganizador(), evento.getSector(), evento.getPrecioSector(), evento.getEntradasSector());
+	}
 	
 
 	public void comprarEntrada(Evento evento, Usuario usuario, SectoresEvento sector, int numEntradas) {
