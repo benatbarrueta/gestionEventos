@@ -104,8 +104,21 @@ public class Main {
 	}
 
 	public void editarUsuario(Usuario usuario) {
+		List<Entrada> entradas = getEntradas();
+		List<Entrada> entradasUsuario = new ArrayList<Entrada>();
+		for (Entrada entrada : entradas) {
+			if (entrada.getUsuario().getDni().equals(user.getDni())) {
+				entradasUsuario.add(entrada);
+				eliminarEntrada(entrada);
+			}
+		}
+		
 		eliminarCuenta();
 		registroUsuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), usuario.getFechaNacimiento(), user.getDni());
+		
+		for (Entrada entrada : entradasUsuario) {
+			comprarEntrada(entrada.getEvento(), usuario, entrada.getSector(), entrada.getPrecio());
+		}
 	}
 	
 
@@ -205,8 +218,8 @@ public class Main {
 	}
 	
 
-	public void comprarEntrada(Evento evento, Usuario usuario, SectoresEvento sector, int numEntradas) {
-		WebTarget comprarEntradaWebTarget = webTarget.path("comprarEntrada/" + evento.getId() + "/" + usuario.getDni() + "/" + sector.toString() + "/" + numEntradas);
+	public void comprarEntrada(Evento evento, Usuario usuario, SectoresEvento sector, int precio) {
+		WebTarget comprarEntradaWebTarget = webTarget.path("comprarEntrada/" + evento.getId() + "/" + usuario.getDni() + "/" + sector.toString() + "/" + precio);
 		Invocation.Builder invocationBuilder = comprarEntradaWebTarget.request(MediaType.APPLICATION_JSON);
 	
 		Response response = invocationBuilder.get();
@@ -260,7 +273,7 @@ public class Main {
 		String hostname = args[0];
 		String port = args[1];
 
-
+		user = new Usuario();
 
 		Main exampleClient = new Main(hostname, port);
 		loginWindow = new LoginWindow(exampleClient);

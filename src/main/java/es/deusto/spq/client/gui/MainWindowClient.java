@@ -123,7 +123,7 @@ public class MainWindowClient extends JFrame{
                 if (index != -1) {
                     String entrada = entradasListModel.getElementAt(index);
                     String[] parts = entrada.split(" ");
-                    String id = parts[3];
+                    String id = parts[1];
                     List<Entrada> entradas = main.getEntradas();
                     for (Entrada entrad : entradas) {
                         if (entrad.getId() == Integer.parseInt(id)) {

@@ -84,7 +84,6 @@ public class LoginWindow extends JFrame {
                     msgError.setText("Introduce una contraseña");
                 } else {
                     if (exampleClient.loginUsuario(username, password).equals("CLIENTE".toString())) {
-                        System.out.println(exampleClient.loginUsuario(username, password));
                         Main.mainWindowClient.setVisible(true);
                         Main.loginWindow.setVisible(false);
                         usernameField.setText("");

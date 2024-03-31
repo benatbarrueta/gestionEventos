@@ -55,6 +55,22 @@ public class Entrada {
         this.evento = evento;
     }
 
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public SectoresEvento getSector() {
+        return sector;
+    }
+
+    public void setSector(SectoresEvento sector) {
+        this.sector = sector;
+    }
+
     @Override
     public String toString() {
         return "Entrada" + id +

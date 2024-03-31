@@ -106,7 +106,7 @@ public class Resource {
 				return Response.status(Response.Status.UNAUTHORIZED).entity("User already exists").build();
 			} else {
 				logger.info("Creating user: {}", user);
-				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), TipoUsuario.GERENTE, usuario.getFechaNacimiento(), usuario.getDni());
+				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), TipoUsuario.CLIENTE, usuario.getFechaNacimiento(), usuario.getDni());
 				pm.makePersistent(user);					 
 				logger.info("User created: {}", user);
 				tx.commit();
