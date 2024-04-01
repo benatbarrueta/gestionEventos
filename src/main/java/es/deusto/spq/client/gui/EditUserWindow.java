@@ -58,6 +58,9 @@ public class EditUserWindow extends JFrame{
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
+                usuarioPanel.removeAll();
+                usuarioPanel.revalidate();
+                usuarioPanel.repaint();
                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 String fechaFormateada = formato.format(Main.user.getFechaNacimiento());
 
