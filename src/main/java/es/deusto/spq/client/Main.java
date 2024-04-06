@@ -119,6 +119,7 @@ public class Main {
 		for (Entrada entrada : entradasUsuario) {
 			comprarEntrada(entrada.getEvento(), usuario, entrada.getSector(), entrada.getPrecio());
 		}
+		Main.user = usuario;
 	}
 	
 
