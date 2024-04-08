@@ -4,7 +4,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
@@ -37,6 +40,9 @@ public class Resource {
 	private PersistenceManager pm=null;
 	private Transaction tx=null;
 
+	public static Map<Usuario, Long> tokens = new HashMap<Usuario, Long>();
+	public static long token;
+
 
 	public Resource() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
@@ -44,7 +50,33 @@ public class Resource {
 		this.tx = pm.currentTransaction();
 	}
 
+	@GET
+	@Path("/comprobarLogin")
+	public Response comprobarLogin() {
+		try {
+			tx.begin();
+
+			if (!tokens.isEmpty()) {
+				tx.commit();
+				for (Usuario user: tokens.keySet()){
+					if (tokens.get(user) == Resource.token){
+						return Response.ok(user.getRol().toString()).build();
+					}
+				}
+				return Response.ok("si").build();
+			} else {
+				logger.info("Tokens map is empty");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Tokens map is empty").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 	
+	}
 
 	@POST
 	@Path("/login")
@@ -69,6 +101,9 @@ public class Resource {
 
 			if (user != null && user.getNombreUsuario().equals(usuario.getNombreUsuario()) && user.getContrasenya().equals(usuario.getContrasenya())) {
 				logger.info("User {} logged in successfully!", user.getNombreUsuario());
+				long token = System.currentTimeMillis();
+				Resource.token = token;
+				Resource.tokens.put(user, token);
 				tx.commit();
 
 				return Response.status(200).entity(user).build();
