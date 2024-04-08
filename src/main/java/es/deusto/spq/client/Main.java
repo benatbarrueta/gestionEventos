@@ -223,8 +223,8 @@ public class Main {
 	}
 
 	public Evento getEvento(String id) {
-		WebTarget deleteEventWebTarget = webTarget.path("getEventoId/" + id);
-		Invocation.Builder invocationBuilder = deleteEventWebTarget.request(MediaType.APPLICATION_JSON);
+		WebTarget getEventWebTarget = webTarget.path("getEventoId/" + id);
+		Invocation.Builder invocationBuilder = getEventWebTarget.request(MediaType.APPLICATION_JSON);
 
 		Response response = invocationBuilder.get();
 		if (response.getStatus() != Status.OK.getStatusCode()) {
@@ -268,8 +268,8 @@ public class Main {
 	}
 
 	public List<Entrada> getEntradas() {
-		WebTarget getEventsWebTarget = webTarget.path("getEntradas");
-		Invocation.Builder invocationBuilder = getEventsWebTarget.request(MediaType.APPLICATION_JSON);
+		WebTarget getTicketsWebTarget = webTarget.path("getEntradas");
+		Invocation.Builder invocationBuilder = getTicketsWebTarget.request(MediaType.APPLICATION_JSON);
 		
 		Response response = invocationBuilder.get();
 		if (response.getStatus() != Status.OK.getStatusCode()) {
@@ -283,8 +283,8 @@ public class Main {
 	}
 
 	public void eliminarEntrada(Entrada entrada) {
-		WebTarget deleteEventWebTarget = webTarget.path("eliminarEntrada/" + entrada.getId());
-		Invocation.Builder invocationBuilder = deleteEventWebTarget.request(MediaType.APPLICATION_JSON);
+		WebTarget deleteTicketWebTarget = webTarget.path("eliminarEntrada/" + entrada.getId());
+		Invocation.Builder invocationBuilder = deleteTicketWebTarget.request(MediaType.APPLICATION_JSON);
 
 		Response response = invocationBuilder.delete();
 		if (response.getStatus() != Status.OK.getStatusCode()) {
