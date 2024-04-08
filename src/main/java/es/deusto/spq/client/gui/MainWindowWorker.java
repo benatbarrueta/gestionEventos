@@ -37,9 +37,10 @@ public class MainWindowWorker extends JFrame{
         });
 
         logOutItem.addActionListener(e -> {
-            main.logout();
-            this.dispose();
-            Main.loginWindow.setVisible(true);
+            if(main.logout().equals("true")){
+                this.dispose();
+                Main.loginWindow.setVisible(true);
+            }
         });
     }
 }

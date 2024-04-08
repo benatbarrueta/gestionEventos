@@ -112,9 +112,19 @@ public class Main {
 		}
 	}
 
-	public void logout(){
-		
-	}
+	public String logout() {
+        WebTarget logoutWebTarget = webTarget.path("logout");
+        Invocation.Builder invocationBuilder = logoutWebTarget.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.get();
+        if (response.getStatus() != Status.OK.getStatusCode()) {
+            logger.error("Error connecting with the server. Code: {}", response.getStatus());
+            return response.readEntity(String.class);
+        } else {
+            logger.info("Tokens map is empty");
+            return response.readEntity(String.class);
+        }
+    }
 
 	public void eliminarCuenta(){
 		WebTarget deleteUserWebTarget = webTarget.path("eliminarCuenta/" + user.getDni());
