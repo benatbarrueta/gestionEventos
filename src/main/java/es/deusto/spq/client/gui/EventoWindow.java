@@ -87,7 +87,7 @@ public class EventoWindow extends JFrame{
         
         inicioItem.addActionListener(e -> {
             Main.eventoWindow.setVisible(false);
-            Main.mainWindowClient.setVisible(true);
+            Main.mainWindowWorker.setVisible(true);
         });
 
         logOutItem.addActionListener(e -> {
