@@ -55,12 +55,23 @@ public class Main {
 		webTarget = client.target(String.format("http://%s:%s/rest/resource", hostname, port));
 	}
 
-	public void registroUsuario(String nombre, String apellidos, String nombreUsuario, String contrasenya, String email, String direccion, String telefono, Date fechaNacimiento, String dni) {
+	public void registroUsuario(String nombre, String apellidos, String nombreUsuario, String contrasenya, String email, String direccion, String telefono, TipoUsuario tipoUsuario, Date fechaNacimiento, String dni) {
 		WebTarget registerUserWebTarget = webTarget.path("register");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 
-		Usuario userData = new Usuario(nombre, apellidos, nombreUsuario, contrasenya, email, direccion, telefono, TipoUsuario.CLIENTE, fechaNacimiento, dni);
+		Usuario userData = new Usuario(nombre, apellidos, nombreUsuario, contrasenya, email, direccion, telefono, null, fechaNacimiento, dni);
 		
+		if(tipoUsuario == TipoUsuario.CLIENTE) {
+			userData.setRol(TipoUsuario.CLIENTE);
+		} else if(tipoUsuario == TipoUsuario.GERENTE) {
+			userData.setRol(TipoUsuario.GERENTE);
+		} else if(tipoUsuario == TipoUsuario.VENDEDOR) {
+			userData.setRol(TipoUsuario.VENDEDOR);
+		} else if(tipoUsuario == TipoUsuario.USUARIO) {
+			userData.setRol(TipoUsuario.USUARIO);
+		}
+
+
 		Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
@@ -114,7 +125,7 @@ public class Main {
 		}
 		
 		eliminarCuenta();
-		registroUsuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), usuario.getFechaNacimiento(), user.getDni());
+		registroUsuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), usuario.getRol(), usuario.getFechaNacimiento(), user.getDni());
 		
 		for (Entrada entrada : entradasUsuario) {
 			comprarEntrada(entrada.getEvento(), usuario, entrada.getSector(), entrada.getPrecio());

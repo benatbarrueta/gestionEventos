@@ -3,7 +3,7 @@ package es.deusto.spq.client.gui;
 import javax.swing.*;
 
 import es.deusto.spq.client.Main;
-
+import es.deusto.spq.server.jdo.TipoUsuario;
 
 import java.awt.*;
 
@@ -187,7 +187,7 @@ public class LoginWindow extends JFrame {
             }
             String dni = dniField.getText();
 
-            exampleClient.registroUsuario(nombre, apellidos, nombreUsuario, contrasenya, email, direccion, telefono, fecha, dni);
+            exampleClient.registroUsuario(nombre, apellidos, nombreUsuario, contrasenya, email, direccion, telefono, TipoUsuario.CLIENTE, fecha, dni);
         }
     }
 }
