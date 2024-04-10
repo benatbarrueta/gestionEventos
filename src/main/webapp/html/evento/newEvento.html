@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo evento</title>
+    <link rel="stylesheet" href="../../css/evento/newEvento.css">
+</head>
+
+<body>
+    <h1>Registro de Películas</h1>
+    <div class="formbold-main-wrapper"> 
+        <div class="formbold-form-wrapper">
+            <form method="POST">
+                <div class="formbold-input-flex">
+                    <div>
+                        <input type="text" name="nombre" id="nombre" placeholder="Introduzca el nombre" class="formbold-form-input" />
+                        <label for="nombre" class="formbold-form-label"> Nombre </label>
+                    </div>
+                    <div>
+                        <input type="text" name="lugar" id="lugar" placeholder="Introduzca el lugar" class="formbold-form-input" />
+                        <label for="lugar" class="formbold-form-label"> Lugar </label>
+                    </div>
+                </div>
+
+                <div class="formbold-input-flex">
+                    <div>
+                        <input type="datetime-local" name="fecha" id="fecha" class="formbold-form-input" />
+                        <label for="fecha" class="formbold-form-label"> Fecha </label>
+                    </div>
+
+                    <div>
+                        <input type="number" name="aforo" id="aforo" placeholder="0" class="formbold-form-input" />
+                        <label for="aforo" class="formbold-form-label"> Aforo </label>
+                    </div>
+                </div>
+
+                <div class="formbold-input-flex">
+                    <div>
+                        <input type="text" name="descripcion" id="descripcion" placeholder="Introduzca la descripción" class="formbold-form-input" />
+                        <label for="descripcion" class="formbold-form-label"> Descripción </label>
+                    </div>
+                    <div>
+                        <input type="text" name="organizador" id="organizador" placeholder="Introduzca el nombre del organizador" class="formbold-form-input" />
+                        <label for="organizador" class="formbold-form-label"> Organizador </label>
+                    </div>
+                </div>
+
+                <button id = "btnNewEvento" class="formbold-btn">
+                    Añadir Evento
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="../../js/evento/newEvento.js"></script>
+</body>
+
+</html>

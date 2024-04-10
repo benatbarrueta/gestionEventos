@@ -221,9 +221,9 @@ public class Resource {
 	@POST
 	@Path("/crearEvento")
 	public Response crearEvento(Evento evento) {
+		System.out.println(evento);
 		try {
 			tx.begin();
-
 			Evento event = null;
 
 			try {
@@ -256,7 +256,7 @@ public class Resource {
 
 	@GET
 	@Path("/getEventos")
-	public Response getEventos() {
+	public List<Evento> getEventos() {
 		try {
 			tx.begin();
 			Query<Evento> query = pm.newQuery(Evento.class);
@@ -267,11 +267,12 @@ public class Resource {
 			if (eventos != null) {
 				logger.info("{} events found", eventos.size());
 				tx.commit();
-				return Response.ok(eventos).build();
+				System.out.println(eventos);
+				return eventos;
 			} else {
 				logger.info("No events found");
 				tx.rollback();
-				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
+				return eventos;
 			}
 		} finally {
 			if (tx.isActive()) {
