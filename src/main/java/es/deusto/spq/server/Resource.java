@@ -82,7 +82,7 @@ public class Resource {
 
 	@POST
 	@Path("/login")
-	public Response loginUser(Usuario usuario) {
+	public String loginUser(Usuario usuario) {
 		try {
 			tx.begin();
 
@@ -108,12 +108,12 @@ public class Resource {
 				Resource.tokens.put(user, token);
 				tx.commit();
 
-				return Response.status(200).entity(user).build();
+				return "User logged in succesfully";
 			
 			} else {
 				logger.info("Invalid email or password");
 				tx.rollback();
-				return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid email or password").build();
+				return "Invalid email or password";
 			}
 		} finally {
 			if (tx.isActive()) {
