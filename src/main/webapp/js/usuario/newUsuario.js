@@ -3,20 +3,21 @@ const botonRegistro = document.getElementById('btnRegistro');
 const botonLogin = document.getElementById('btnLogin');
 
 // Agregar un evento de clic al botón
-botonRegistro.addEventListener('click', function () {
+function redirection() {
     // Redirigir a otro HTML
-    var ruta = "newUsuario.html";
-    window.location.href = ruta;
-});
+    location.href = "../../html/usuario/newUsuario.html";
+}
 
 //Realizar función de login
 botonLogin.addEventListener('click', async function () {
-    /*if(login() === true) {
-        alert("Login correcto");
-    } else {
-        alert("Login incorrecto");
-    }*/
-    alert(login());
+    try {
+        const result = await login();
+
+        alert(result);
+    } catch (error) {
+        alert(error);
+    }
+
 });
 
 let login = async () => {
@@ -35,11 +36,11 @@ let login = async () => {
             body: JSON.stringify(campos)
         });
 
-    const string = await peticion.json();
-
-    let contenido1 = "";
-    for(let contenido in string) {
-        contenido1 += contenido;
-    }
-    return contenido1;
+        return true;
+        /*if (peticion.status === 200) {
+            return true;
+        } else {
+            return false;
+        }*/
 }
+

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.awt.EventQueue;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -309,27 +308,7 @@ public class Main {
 		String hostname = args[0];
 		String port = args[1];
 
-		user = new Usuario();
-
-		Main exampleClient = new Main(hostname, port);
-		loginWindow = new LoginWindow(exampleClient);
-		mainWindowClient = new MainWindowClient(exampleClient);
-		mainWindowWorker = new MainWindowWorker(exampleClient);
-		eventoWindow = new EventoWindow(exampleClient);
-		editUserWindow = new EditUserWindow(exampleClient);
-
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				
-				if(exampleClient.comprobarLogin().equals("CLIENTE")) {
-					mainWindowClient.setVisible(true);
-				} else if(exampleClient.comprobarLogin().equals("Tokens map is empty")) {
-					loginWindow.setVisible(true);
-				} else {
-					mainWindowWorker.setVisible(true);
-				}
-			}
-		});
+		@SuppressWarnings("unused")
+		Main main = new Main(hostname, port);
 	}
 }

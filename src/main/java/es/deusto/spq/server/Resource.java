@@ -82,7 +82,7 @@ public class Resource {
 
 	@POST
 	@Path("/login")
-	public String loginUser(Usuario usuario) {
+	public Response loginUser(Usuario usuario) {
 		try {
 			tx.begin();
 
@@ -106,14 +106,15 @@ public class Resource {
 				long token = System.currentTimeMillis();
 				Resource.token = token;
 				Resource.tokens.put(user, token);
+				System.out.println(tokens);
 				tx.commit();
 
-				return "User logged in succesfully";
+				return Response.ok(true).build();
 			
 			} else {
 				logger.info("Invalid email or password");
 				tx.rollback();
-				return "Invalid email or password";
+				return Response.status(Response.Status.UNAUTHORIZED).entity(false).build();
 			}
 		} finally {
 			if (tx.isActive()) {
@@ -256,7 +257,7 @@ public class Resource {
 
 	@GET
 	@Path("/getEventos")
-	public List<Evento> getEventos() {
+	public Response getEventos() {
 		try {
 			tx.begin();
 			Query<Evento> query = pm.newQuery(Evento.class);
@@ -268,11 +269,11 @@ public class Resource {
 				logger.info("{} events found", eventos.size());
 				tx.commit();
 				System.out.println(eventos);
-				return eventos;
+				return Response.ok(eventos).build();
 			} else {
 				logger.info("No events found");
 				tx.rollback();
-				return eventos;
+				return Response.status(Response.Status.UNAUTHORIZED).entity("No events found").build();
 			}
 		} finally {
 			if (tx.isActive()) {
