@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo evento</title>
-    <link rel="stylesheet" href="../../css/evento/newEvento.css">
+    <title>Registrarse</title>
+    <!--
+        <link rel="stylesheet" href="../../css/evento/newEvento.css">
+    -->
+    
 </head>
 
 <body>
-    <h1>Registro de Usuario</h1>
+    <h1>Registrarse</h1>
     <div class="formbold-main-wrapper"> 
         <div class="formbold-form-wrapper">
             <form method="POST">
@@ -19,31 +22,48 @@
                         <label for="nombre" class="formbold-form-label"> Nombre </label>
                     </div>
                     <div>
-                        <input type="text" name="lugar" id="lugar" placeholder="Introduzca el lugar" class="formbold-form-input" />
-                        <label for="lugar" class="formbold-form-label"> Lugar </label>
+                        <input type="text" name="apellidos" id="apellidos" placeholder="Introduzca los apellidos" class="formbold-form-input" />
+                        <label for="apellidos" class="formbold-form-label"> Apellidos </label>
+                    </div>
+                </div>
+                <div class="formbold-input-flex">
+                    <div>
+                        <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Introduzca el nombre de usuario" class="formbold-form-input" />
+                        <label for="nombreUsuario" class="formbold-form-label"> Nombre de usuario</label>
+                    </div>
+                    <div>
+                        <input type="password" name="pass" id="pass" placeholder="Introduzca los apellidos" class="formbold-form-input" />
+                        <label for="pass" class="formbold-form-label"> Contraseña </label>
                     </div>
                 </div>
 
                 <div class="formbold-input-flex">
                     <div>
-                        <input type="datetime-local" name="fecha" id="fecha" class="formbold-form-input" />
-                        <label for="fecha" class="formbold-form-label"> Fecha </label>
+                        <input type="email" name="email" id="email" class="formbold-form-input" />
+                        <label for="email" class="formbold-form-label"> Email </label>
                     </div>
 
                     <div>
-                        <input type="number" name="aforo" id="aforo" placeholder="0" class="formbold-form-input" />
-                        <label for="aforo" class="formbold-form-label"> Aforo </label>
+                        <input type="text" name="direccion" id="direccion" placeholder="0" class="formbold-form-input" />
+                        <label for="direccion" class="formbold-form-label"> Dirección </label>
                     </div>
                 </div>
 
                 <div class="formbold-input-flex">
                     <div>
-                        <input type="text" name="descripcion" id="descripcion" placeholder="Introduzca la descripción" class="formbold-form-input" />
-                        <label for="descripcion" class="formbold-form-label"> Descripción </label>
+                        <input type="tel" name="telefono" id="telefono" placeholder="Introduzca la descripción" class="formbold-form-input" />
+                        <label for="telefono" class="formbold-form-label"> Teléfono </label>
                     </div>
                     <div>
-                        <input type="text" name="organizador" id="organizador" placeholder="Introduzca el nombre del organizador" class="formbold-form-input" />
-                        <label for="organizador" class="formbold-form-label"> Organizador </label>
+                        <input type="date" name="fechaNacimiento" id="fechaNacimiento" placeholder="Introduzca el nombre del organizador" class="formbold-form-input" />
+                        <label for="fechaNacimiento" class="formbold-form-label"> Fecha de nacimiento </label>
+                    </div>
+                </div>
+                <div class="formbold-input-flex">
+                    
+                    <div>
+                        <input type="text" name="dni" id="dni" placeholder="Introduzca el nombre del organizador" class="formbold-form-input" />
+                        <label for="dni" class="formbold-form-label"> DNI </label>
                     </div>
                 </div>
 
@@ -53,7 +73,7 @@
             </form>
         </div>
     </div>
-    <script src="../../js/evento/newEvento.js"></script>
+    
 </body>
 
 </html>
