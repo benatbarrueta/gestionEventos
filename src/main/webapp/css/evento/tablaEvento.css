@@ -10,13 +10,13 @@
   }
   
   table {
-    text-align: left;
+    text-align: center;
     line-height: 40px;
     border-collapse: separate;
     border-spacing: 0;
     border: 2px solid #6A64F1;
-    width: 600px;
-    margin: 50px auto;
+    width: 760px;
+    margin-top: 50px;
     border-radius: .25rem;
   }
   
@@ -39,6 +39,9 @@
     border-bottom: 3px solid #ddd;
   }
   
+  tbody tr{
+    text-align: center;
+  }
   tbody tr:hover {
     background-color: #f2f2f2;
     cursor: default;

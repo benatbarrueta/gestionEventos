@@ -108,7 +108,7 @@ public class Resource {
 				Resource.tokens.put(user, token);
 				tx.commit();
 
-				return Response.ok(true).build();
+				return Response.ok().build();
 			
 			} else {
 				logger.info("Invalid email or password");
