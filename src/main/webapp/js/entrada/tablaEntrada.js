@@ -16,7 +16,7 @@ let listarEntradas = async () => {
 
     let contenidoTabla = "";
 
-    for(let entrada of Entradas) {
+    for(let entrada of entradas) {
         let contenidoFila = 
         `<tr>
             <td>${entrada.id}</td>
@@ -32,7 +32,7 @@ let listarEntradas = async () => {
         contenidoTabla += contenidoFila;
     }
 
-    document.querySelector("#tabla tbody").outerHTML = contenidoTabla; 
+    document.querySelector("#tablaEntrada tbody").outerHTML = contenidoTabla; 
 }
 
 let eliminarentrada = async (id ) => {
