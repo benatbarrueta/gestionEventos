@@ -106,7 +106,6 @@ public class Resource {
 				long token = System.currentTimeMillis();
 				Resource.token = token;
 				Resource.tokens.put(user, token);
-				System.out.println(tokens);
 				tx.commit();
 
 				return Response.ok(true).build();
