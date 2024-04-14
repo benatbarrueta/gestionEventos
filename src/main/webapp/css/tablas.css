@@ -69,6 +69,14 @@
   .edit:hover {
     color: #0a79df;
   }
+
+  .description:hover {
+    color: #0a79df;
+  }
+
+  .shop:hover {
+    color: #23df0a;
+  }
   
   .delete:hover {
     color: #dc2a2a;

@@ -17,9 +17,14 @@ function redirectionLoginSuccesful(){
 //Realizar función de login
 botonLogin.addEventListener('click', async function () {
     try {
-
         const result = await login();
-        redirectionLoginSuccesful();
+        if(result === true){
+            redirectionLoginSuccesful();
+        } else {
+            alert("Usuario o contraseña incorrectos");
+            document.getElementById("nombreusuario").value = "";
+            document.getElementById("password").value = "";
+        }
     } catch (error) {
         console.log("Error en el inicio de sesión: " + error);
     }
@@ -48,7 +53,7 @@ let login = async () => {
         } else {
             // La solicitud falló, devolvemos false o un mensaje de error
             const responseData = await response.json();
-            throw new Error(responseData.message || "Error en el inicio de sesión");
+            return false;
         }
     } catch (error) {
         // Capturamos y manejamos cualquier error de la solicitud

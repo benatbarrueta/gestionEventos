@@ -25,17 +25,16 @@ let listarEntradas = async () => {
             <td>${entrada.sector}</td>
             <td>
                 <i class="material-icons button edit">edit</i>
-                <i onClick="eliminarEntrada(${entrada.id})"class="material-icons button delete">delete</i>
+                <i onClick="eliminarEntrada(${entrada.id})" class="material-icons button delete">delete</i>
             </td>
         <tr>`
 
         contenidoTabla += contenidoFila;
     }
-
-    document.querySelector("#tablaEntrada tbody").outerHTML = contenidoTabla; 
+    document.querySelector("#tablaEntrada tbody").outerHTML = contenidoTabla;
 }
 
-let eliminarentrada = async (id ) => {
+let eliminarEntrada = async (id) => {
     const peticion = await fetch("http://localhost:8080/rest/resource/eliminarEntrada/"+id,
     {
         method: "DELETE",
