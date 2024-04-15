@@ -10,7 +10,7 @@
 
 <body>
     <div id="titulo">
-        <h1>Página de compra</h1>
+        <h1 id = "si">Página de compra</h1>
         <p>
             Esta página está meticulosamente diseñada para facilitar el proceso de
             compra de entradas, brindando una experiencia fluida y eficiente a los
@@ -26,25 +26,26 @@
                     <select id="opciones" class="formulario-select">
                         <option class="opciones" value="pista">PISTA</option>
                         <option class="opciones" value="vip">VIP</option>
-                        <option class="opciones" value="frontStage">FRONT STAGE</option>
-                        <option class="opciones" value="gradaAlta">GRADA ALTA</option>
-                        <option class="opciones" value="gradaMedia">GRADA MEDIA</option>
-                        <option class="opciones" value="gradaBaja">GRADA BAJA</option>
+                        <option class="opciones" value="front_stage">FRONT STAGE</option>
+                        <option class="opciones" value="grada_alta">GRADA ALTA</option>
+                        <option class="opciones" value="grada_media">GRADA MEDIA</option>
+                        <option class="opciones" value="grada_baja">GRADA BAJA</option>
                     </select>
                 </div>
 
                 <div>
-                    <label for="nombre" class="formbold-form-label"> Nombre </label>
-                    <input type="text" name="nombre" id="nombre" placeholder="Introduzca el nombre"
+                    <label for="cantidad" class="formbold-form-label"> Cantidad </label>
+                    <input type="number" name="cantidad" id="cantidad" placeholder="Introduzca la cantidad"
                         class="formbold-form-input" />
                 </div>
 
-                <button id = "btnNewEntrada" class="formbold-btn">
+                <button id = "btnNewEntrada" type="button" class="formbold-btn">
                     Comprar Entrada
                 </button>
             </div>
         </form>
     </div>
+    <script src="../../js/entrada/newEntrada.js"></script>
 </body>
 
 </html>

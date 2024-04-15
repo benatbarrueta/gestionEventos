@@ -45,7 +45,7 @@ let listarEntradas = async () => {
             `<tr>
             <td>${entrada.id}</td>
             <td>${entrada.evento.nombre}</td>
-            <td>${entrada.precio}</td>
+            <td>${entrada.precio} €</td>
             <td>${entrada.sector}</td>
             <td>
                 <span onClick="eliminarEntrada(${entrada.id})" class="material-symbols-outlined button delete">delete</span>

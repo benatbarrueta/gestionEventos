@@ -42,6 +42,7 @@ public class Resource {
 
 	public static Map<Usuario, Long> tokens = new HashMap<Usuario, Long>();
 	public static long token;
+	public static Usuario usuario;
 
 
 	public Resource() {
@@ -106,6 +107,7 @@ public class Resource {
 				long token = System.currentTimeMillis();
 				Resource.token = token;
 				Resource.tokens.put(user, token);
+				usuario = user;
 				tx.commit();
 
 				return Response.ok().build();
@@ -396,42 +398,36 @@ public class Resource {
 	}
 
 	@GET
-	@Path("/comprarEntrada/{idEvento}/{idUsuario}/{sector}/{cantidad}")
-	public Response comprarEntrada(@PathParam("idEvento") String eventId, @PathParam("idUsuario") String userId, @PathParam("sector") String sector, @PathParam("cantidad") String cantidad) {
+	@Path("/comprarEntrada/{idEvento}/{sector}/{cantidad}")
+	public Response comprarEntrada(@PathParam("idEvento") String eventId, @PathParam("sector") String sector, @PathParam("cantidad") String cantidad) {
 		try{
 			tx.begin();
 
 			Entrada ticket = null;
 			Evento event = null;
-			Usuario user = null;
 
 			try {
 				event = pm.getObjectById(Evento.class, eventId);
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
 			}
-			
-			try {
-				user = pm.getObjectById(Usuario.class, userId);
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				logger.info("Exception launched: {}", jonfe.getMessage());
-			}
 
 			Entrada entrada = null;
-			
 
-			if (SectoresEvento.VIP.toString().equals(sector)){
-				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.VIP);
-			} else if (SectoresEvento.GRADA_ALTA.toString().equals(sector)){
-				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.GRADA_ALTA);
-			} else if (SectoresEvento.GRADA_MEDIA.toString().equals(sector)){
-				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.GRADA_MEDIA);
-			} else if (SectoresEvento.GRADA_BAJA.toString().equals(sector)){
-				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.GRADA_BAJA);
-			} else if (SectoresEvento.PISTA.toString().equals(sector)){
-				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.PISTA);
-			} else if (SectoresEvento.FRONT_STAGE.toString().equals(sector)){
-				entrada = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.FRONT_STAGE);
+			System.out.println(sector);
+
+			if (SectoresEvento.VIP.toString().equals(sector.toUpperCase())){
+				entrada = new Entrada(usuario, event, 100, SectoresEvento.VIP);
+			} else if (SectoresEvento.GRADA_ALTA.toString().equals(sector.toUpperCase())){
+				entrada = new Entrada(usuario, event, 20, SectoresEvento.GRADA_ALTA);
+			} else if (SectoresEvento.GRADA_MEDIA.toString().equals(sector.toUpperCase())){
+				entrada = new Entrada(usuario, event, 30, SectoresEvento.GRADA_MEDIA);
+			} else if (SectoresEvento.GRADA_BAJA.toString().equals(sector.toUpperCase())){
+				entrada = new Entrada(usuario, event, 40, SectoresEvento.GRADA_BAJA);
+			} else if (SectoresEvento.PISTA.toString().equals(sector.toUpperCase())){
+				entrada = new Entrada(usuario, event, 60, SectoresEvento.PISTA);
+			} else if (SectoresEvento.FRONT_STAGE.toString().equals(sector.toUpperCase())){
+				entrada = new Entrada(usuario, event, 80, SectoresEvento.FRONT_STAGE);
 			}
 
 			try{
@@ -445,9 +441,22 @@ public class Resource {
 				tx.rollback();
 				return Response.status(Response.Status.UNAUTHORIZED).entity("Ticket already exists").build();
 			} else {
+				if (SectoresEvento.VIP.toString().equals(sector.toUpperCase())){
+					ticket = new Entrada(usuario, event, 100, SectoresEvento.VIP);
+				} else if (SectoresEvento.GRADA_ALTA.toString().equals(sector.toUpperCase())){
+					ticket = new Entrada(usuario, event, 20, SectoresEvento.GRADA_ALTA);
+				} else if (SectoresEvento.GRADA_MEDIA.toString().equals(sector.toUpperCase())){
+					ticket = new Entrada(usuario, event, 30, SectoresEvento.GRADA_MEDIA);
+				} else if (SectoresEvento.GRADA_BAJA.toString().equals(sector.toUpperCase())){
+					ticket = new Entrada(usuario, event, 40, SectoresEvento.GRADA_BAJA);
+				} else if (SectoresEvento.PISTA.toString().equals(sector.toUpperCase())){
+					ticket = new Entrada(usuario, event, 60, SectoresEvento.PISTA);
+				} else if (SectoresEvento.FRONT_STAGE.toString().equals(sector.toUpperCase())){
+					ticket = new Entrada(usuario, event, 80, SectoresEvento.FRONT_STAGE);
+				}
+				
 				logger.info("Creating ticket: {}", ticket);
-				ticket = new Entrada(user, event, Integer.parseInt(cantidad), SectoresEvento.fromString(sector));			
-
+				
 				pm.makePersistent(ticket);
 				logger.info("Ticket created: {}", ticket);
 				tx.commit();
