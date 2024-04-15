@@ -1,6 +1,4 @@
 // Obtener referencia al botón
-
-
 const botonNewUsuario = document.getElementById('botonNewUsuario');
 
 // Agregar un evento de clic al botón
@@ -10,13 +8,23 @@ function redirection() {
 }
 
 botonNewUsuario.addEventListener('click', async function () {
-    newUsuario();
+    try {
+        const status = await newUsuario();
+
+        if (status === 200) {
+            redirection();
+        } else {
+            alert("Error creando el usuario, intentelo de nuevo.");
+        }
+    } catch (error) {
+        alert("Error al crear el usuario ", error);
+    }
 });
 
 let newUsuario = async () => {
     let campos = {};
     campos.nombre = document.getElementById("nombre").value;
-    campos.apellido = document.getElementById("apellidos").value;
+    campos.apellidos = document.getElementById("apellidos").value;
     campos.nombreUsuario = document.getElementById("nombreUsuario").value;
     campos.contrasenya = document.getElementById("pass").value;
     campos.email = document.getElementById("email").value;
@@ -26,14 +34,15 @@ let newUsuario = async () => {
     campos.dni = document.getElementById("dni").value;
 
     const peticion = await fetch("http://localhost:8080/rest/resource/register",
-        {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(campos)
-        });
+    {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(campos)
+    });
+    return peticion.status;
 }
 
 
