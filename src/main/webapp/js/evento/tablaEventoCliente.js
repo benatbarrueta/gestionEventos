@@ -21,13 +21,17 @@ let listarEventos = async () => {
         `<tr>
             <td>${evento.id}</td>
             <td>${evento.nombre}</td>
-            <td>${evento.fecha}</td>
+            <td>${formatDate(evento.fecha, "es-ES")}</td>
             <td>${evento.lugar}</td>
             <td>
                 <i class="material-icons button edit">edit</i>
                 <i onClick="eliminarEvento(${evento.id})"class="material-icons button delete">delete</i>
             </td>
         <tr>`
+        function formatDate(date, locale = "en-US") {
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', };
+            return new Date(date).toLocaleDateString(locale, options);
+        }
 
         contenidoTabla += contenidoFila;
     }

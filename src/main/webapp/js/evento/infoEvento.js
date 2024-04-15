@@ -12,12 +12,13 @@ window.addEventListener('load', () => {
             // For example, display the ID on the page
 
             document.getElementById("titulo").innerText = "Información del evento " + evento.nombre;
-            document.getElementById("nombre").innerText = "Nombre: ";
-            document.getElementById("lugar").innerText = "Lugar: ";
-            document.getElementById("fecha").innerText = "Fecha: ";
-            document.getElementById("descripcion").innerText = "Descripción: ";
-            document.getElementById("aforo").innerText = "Aforo: ";
-            document.getElementById("organizador").innerText = "Organizador: ";
+            document.getElementById("nombre").innerText = "Nombre: " + evento.nombre;
+            document.getElementById("lugar").innerText = "Lugar: " + evento.lugar;
+            document.getElementById("fecha").innerText = "Fecha: " + evento.fecha;
+            document.getElementById("descripcion").innerText = "Descripción: " + evento.descripcion;
+            document.getElementById("aforo").innerText = "Aforo: " + evento.aforo + "/" + evento.aforoTotal;
+            document.getElementById("organizador").innerText = "Organizador: " + evento.organizador;
+
         })
         .catch(error => {
             console.error('Error:', error);
