@@ -300,6 +300,7 @@ public class Resource {
 			if (event != null) {
 				logger.info("Event found: {}", event.getNombre());
 				tx.commit();
+				System.out.println(event);
 				return Response.ok(event).build();
 			} else {
 				logger.info("No events found");
