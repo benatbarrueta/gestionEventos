@@ -13,8 +13,17 @@ function redirectionEventos() {
     window.location.href = "../html/evento/tablaEventoCliente.html";
 }
 
+function redirectionInfoEvento(id){
+    window.location.href = "../html/evento/infoEventoCliente.html?id=" + id;
+
+}
+
 function redirectionEntradas() {
     window.location.href = "../html/entrada/tablaEntradaCliente.html";
+}
+
+function redirectionCompra(id) {
+    window.location.href = "../html/entrada/compraEntrada.html?id=" + id;
 }
 
 let listarEntradas = async () => {
@@ -86,8 +95,8 @@ let listarEventos = async () => {
                     <td>${formatDate(evento.fecha, "es-ES")}</td>
                     <td>${evento.lugar}</td>
                     <td>
-                        <span class="material-symbols-outlined button description">description</span>
-                        <span class="material-symbols-outlined button shop">shopping_cart</span>
+                        <span onclick = "redirectionInfoEvento(${evento.id})" id = "description" class="material-symbols-outlined button description">description</span>
+                        <span onclick = "redirectionCompra(${evento.id})" id = "compra" class="material-symbols-outlined button shop">shopping_cart</span>
                     </td>
                 <tr>`
 

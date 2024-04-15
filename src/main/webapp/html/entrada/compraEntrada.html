@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COMPRA ENTRADA</title>
+    <link rel="stylesheet" href="../../css/entrada/compraEntrada.css">
+</head>
+
+<body>
+    <div id="titulo">
+        <h1>Página de compra</h1>
+        <p>
+            Esta página está meticulosamente diseñada para facilitar el proceso de
+            compra de entradas, brindando una experiencia fluida y eficiente a los
+            usuarios.
+        </p>
+    </div>
+
+    <div class="formbold-form-wrapper">
+        <form method="POST">
+            <div class="formbold-input-flex"></div>
+                <div>
+                    <label for="opciones" class="formulario-label">Selecciona una opción:</label>
+                    <select id="opciones" class="formulario-select">
+                        <option class="opciones" value="pista">PISTA</option>
+                        <option class="opciones" value="vip">VIP</option>
+                        <option class="opciones" value="frontStage">FRONT STAGE</option>
+                        <option class="opciones" value="gradaAlta">GRADA ALTA</option>
+                        <option class="opciones" value="gradaMedia">GRADA MEDIA</option>
+                        <option class="opciones" value="gradaBaja">GRADA BAJA</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="nombre" class="formbold-form-label"> Nombre </label>
+                    <input type="text" name="nombre" id="nombre" placeholder="Introduzca el nombre"
+                        class="formbold-form-input" />
+                </div>
+
+                <button id = "btnNewEntrada" class="formbold-btn">
+                    Comprar Entrada
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
