@@ -14,10 +14,15 @@ window.addEventListener('load', () => {
             document.getElementById("titulo").innerText = "Información del evento " + evento.nombre;
             document.getElementById("nombre").innerText = "Nombre: " + evento.nombre;
             document.getElementById("lugar").innerText = "Lugar: " + evento.lugar;
-            document.getElementById("fecha").innerText = "Fecha: " + evento.fecha;
+            document.getElementById("fecha").innerText = "Fecha: " + formatDate(evento.fecha, "es-ES");
             document.getElementById("descripcion").innerText = "Descripción: " + evento.descripcion;
-            document.getElementById("aforo").innerText = "Aforo: " + evento.aforo + "/" + evento.aforoTotal;
+            document.getElementById("aforo").innerText = "Aforo: " + evento.aforoTotal;
             document.getElementById("organizador").innerText = "Organizador: " + evento.organizador;
+
+            function formatDate(date, locale = "en-US") {
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', };
+                return new Date(date).toLocaleDateString(locale, options);
+            }
 
         })
         .catch(error => {
