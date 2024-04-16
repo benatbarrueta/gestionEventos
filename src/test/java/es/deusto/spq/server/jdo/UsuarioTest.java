@@ -96,7 +96,7 @@ public class UsuarioTest {
 
     @Test
     public void testGetFechaNacimiento() {
-        assertEquals(new Date(System.currentTimeMillis()), usuario.getFechaNacimiento());
+        assertEquals(fecha, usuario.getFechaNacimiento());
     }
 
     @Test

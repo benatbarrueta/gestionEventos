@@ -43,7 +43,7 @@ public class EventoTest {
 
     @Test
     public void testGetFecha() {
-        assertEquals(new Date(System.currentTimeMillis()), evento.getFecha());
+        assertEquals(fecha, evento.getFecha());
     }
 
     @Test

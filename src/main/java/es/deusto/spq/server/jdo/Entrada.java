@@ -126,8 +126,8 @@ public class Entrada {
      */
     @Override
     public String toString() {
-        return "Entrada" + id +
-                ", usuario: " + usuario.getNombre() +
+        return "Entrada " + id +
+                " usuario: " + usuario.getNombre() +
                 ", evento: " + evento.getNombre();
     }
 
