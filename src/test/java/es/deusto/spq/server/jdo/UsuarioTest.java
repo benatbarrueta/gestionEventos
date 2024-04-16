@@ -1,5 +1,11 @@
-import es.deusto.spq.server.jdo.TipoUsuario;
-import es.deusto.spq.server.jdo.Usuario;
+package es.deusto.spq.server.jdo;
+
+import static org.junit.Assert.assertEquals;
+
+import java.sql.Date;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class UsuarioTest {
     
@@ -78,13 +84,13 @@ public class UsuarioTest {
 
     @Test
     public void testGetTipoUsuario() {
-        assertEquals(TipoUsuario.CLIENTE, usuario.getTipoUsuario());
+        assertEquals(TipoUsuario.CLIENTE, usuario.getRol());
     }
 
     @Test
     public void testSetTipoUsuario() {
-        usuario.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
-        assertEquals(TipoUsuario.ADMINISTRADOR, usuario.getTipoUsuario());
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        assertEquals(TipoUsuario.ADMINISTRADOR, usuario.getRol());
     }
 
     @Test
