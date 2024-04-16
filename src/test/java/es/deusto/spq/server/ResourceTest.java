@@ -67,4 +67,44 @@ public class ResourceTest {
     public void testEliminarCuenta() throws Exception{
         assertEquals(Response.Status.OK.getStatusCode(), resource.eliminarCuenta(u.getDni()).getStatus());
     }
+
+    @Test
+    public void testCrearEventoTest() throws Exception{
+        assertEquals(Response.Status.OK.getStatusCode(), resource.crearEvento(evento).getStatus());
+    }
+
+    @Test
+    public void testGetEventos() throws Exception{
+        assertEquals(Response.Status.OK.getStatusCode(), resource.getEventos().getStatus());
+    }
+
+    /*@Test
+    public void testGetEventosId() throws Exception{
+        assertEquals(Response.Status.OK.getStatusCode(), resource.getEventos("" + evento.getId()).getStatus());
+    }
+
+    @Test
+    public void testEliminarEvento() throws Exception{
+        assertEquals(Response.Status.OK.getStatusCode(), resource.eliminarEvento("" + evento.getId()).getStatus());
+    }
+
+    @Test
+    public void testActualizarEvento() throws Exception{
+        assertEquals(Response.Status.OK.getStatusCode(), resource.actualizarEvento(evento).getStatus());
+    }
+
+    @Test
+    public void testComprarEntrada() throws Exception{
+        assertEquals(Response.Status.OK.getStatusCode(), resource.comprarEntrada("" + entrada.getEvento().getId(), entrada.getSector().toString(), "2").getStatus());
+    }*/
+
+    @Test
+    public void testGetEntradas() throws Exception{
+        assertEquals(Response.Status.OK.getStatusCode(), resource.getEntradas().getStatus());
+    }
+
+    /*@Test
+    public void testEliminarEntrada() throws Exception{
+        assertEquals(Response.Status.OK.getStatusCode(), resource.eliminarEntrada("" + entrada.getId()).getStatus());
+    }*/
 }
