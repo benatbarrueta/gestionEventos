@@ -131,7 +131,7 @@ public class Evento {
     public String toString() {
         
 
-        return "Evento " + id +
+        return "Evento " +
                 "-> nombre: " + nombre +
                 ", lugar: " + lugar +
                 ", fecha: " + fecha +

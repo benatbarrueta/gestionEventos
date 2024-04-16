@@ -10,10 +10,11 @@ import org.junit.Test;
 public class UsuarioTest {
     
     private Usuario usuario;
+    private Date fecha = new Date(System.currentTimeMillis());
 
     @Before
     public void setUp() {
-        usuario = new Usuario("test", "test", "test", "test", "test", "test", "test", TipoUsuario.CLIENTE, new Date(System.currentTimeMillis()), "1");
+        usuario = new Usuario("test", "test", "test", "test", "test", "test", "test", TipoUsuario.CLIENTE, fecha, "1");
     }
 
     @Test
@@ -114,5 +115,21 @@ public class UsuarioTest {
     public void testSetDni() {
         usuario.setDni("2");
         assertEquals("2", usuario.getDni());
+    }
+
+    @Test
+    public void testGetNombreUsuario() {
+        assertEquals("test", usuario.getNombreUsuario());
+    }
+
+    @Test
+    public void testSetNombreUsuario() {
+        usuario.setNombreUsuario("test2");
+        assertEquals("test2", usuario.getNombreUsuario());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("Usuario [nombre=test, apellidos=test, email=test, contrasenya=test, direccion=test, telefono=test, rol=CLIENTE, fechaNacimiento=" + fecha + ", dni=1]", usuario.toString());
     }
 }
