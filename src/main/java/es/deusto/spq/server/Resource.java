@@ -110,7 +110,7 @@ public class Resource {
 				usuario = user;
 				tx.commit();
 
-				return Response.ok().build();
+				return Response.ok(user.getDni()).build();
 			
 			} else {
 				logger.info("Invalid email or password");
