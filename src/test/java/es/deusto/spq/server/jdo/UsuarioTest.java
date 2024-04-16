@@ -130,6 +130,6 @@ public class UsuarioTest {
 
     @Test
     public void testToString() {
-        assertEquals("Usuario [nombre=test, apellidos=test, email=test, contrasenya=test, direccion=test, telefono=test, rol=CLIENTE, fechaNacimiento=" + fecha + ", dni=1]", usuario.toString());
+        assertEquals("Usuario -> nombre=test, apellidos=test, nombreUsuario=test, contrasenya=test, email=test, direccion=test, telefono=test, rol=CLIENTE, fechaNacimiento=" + fecha + ", dni=1", usuario.toString());
     }
 }

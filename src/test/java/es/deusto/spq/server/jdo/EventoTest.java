@@ -16,12 +16,12 @@ public class EventoTest {
 
     @Before
     public void setUp() {
-        evento = new Evento("Test", "Test", fecha, "Test", 0, 0, "Test",new ArrayList<SectoresEvento>(), new HashMap<SectoresEvento, Integer>(), new HashMap<SectoresEvento, Integer>());
+        evento = new Evento("test", "test", fecha, "test", 0, 0, "test",new ArrayList<SectoresEvento>(), new HashMap<SectoresEvento, Integer>(), new HashMap<SectoresEvento, Integer>());
     }
 
     @Test
     public void testGetNombre() {
-        assertEquals("Test", evento.getNombre());
+        assertEquals("test", evento.getNombre());
     }
     
     @Test
@@ -32,7 +32,7 @@ public class EventoTest {
 
     @Test
     public void testGetLugar() {
-        assertEquals("Test", evento.getLugar());
+        assertEquals("test", evento.getLugar());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class EventoTest {
 
     @Test
     public void testGetDescripcion() {
-        assertEquals("Test", evento.getDescripcion());
+        assertEquals("test", evento.getDescripcion());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class EventoTest {
 
     @Test
     public void testGetOrganizador() {
-        assertEquals("Test", evento.getOrganizador());
+        assertEquals("test", evento.getOrganizador());
     }
 
     @Test
@@ -135,6 +135,6 @@ public class EventoTest {
 
     @Test
     public void testToString() {
-        assertEquals("Evento -> nombre=test, lugar=test, fecha=" + fecha + ", descripcion=test, aforo=0, aforoTotal=0, organizador=test, sectores=[], precioSector={}, entradasSector={}", evento.toString());
+        assertEquals("Evento -> nombre: test, lugar: test, fecha: " + fecha + ", descripcion: test, aforo: 0, organizador: test, sectores disponibles: [], precios disponibles: {}, entradas disponibles: {}", evento.toString());
     }
 }
