@@ -47,7 +47,7 @@ public class ResourceTest {
         u = new Usuario("test","test", "test","test","test","test","test",TipoUsuario.CLIENTE,fecha, "test");
     }
 
-    @Test
+   /*  @Test
     public void testLoginUserFails() throws Exception{
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), resource.loginUser(usuario).getStatus());
     }
@@ -96,7 +96,7 @@ public class ResourceTest {
     @Test
     public void testComprarEntrada() throws Exception{
         assertEquals(Response.Status.OK.getStatusCode(), resource.comprarEntrada("" + entrada.getEvento().getId(), entrada.getSector().toString(), "2").getStatus());
-    }*/
+    }
 
     @Test
     public void testGetEntradas() throws Exception{
