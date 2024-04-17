@@ -2,7 +2,7 @@ const botonEditUsuario = document.getElementById('botonEditUsuario');
 const botonEliminar = document.getElementById('botonDeleteUsuario');
 
 const urlParams = new URLSearchParams(window.location.search);
-const eventId = urlParams.get('id');
+const userId = urlParams.get('id');
 
 
 botonEditUsuario.addEventListener('click', async function () {
@@ -14,7 +14,7 @@ botonEditUsuario.addEventListener('click', async function () {
             //redirection();
             alert("Usuario editado con éxito.");
         }else {
-            alert("Error editando el usuario, intentelo de nuevo.");
+            alert("Error editando el usuario, intentelo de nuevo mas tarde.");
         }
     } catch (error) {
         alert("Error al editar el usuario ", error);
@@ -37,7 +37,7 @@ botonEliminar.addEventListener('click', async function () {
 });
 
 let deleteUsuario = async () => {
-    const peticion = await fetch("http://localhost:8080/rest/resource/eliminarCuenta/" + eventId,
+    const peticion = await fetch("http://localhost:8080/rest/resource/eliminarCuenta/" + userId,
     {
         method: "DELETE",
         headers: {

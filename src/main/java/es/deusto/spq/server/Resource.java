@@ -219,6 +219,33 @@ public class Resource {
 			pm.close();
 		}
 	}
+	
+	@GET
+	@Path("/getUsuarios")
+	public Response getUsuarios(){
+		try{
+			tx.begin();
+			Query<Usuario> query = pm.newQuery(Usuario.class);
+			@SuppressWarnings("unchecked")
+			List<Usuario> usuarios = (List<Usuario>) query.execute();
+
+
+			if (usuarios != null) {
+				logger.info("{} users found", usuarios.size());
+				tx.commit();
+				return Response.ok(usuarios).build();
+			} else {
+				logger.info("No users found");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("No users found").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 
 	@POST
 	@Path("/crearEvento")
