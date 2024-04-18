@@ -1,13 +1,22 @@
 window.onload = function () {
     listarEntradas();
     listarEventos();
+    redirectionModificarUsuario();
 }
 
 const botonVerMasEventos = document.getElementById("botonEventos");
 const botonVerMasEntradas = document.getElementById("botonEntradas");
+const editarUsuario = document.getElementById("modificarUsuario");
 
 botonVerMasEventos.addEventListener('click', redirectionEventos);
 botonVerMasEntradas.addEventListener('click', redirectionEntradas);
+
+const urlParams = new URLSearchParams(window.location.search);
+const userId = urlParams.get('id');
+
+function redirectionModificarUsuario(){
+    editarUsuario.href = "usuario/editUser.html?id=" + userId;
+}
 
 function redirectionEventos() {
     window.location.href = "../html/evento/tablaEventoCliente.html";

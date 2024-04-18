@@ -1,3 +1,7 @@
+window.onload = function () {
+    cargarDatosUsuario();
+}
+
 const botonEditUsuario = document.getElementById('botonEditUsuario');
 const botonEliminar = document.getElementById('botonDeleteUsuario');
 
@@ -73,6 +77,24 @@ let newUsuario = async () => {
     return peticion.status;
 }
 
-let editUsuario = async () => {
-    
+let cargarDatosUsuario = async () => {
+    const peticion = await fetch("http://localhost:8080/rest/resource/getUsuarioId/" + userId,
+    {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    });
+
+    const user = await peticion.json();
+    document.getElementById("nombre").value = user.nombre;
+    document.getElementById("apellidos").value = user.apellidos;
+    document.getElementById("nombreUsuario").value = user.nombreUsuario;
+    document.getElementById("pass").value = user.contrasenya;
+    document.getElementById("email").value = user.email;
+    document.getElementById("direccion").value = user.direccion;
+    document.getElementById("telefono").value = user.telefono;
+    document.getElementById("fechaNacimiento").value = new Date(user.fechaNacimiento);
+    document.getElementById("dni").value = user.dni;
 }

@@ -20,7 +20,7 @@
                 </button>
                 <div class="dropdown-content">
                     <a href="#">Opción 1</a>
-                    <a href="#">Modificar usuario</a>
+                    <a href="../principalCliente.html">Página principal</a>
                     <a href="../../inicio.html">LogOut</a>
                 </div>
             </div>
@@ -29,7 +29,7 @@
     <h1>Editar Usuario</h1>
     <div class="formbold-main-wrapper"> 
         <div class="formbold-form-wrapper">
-            <form method="POST">
+            <form method="POST" onload="cargarDatos()">
                 <div class="formbold-input-flex">
                     <div>
                         <input type="text" name="nombre" id="nombre" placeholder="Introduzca el nombre" class="formbold-form-input" />

@@ -220,24 +220,30 @@ public class Resource {
 		}
 	}
 	
+	
 	@GET
-	@Path("/getUsuarios")
-	public Response getUsuarios(){
-		try{
+	@Path("/getUsuarioId/{id}")
+	public Response getUsuarioId(@PathParam("id") String id) {
+		try {
 			tx.begin();
-			Query<Usuario> query = pm.newQuery(Usuario.class);
-			@SuppressWarnings("unchecked")
-			List<Usuario> usuarios = (List<Usuario>) query.execute();
+			Usuario user = null;
 
+			try {
+				user = pm.getObjectById(Usuario.class, id);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			
 
-			if (usuarios != null) {
-				logger.info("{} users found", usuarios.size());
+			if (user != null) {
+				logger.info("User found: {}", user.getNombre());
 				tx.commit();
-				return Response.ok(usuarios).build();
+				System.out.println(user);
+				return Response.ok(user).build();
 			} else {
-				logger.info("No users found");
+				logger.info("No user found");
 				tx.rollback();
-				return Response.status(Response.Status.UNAUTHORIZED).entity("No users found").build();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("User already exists").build();
 			}
 		} finally {
 			if (tx.isActive()) {
@@ -245,6 +251,7 @@ public class Resource {
 			}
 			pm.close();
 		}
+	
 	}
 
 	@POST
