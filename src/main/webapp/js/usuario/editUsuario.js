@@ -1,6 +1,9 @@
 window.onload = function () {
     cargarDatosUsuario();
+    redirectionPrincipalCliente();
 }
+
+const principalCliente = document.getElementById("principalCliente");
 
 const botonEditUsuario = document.getElementById('botonEditUsuario');
 const botonEliminar = document.getElementById('botonDeleteUsuario');
@@ -97,4 +100,9 @@ let cargarDatosUsuario = async () => {
     document.getElementById("telefono").value = user.telefono;
     document.getElementById("fechaNacimiento").value = new Date(user.fechaNacimiento);
     document.getElementById("dni").value = user.dni;
+}
+
+function redirectionPrincipalCliente(){
+    
+    principalCliente.href = "../../html/principalCliente.html?id=" + userId;
 }

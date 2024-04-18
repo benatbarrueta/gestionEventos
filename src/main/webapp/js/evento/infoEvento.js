@@ -15,13 +15,12 @@ function cargarEvento(){
             // Use the eventId in your code
             // For example, display the ID on the page
             document.getElementById("titulo").value = evento.nombre;
-            document.getElementById("titulo").innerText = "Información del evento " + evento.nombre;
-            document.getElementById("nombre").innerText = "Nombre: " + evento.nombre;
-            document.getElementById("lugar").innerText = "Lugar: " + evento.lugar;
-            document.getElementById("fecha").innerText = "Fecha: " + formatDate(evento.fecha, "es-ES");
-            document.getElementById("descripcion").innerText = "Descripción: " + evento.descripcion;
-            document.getElementById("aforo").innerText = "Aforo: " + evento.aforoTotal;
-            document.getElementById("organizador").innerText = "Organizador: " + evento.organizador;
+            document.getElementById("nombre").value = evento.nombre;
+            document.getElementById("lugar").value = evento.lugar;
+            document.getElementById("fecha").value = formatDate(evento.fecha, "es-ES");
+            document.getElementById("descripcion").value = evento.descripcion;
+            document.getElementById("aforo").value = evento.aforoTotal;
+            document.getElementById("organizador").value =  evento.organizador;
 
             function formatDate(date, locale = "en-US") {
                 const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', };
