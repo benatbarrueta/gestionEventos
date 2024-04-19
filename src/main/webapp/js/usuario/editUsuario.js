@@ -11,15 +11,21 @@ const botonEliminar = document.getElementById('botonDeleteUsuario');
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get('id');
 
+var fechaNacimiento;
+
 
 botonEditUsuario.addEventListener('click', async function () {
     try {
         const status = await deleteUsuario();
-        const status2 = await newUsuario();
-
-        if (status === 200 && status2 === 200) {
-            //redirection();
-            alert("Usuario editado con éxito.");
+        
+        if (status === 200) {
+            const status2 = await newUsuario();
+            if (status2 === 200) {
+                //redirection();
+                alert("Usuario editado con éxito.");
+            } else {
+                alert("Error al editar el usuario, intentelo de nuevo.");
+            }
         }else {
             alert("Error editando el usuario, intentelo de nuevo mas tarde.");
         }
@@ -65,7 +71,7 @@ let newUsuario = async () => {
     campos.email = document.getElementById("email").value;
     campos.direccion = document.getElementById("direccion").value;
     campos.telefono = document.getElementById("telefono").value;
-    campos.fechaNacimiento = document.getElementById("fechaNacimiento").value;
+    campos.fechaNacimiento = fechaNacimiento;
     campos.dni = document.getElementById("dni").value;
 
     const peticion = await fetch("http://localhost:8080/rest/resource/register",
@@ -100,6 +106,8 @@ let cargarDatosUsuario = async () => {
     document.getElementById("telefono").value = user.telefono;
     document.getElementById("fechaNacimiento").value = formatDate((user.fechaNacimiento), "es-ES");
     document.getElementById("dni").value = user.dni;
+
+    fechaNacimiento = user.fechaNacimiento;
 
     function formatDate(date, locale = "en-US") {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };

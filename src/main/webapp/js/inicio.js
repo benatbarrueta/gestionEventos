@@ -10,16 +10,23 @@ function redirectionRegistro() {
     location.href = "../html/usuario/newUsuario.html";
 }
 
-function redirectionLoginSuccesful(id){
+function redirectionCliente(id){
     location.href = "../html/principalCliente.html" + "?id=" + id;
+}
+
+function redirectionNoCliente(id){
+    location.href = "../html/principalTrabajador.html" + "?id=" + id;
+
 }
 
 //Realizar función de login
 botonLogin.addEventListener('click', async function () {
     try {
         const user = await login();
-        if(user != null){
-            redirectionLoginSuccesful(user.dni);
+        if(user != null && user.rol == "CLIENTE"){
+            redirectionCliente(user.dni);
+        } else if (user != null && user.rol != "CLIENTE"){
+            redirectionNoCliente(user.dni);
         } else {
             // alert("Usuario o contraseña incorrectos");
             console.log(result)
@@ -53,7 +60,6 @@ let login = async () => {
 
         
         if (response.ok) {
-            // La solicitud fue exitosa, devolvemos true
             return user;
         } else {
             // La solicitud falló, devolvemos false o un mensaje de error
