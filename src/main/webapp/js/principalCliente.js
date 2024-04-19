@@ -23,7 +23,7 @@ function redirectionEventos() {
 }
 
 function redirectionInfoEvento(id){
-    window.location.href = "../html/evento/infoEventoCliente.html?id=" + id;
+    window.location.href = "../html/evento/infoEventoCliente.html?idEvento=" + id + "&idUsuario=" + userId;
 
 }
 
@@ -32,7 +32,7 @@ function redirectionEntradas() {
 }
 
 function redirectionCompra(id) {
-    window.location.href = "../html/entrada/compraEntrada.html?id=" + id;
+    window.location.href = "../html/entrada/compraEntrada.html?idEvento=" + id + "&idUsuario=" + userId;
 }
 
 let listarEntradas = async () => {

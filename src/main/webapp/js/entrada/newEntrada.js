@@ -1,10 +1,15 @@
 const boton = document.getElementById('btnNewEntrada');
 
 const urlParams = new URLSearchParams(window.location.search);
-const eventId = urlParams.get('id');
+const eventId = urlParams.get('idEvento');
+const userId = urlParams.get('idUsuario');
+
+const redireccion = document.getElementById('ventanaPrincipal');
+
+redireccion.addEventListener('click', redirection);
 
 function redirection() {
-    location.href = "../../html/principalCliente.html";
+    location.href = "../../html/principalCliente.html?id=" + userId;
 }
 
 boton.addEventListener('click', async function () {

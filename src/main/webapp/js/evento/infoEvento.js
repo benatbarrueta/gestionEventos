@@ -1,6 +1,7 @@
 // Get the ID from the URL parameter
 const urlParams = new URLSearchParams(window.location.search);
-const eventId = urlParams.get('id');
+const eventId = urlParams.get('idEvento');
+const userId = urlParams.get('idUsuario');
 
 const compra = document.getElementById("botonNewEntrada");
 
@@ -11,8 +12,11 @@ window.onload = function() {
 compra.addEventListener("click", redirectionNewEntrada);
 
 function redirectionNewEntrada(){
-    window.location.href = "http://localhost:8080/html/entrada/compraEntrada.html?id=" + eventId;
+    window.location.href = "http://localhost:8080/html/entrada/compraEntrada.html?idEvento=" + eventId + "&idUsuario=" + userId;
+}
 
+function redirectionPrincipal(){
+    window.location.href = "http://localhost:8080/html/principalCliente.html?id=" + userId;
 }
 
 function cargarEvento(){
