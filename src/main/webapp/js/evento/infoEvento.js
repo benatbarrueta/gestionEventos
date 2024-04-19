@@ -2,10 +2,9 @@
 const urlParams = new URLSearchParams(window.location.search);
 const eventId = urlParams.get('id');
 
-// Call the getEvento function when the window is loaded
-window.addEventListener('load', () => {
-    
-});
+window.onload = function() {
+    cargarEvento();
+}
 
 function cargarEvento(){
     console.log("HOLA");
@@ -20,7 +19,11 @@ function cargarEvento(){
             document.getElementById("fecha").value = formatDate(evento.fecha, "es-ES");
             document.getElementById("descripcion").value = evento.descripcion;
             document.getElementById("aforo").value = evento.aforoTotal;
+<<<<<<< Updated upstream
             document.getElementById("organizador").value =  evento.organizador;
+=======
+            document.getElementById("organizador").value = evento.organizador;
+>>>>>>> Stashed changes
 
             function formatDate(date, locale = "en-US") {
                 const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', };
