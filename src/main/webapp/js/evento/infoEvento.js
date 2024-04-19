@@ -2,8 +2,17 @@
 const urlParams = new URLSearchParams(window.location.search);
 const eventId = urlParams.get('id');
 
+const compra = document.getElementById("botonNewEntrada");
+
 window.onload = function() {
     cargarEvento();
+}
+
+compra.addEventListener("click", redirectionNewEntrada);
+
+function redirectionNewEntrada(){
+    window.location.href = "http://localhost:8080/html/entrada/compraEntrada.html?id=" + eventId;
+
 }
 
 function cargarEvento(){
@@ -13,17 +22,13 @@ function cargarEvento(){
             const evento = data;
             // Use the eventId in your code
             // For example, display the ID on the page
-            document.getElementById("titulo").value = evento.nombre;
             document.getElementById("nombre").value = evento.nombre;
             document.getElementById("lugar").value = evento.lugar;
             document.getElementById("fecha").value = formatDate(evento.fecha, "es-ES");
             document.getElementById("descripcion").value = evento.descripcion;
             document.getElementById("aforo").value = evento.aforoTotal;
-<<<<<<< Updated upstream
             document.getElementById("organizador").value =  evento.organizador;
-=======
             document.getElementById("organizador").value = evento.organizador;
->>>>>>> Stashed changes
 
             function formatDate(date, locale = "en-US") {
                 const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', };
