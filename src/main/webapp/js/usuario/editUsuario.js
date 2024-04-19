@@ -98,8 +98,13 @@ let cargarDatosUsuario = async () => {
     document.getElementById("email").value = user.email;
     document.getElementById("direccion").value = user.direccion;
     document.getElementById("telefono").value = user.telefono;
-    document.getElementById("fechaNacimiento").value = new Date(user.fechaNacimiento);
+    document.getElementById("fechaNacimiento").value = formatDate((user.fechaNacimiento), "es-ES");
     document.getElementById("dni").value = user.dni;
+
+    function formatDate(date, locale = "en-US") {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(date).toLocaleDateString(locale, options);
+    }
 }
 
 function redirectionPrincipalCliente(){
