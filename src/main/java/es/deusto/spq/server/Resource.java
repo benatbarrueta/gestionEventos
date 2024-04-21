@@ -456,6 +456,7 @@ public class Resource {
 		}
 	}
 
+	@SuppressWarnings("null")
 	@GET
 	@Path("/comprarEntrada/{idEvento}/{sector}/{cantidad}")
 	public Response comprarEntrada(@PathParam("idEvento") String eventId, @PathParam("sector") String sector, @PathParam("cantidad") String cantidad) {
