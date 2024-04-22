@@ -14,6 +14,14 @@ function redirectionCliente(id){
     location.href = "../html/principalCliente.html" + "?id=" + id;
 }
 
+function redirectionAdministrador(id){
+    location.href = "../html/principalAdministrador.html" + "?id=" + id;
+}
+
+function redirectionGerente(id){
+    location.href = "../html/principalGerente.html" + "?id=" + id;
+}
+
 function redirectionNoCliente(id){
     location.href = "../html/principalTrabajador.html" + "?id=" + id;
 
@@ -25,7 +33,11 @@ botonLogin.addEventListener('click', async function () {
         const user = await login();
         if(user != null && user.rol == "CLIENTE"){
             redirectionCliente(user.dni);
-        } else if (user != null && user.rol != "CLIENTE"){
+        } else if(user != null && user.rol == "ADMINISTRADOR"){
+            redirectionAdministrador(user.dni);
+        } else if(user != null && user.rol == "GERENTE"){
+            redirectionGerente(user.dni);
+        } else if (user != null && user.rol != "CLIENTE" && user.rol != "ADMINISTRADOR" && user.rol != "GERENTE"){
             redirectionNoCliente(user.dni);
         } else {
             // alert("Usuario o contraseña incorrectos");
