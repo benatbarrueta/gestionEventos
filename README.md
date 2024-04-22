@@ -11,6 +11,10 @@ Make sure that the database was correctly configured. Use the contents of the fi
 
       mysql –uroot -p < sql/create-messages.sql
 
+therfore, execute the following command to enhance the database classes
+
+      mvn datanucleus:enhance
+
 Run the following command to create database schema for this sample.
 
       mvn datanucleus:schema-create
@@ -19,7 +23,5 @@ To launch the server run the command
 
     mvn jetty:run
 
-Now, the client sample code can be executed in a new command window with
 
-    mvn exec:java -Pclient
 
