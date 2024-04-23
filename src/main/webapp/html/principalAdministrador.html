@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PÁGINA PRINCIPAL</title>
+    <link rel="shortcut icon" href="../images/logo.png" type="logo deusto eventos">
+
     <link rel="stylesheet" href="../css/principalAdministrador.css ">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../css/header.css">
-    
+
 </head>
+
 <body>
     <header>
         <div class="navbar">
@@ -19,33 +22,52 @@
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">Opción 1</a>
-                    <a id="principalCliente" href="#" >Página principal</a>
-                    <a href="../../inicio.html" >LogOut</a>
+                    <a href="../../inicio.html">LogOut</a>
                 </div>
             </div>
         </div>
     </header>
-    <h1>hola</h1>
-    <table id="tabla">
-        <thead>
-            <tr>
-                <th colspan="8">Usuarios</th>
-            </tr>
-            <tr>
-                <th>DNI</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Rol</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
 
-        </tbody>
-    </table>
+    <div id="titulo">
+        <h1>Bienvenido a Deusto Eventos</h1>
+        <p>Esta página te brinda la oportunidad de explorar todos los emocionantes eventos que tenemos disponibles para
+            ti. Desde espectáculos en vivo hasta conferencias inspiradoras, encontrarás una amplia gama de opciones para
+            satisfacer tus intereses. Además, podrás ver fácilmente las entradas que tienes en tu posesión, lo que te
+            permitirá gestionar tus eventos de manera eficiente y mantener un registro claro de tus reservas. ¡Explora,
+            descubre y disfruta de todo lo que nuestra plataforma tiene para ofrecerte!</p>
+    </div>
+
+    <div id="usuarios">
+        <h2>USUARIOS</h2>
+        <p>En esta sección, te ofrecemos un exhaustivo vistazo a todos los usuarios registrados en nuestra empresa.
+            Nuestra principal tarea radica en mantener un control efectivo sobre los usuarios, lo cual implica la
+            eliminación de aquellos que se encuentren inactivos, así como la gestión dinámica de los roles en respuesta
+            a las solicitudes que recibamos. Nos comprometemos a asegurar que nuestra base de usuarios esté siempre
+            actualizada y que los permisos y responsabilidades se asignen de manera eficiente según las necesidades
+            operativas y las directrices establecidas.</p>
+
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th colspan="8">Usuarios</th>
+                </tr>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
     <script src="../js/principalAdministrador.js"></script>
 </body>
+
 </html>
