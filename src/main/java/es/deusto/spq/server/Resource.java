@@ -10,14 +10,6 @@ import java.util.Map;
  
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
-
-import es.deusto.spq.server.jdo.Entrada;
-import es.deusto.spq.server.jdo.Evento;
-
-import es.deusto.spq.server.jdo.SectoresEvento;
-import es.deusto.spq.server.jdo.TipoUsuario;
-import es.deusto.spq.server.jdo.Usuario;
-
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -28,6 +20,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.Logger;
+
+import es.deusto.spq.server.jdo.Entrada;
+import es.deusto.spq.server.jdo.Evento;
+import es.deusto.spq.server.jdo.SectoresEvento;
+import es.deusto.spq.server.jdo.TipoUsuario;
+import es.deusto.spq.server.jdo.Usuario;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -321,6 +319,7 @@ public class Resource {
 		try {
 			tx.begin();
 			Query<Evento> query = pm.newQuery(Evento.class);
+			
 			@SuppressWarnings("unchecked")
 			List<Evento> eventos = (List<Evento>) query.execute();
 			

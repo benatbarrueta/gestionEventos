@@ -76,13 +76,6 @@ public class ResourceTest {
         //llamar metodo test
         Response response = resource.registerUser(user);
 
-        /*
-        // Comprobar que el usuario tiene el dni que se está indicando
-        ArgumentCaptor<String> passwordCaptor = ArgumentCaptor.forClass(String.class);
-        verify(user).setDni(passwordCaptor.capture());
-        assertEquals("test", passwordCaptor.getValue());
-        */
-
         // Comprobar response esperada        
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
@@ -111,13 +104,6 @@ public class ResourceTest {
         //llamar metodo test
         Response response = resource.loginUser(user);
 
-        /*
-        // Comprobar que el usuario tiene el dni que se está indicando
-        ArgumentCaptor<String> passwordCaptor = ArgumentCaptor.forClass(String.class);
-        verify(user).setDni(passwordCaptor.capture());
-        assertEquals("test", passwordCaptor.getValue());
-        */
-
         // Comprobar response esperada        
         assertEquals(Response.Status.UNAUTHORIZED, response.getStatusInfo());
     }
@@ -129,13 +115,6 @@ public class ResourceTest {
 
         //llamar metodo test
         Response response = resource.logout();
-
-        /*
-        // Comprobar que el usuario tiene el dni que se está indicando
-        ArgumentCaptor<String> passwordCaptor = ArgumentCaptor.forClass(String.class);
-        verify(user).setDni(passwordCaptor.capture());
-        assertEquals("test", passwordCaptor.getValue());
-        */
 
         // Comprobar response esperada        
         assertEquals(Response.Status.OK, response.getStatusInfo());
@@ -163,13 +142,6 @@ public class ResourceTest {
 
         //llamar metodo test
         Response response = resource.eliminarCuenta(usuario.getDni());
-
-        /*
-        // Comprobar que el usuario tiene el dni que se está indicando
-        ArgumentCaptor<String> passwordCaptor = ArgumentCaptor.forClass(String.class);
-        verify(user).setDni(passwordCaptor.capture());
-        assertEquals("test", passwordCaptor.getValue());
-        */
 
         // Comprobar response esperada        
         assertEquals(Response.Status.OK, response.getStatusInfo());
@@ -226,13 +198,6 @@ public class ResourceTest {
         //llamar metodo test
         Response response = resource.getUsuarioId(usuario.getDni());
 
-        /*
-        // Comprobar que el usuario tiene el dni que se está indicando
-        ArgumentCaptor<String> passwordCaptor = ArgumentCaptor.forClass(String.class);
-        verify(user).setDni(passwordCaptor.capture());
-        assertEquals("test", passwordCaptor.getValue());
-        */
-
         // Comprobar response esperada        
         assertEquals(Response.Status.OK, response.getStatusInfo());
     }
@@ -256,13 +221,6 @@ public class ResourceTest {
 
         //llamar metodo test
         Response response = resource.crearEvento(event);
-
-        /*
-        // Comprobar que el usuario tiene el dni que se está indicando
-        ArgumentCaptor<String> passwordCaptor = ArgumentCaptor.forClass(String.class);
-        verify(user).setDni(passwordCaptor.capture());
-        assertEquals("test", passwordCaptor.getValue());
-        */
 
         // Comprobar response esperada        
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
@@ -292,7 +250,7 @@ public class ResourceTest {
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
     }*/
 
-    /*@Test
+    @Test
     public void testGetEventosId() throws Exception{
         Evento evento = new Evento();
         evento.setNombre("test");
@@ -304,40 +262,143 @@ public class ResourceTest {
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
         Evento event = spy(Evento.class);
-        when(persistenceManager.getObjectById(Evento.class, evento.getId())).thenReturn(event);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
 
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
         //llamar metodo test
-        Response response = resource.getEventos("" + event.getId());
+        Response response = resource.getEventos("0");
 
         // Comprobar response esperada        
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void testEliminarEvento() throws Exception{
-        assertEquals(Response.Status.OK.getStatusCode(), resource.eliminarEvento("" + evento.getId()).getStatus());
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.eliminarEvento("0");
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.OK, response.getStatusInfo());
     }
 
     @Test
     public void testActualizarEvento() throws Exception{
-        assertEquals(Response.Status.OK.getStatusCode(), resource.actualizarEvento(evento).getStatus());
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        event.setNombre("test2");
+        event.setLugar("test2");
+
+        Response response = resource.actualizarEvento(evento);
+
+        //Comprobar response esperada
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+
     }
 
     @Test
     public void testComprarEntrada() throws Exception{
-        assertEquals(Response.Status.OK.getStatusCode(), resource.comprarEntrada("" + entrada.getEvento().getId(), entrada.getSector().toString(), "2").getStatus());
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.comprarEntrada("0", "PISTA", "2");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    /*
     @Test
     public void testGetEntradas() throws Exception{
-        assertEquals(Response.Status.OK.getStatusCode(), resource.getEntradas().getStatus());
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.getEntradas();
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+    */
+
+    @Test
+    public void testEliminarEntrada() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.eliminarEntrada("0");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
-    /*@Test
-    public void testEliminarEntrada() throws Exception{
-        assertEquals(Response.Status.OK.getStatusCode(), resource.eliminarEntrada("" + entrada.getId()).getStatus());
-    }*/
+    
 }
