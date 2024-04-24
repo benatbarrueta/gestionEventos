@@ -1,17 +1,15 @@
 window.onload = function () {
     cargarDatosUsuario();
-    redireccionPrincipalAdministrador();
-    
 }
-const urlParams = new URLSearchParams(window.location.search);
-const userId = urlParams.get('dni');
 
 const botonEditUsuario = document.getElementById('botonEditUsuario');
 
-function redireccionPrincipalAdministrador(){
-    location.href = "../../html/principalAdministrador.html?id=" + userId;
+const urlParams = new URLSearchParams(window.location.search);
+const userId = urlParams.get('dni');
 
-}
+
+
+
 
 
 let cargarDatosUsuario = async () => {
@@ -67,3 +65,9 @@ botonEditUsuario.addEventListener('click', async function () {
         alert("Error al actualizar el usuario ", error);
     }
 });
+
+
+function redireccionPrincipalAdministrador(){
+    location.href = "../../html/principalAdministrador.html?id=" + userId;
+
+}

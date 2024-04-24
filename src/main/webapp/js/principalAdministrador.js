@@ -4,7 +4,7 @@ window.onload = function() {
 
 
 redirectionEditarRolUsuario = (dni) => {
-    window.location.href = "../html/usuario/editarUsuarioAdministrador.html?dni=" + dni;
+    window.location.href = "../html/editarUsuarioAdministrador.html?id =" + dni;
 }
 
 
@@ -25,8 +25,6 @@ let listarUsuarios = async () => {
     for(let usuario of usuarios) {
         
         let rol;
-
-        console.log(usuario.tipoUsuario);
 
         if(usuario.tipoUsuario === "ADMINISTRADOR") {
             rol == "Administrador";
