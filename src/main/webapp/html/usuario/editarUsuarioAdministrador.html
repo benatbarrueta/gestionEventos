@@ -29,7 +29,7 @@
     <h1>Editar Usuario</h1>
     <div class="formbold-main-wrapper"> 
         <div class="formbold-form-wrapper">
-            <form method="POST" onload="cargarDatos()">
+            <form method="POST" onload="cargarDatosUsuario()">
                 <div class="formbold-input-flex">
                     <div>
                         <input type="text" name="nombre" id="nombre" placeholder="Introduzca el nombre" class="formbold-form-input" disabled/>
@@ -54,27 +54,22 @@
                 </div>
 
                 <div class="formbold-input-flex">
+                    
                     <div>
-                        <input type="text" name="dni" id="dni" placeholder="Introduzca la fecha de nacimiento" class="formbold-form-input" disabled/>
-                        <label for="fechaNacimiento" class="formbold-form-label"> Fecha de nacimiento </label>
-                    </div>
-                    <div>
-                        <label for="opciones" class="formulario-label">Selecciona una opción:</label>
+                        
                         <select id="opciones" class="formulario-select">
-                            <option class="opciones" value="cliente">CLIENTE</option>
-                            <option class="opciones" value="administrador">ADMINISTRADOR</option>
-                            <option class="opciones" value="gerente">GERENTE</option>
-                            <option class="opciones" value="usuario">USUARIO</option>
-                            <option class="opciones" value="vendedor">VENDEDOR</option>
-                    </select>
+                            <option class="opciones" value="CLIENTE">CLIENTE</option>
+                            <option class="opciones" value="ADMINISTRADOR">ADMINISTRADOR</option>
+                            <option class="opciones" value="GERENTE">GERENTE</option>
+                            <option class="opciones" value="USUARIO">USUARIO</option>
+                            <option class="opciones" value="VENDEDOR">VENDEDOR</option>
+                        </select>
+                        <label for="opciones" class="formulario-label">Selecciona una opción:</label>
                     </div>
-                </div>
-                <div class="formbold-input-flex">
                     <div>
                         <input type="number" name="dni" id="dni" placeholder="Introduzca el DNI" class="formbold-form-input" disabled/>
                         <label for="dni" class="formbold-form-label"> DNI </label>
                     </div>
-                    
                 </div>
 
                 <button id="botonEditUsuario" type="button" class="formbold-btn">
@@ -86,7 +81,7 @@
             </form>
         </div>
     </div>
-    <script src="../../js/usuario/editUsuario.js"></script>
+    <script src="../../js/usuario/editarUsuarioAdministrador.js"></script>
     
 </body>
 

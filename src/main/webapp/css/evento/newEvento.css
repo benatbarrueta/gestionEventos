@@ -137,7 +137,6 @@ h1 {
 
 .formulario-select {
     text-align: left;
-    width: 83%;
     padding: 13px 22px;
     border-radius: 5px;
     border: 1px solid #dde3ec;
@@ -148,6 +147,7 @@ h1 {
     outline: none;
     resize: none;
     margin: 0 50px 20px 50px;
+    width: 100%;
 }
 .formulario-label {
     color: #536387;
@@ -155,4 +155,5 @@ h1 {
     line-height: 24px;
     display: block;
     margin: 0 50px 10px 50px;
+    width: 100%;
 }

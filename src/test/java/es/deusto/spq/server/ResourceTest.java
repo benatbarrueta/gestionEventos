@@ -201,6 +201,33 @@ public class ResourceTest {
         // Comprobar response esperada        
         assertEquals(Response.Status.OK, response.getStatusInfo());
     }
+    @Test
+    public void testActualizarRolUsuario() throws Exception{
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        user.setRol(TipoUsuario.USUARIO);
+        Response response = resource.actualizarRolUsuario("test", TipoUsuario.USUARIO);
+
+        //Comprobar response esperada
+        assertEquals(Response.Status.OK, response.getStatusInfo());
+    }
 
     @Test
     public void testCrearEventoTest() throws Exception{

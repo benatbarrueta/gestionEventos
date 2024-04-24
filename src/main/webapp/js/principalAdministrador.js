@@ -2,6 +2,12 @@ window.onload = function() {
     listarUsuarios();
 }
 
+
+redirectionEditarRolUsuario = (dni) => {
+    window.location.href = "../html/usuario/editarUsuarioAdministrador.html?dni=" + dni;
+}
+
+
 let listarUsuarios = async () => {
     const peticion = await fetch("http://localhost:8080/rest/resource/getUsuarios",
     {
@@ -18,6 +24,14 @@ let listarUsuarios = async () => {
 
     for(let usuario of usuarios) {
         
+        let rol;
+
+        console.log(usuario.tipoUsuario);
+
+        if(usuario.tipoUsuario === "ADMINISTRADOR") {
+            rol == "Administrador";
+        }
+
         let contenidoFila = 
         `<tr>
             <td>${usuario.dni}</td>
@@ -25,9 +39,9 @@ let listarUsuarios = async () => {
             <td>${usuario.apellidos}</td>
             <td>${usuario.email}</td>
             <td>${usuario.telefono}</td>
-            <td>${usuario.tipoUsuario}</td>
+            <td>${rol}</td>
             <td>
-                <i class="material-icons button edit">edit</i>
+                <i onClick="redirectionEditarRolUsuario(${usuario.dni})"class="material-icons button edit">edit</i>
                 <i onClick="eliminarUsuario(${usuario.dni})"class="material-icons button delete">delete</i>
             </td>
         <tr>`

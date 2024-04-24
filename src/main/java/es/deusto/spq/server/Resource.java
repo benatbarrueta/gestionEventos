@@ -186,6 +186,39 @@ public class Resource {
 		}
 	}
 
+	@GET
+	@Path("/actualizarRolUsuario/{dni}/{rol}")
+	public Response actualizarRolUsuario(@PathParam("dni") String dni, @PathParam("rol") TipoUsuario rol) {
+		try {
+			tx.begin();
+
+			Usuario user = null;
+
+			try {
+				user = pm.getObjectById(Usuario.class, dni);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+
+			if (user != null) {
+				user.setRol(rol);
+				logger.info("User updated: {}", user);
+				tx.commit();
+				return Response.ok().build();
+			} else {
+				logger.info("User not found");
+				tx.rollback();
+				return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
 	@DELETE
 	@Path("/eliminarCuenta/{dni}")
 	public Response eliminarCuenta(@PathParam("dni") String dni) {
@@ -217,6 +250,7 @@ public class Resource {
 			pm.close();
 		}
 	}
+	
 
 	@GET 
 	@Path("/getUsuarios")
