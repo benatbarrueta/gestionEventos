@@ -5,7 +5,7 @@ window.onload = function () {
 const botonEditUsuario = document.getElementById('botonEditUsuario');
 
 const urlParams = new URLSearchParams(window.location.search);
-const userId = urlParams.get('dni');
+const userId = urlParams.get('id');
 
 
 
