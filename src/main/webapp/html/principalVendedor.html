@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VENTANA PRINCIPAL</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="../../images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/principalVendedor.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="../../images/logo.png" alt="LogoDeustoEventos">
+            <div class="dropdown">
+                <button class="dropbtn">Menú
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="../../inicio.html">LogOut</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="titulo">
+        <h1>Bienvenido a Deusto Eventos</h1>
+        <p>Esta página te brinda la oportunidad de explorar todos los emocionantes eventos que tenemos disponibles para
+            ti. Desde espectáculos en vivo hasta conferencias inspiradoras, encontrarás una amplia gama de opciones para
+            satisfacer tus intereses. Además, podrás ver fácilmente las entradas que tienes en tu posesión, lo que te
+            permitirá gestionar tus eventos de manera eficiente y mantener un registro claro de tus reservas. ¡Explora,
+            descubre y disfruta de todo lo que nuestra plataforma tiene para ofrecerte!</p>
+    </div>
+
+    <div id="eventos">
+        <h2>EVENTOS</h2>
+        <p>En esta sección, te ofrecemos un exhaustivo vistazo a todos los eventos registrados en nuestra empresa.
+            Nuestra principal tarea radica en mantener un control efectivo sobre los eventos, lo cual implica la
+            eliminación de aquellos que hayan pasado. Nos comprometemos a asegurar que nuestra base de eventos esté siempre
+            actualizada según las necesidades operativas y las directrices establecidas.</p>
+
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th colspan="6">Eventos</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Lugar</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                
+            </tbody>
+        </table>
+        <button type="button" id="botonEventos" class="boton">Ver Mas</button>
+        <button type="button" id="botonAnyadir" class="boton">Añadir evento</button>
+    </div>
+    <script src="../js/principalVendedor.js"></script>
+</body>
+</html>
