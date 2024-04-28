@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 import es.deusto.spq.server.jdo.Entrada;
 import es.deusto.spq.server.jdo.Evento;
+import es.deusto.spq.server.jdo.Resenya;
 import es.deusto.spq.server.jdo.SectoresEvento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
@@ -624,5 +625,69 @@ public class Resource {
 			}
 			pm.close();
 		}
+	}
+
+	@POST 
+	@Path("/crearReseña")
+	public Response crearReseña(Resenya resenya) {
+		try {
+			tx.begin();
+			Resenya review = null;
+
+			try {
+				review = pm.getObjectById(Resenya.class, resenya.getId());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			} 
+
+			if(review != null){
+				logger.info("Review already exists!");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Review already exists").build();
+			}else{
+				logger.info("Creating review: {}", review);
+				review = new Resenya(resenya.getComentario(), resenya.getPuntuacion(), resenya.getUsuario(), resenya.getEvento());
+				pm.makePersistent(review);
+				logger.info("Review created: {}", review);
+				tx.commit();
+				return Response.ok().build();
+			}
+		} 
+		finally 
+		{
+			if (tx.isActive()) 
+			{
+				tx.rollback();
+			}
+		}
+	}
+
+	@GET
+	@Path("/getReseñas")
+	public Response getReseñas() {
+		try {
+			tx.begin();
+			
+			Query<Resenya> query = pm.newQuery(Resenya.class);
+			
+			@SuppressWarnings("unchecked")
+			List<Resenya> reseñas = (List<Resenya>) query.execute();
+
+			if (reseñas != null) {
+				logger.info("{} reviews found", reseñas.size());
+				tx.commit();
+				return Response.ok(reseñas).build();
+			} else {
+				logger.info("No reviews found");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("No reviews found").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	
 	}
 }
