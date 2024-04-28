@@ -22,6 +22,10 @@ function redirectionGerente(id){
     location.href = "../html/principalGerente.html" + "?id=" + id;
 }
 
+function redirectionVendedor(){
+    location.href = "../html/principalVendedor.html";
+}
+
 function redirectionNoCliente(id){
     location.href = "../html/principalTrabajador.html" + "?id=" + id;
 
@@ -37,7 +41,9 @@ botonLogin.addEventListener('click', async function () {
             redirectionAdministrador(user.dni);
         } else if(user != null && user.rol == "GERENTE"){
             redirectionGerente(user.dni);
-        } else if (user != null && user.rol != "CLIENTE" && user.rol != "ADMINISTRADOR" && user.rol != "GERENTE"){
+        } else if(user != null && user.rol == "VENDEDOR"){
+            redirectionVendedor();
+        } else if (user != null && user.rol != "CLIENTE" && user.rol != "ADMINISTRADOR" && user.rol != "GERENTE" && user.rol != "VENDEDOR"){
             redirectionNoCliente(user.dni);
         } else {
             // alert("Usuario o contraseña incorrectos");

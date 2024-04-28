@@ -1,8 +1,22 @@
 
 let boton = document.getElementById("btnNewEvento");
 
-boton.addEventListener("click", evento => {
-    newEvento();
+function redirectionPrincipalVendedor() {
+    window.location.href = "../../html/principalVendedor.html";
+}
+
+boton.addEventListener("click", async function () {
+    try {
+        const status = await newEvento();
+
+        if (status === 200) {
+            redirectionPrincipalVendedor();
+        } else {
+            alert("Error creando el usuario, intentelo de nuevo.");
+        }
+    } catch (error) {
+        alert("Error al crear el usuario ", error);
+    }
 });
 
 let newEvento = async () => {
@@ -26,4 +40,6 @@ let newEvento = async () => {
         },
         body: JSON.stringify(campos)
     });
+
+    return peticion.status;
 }

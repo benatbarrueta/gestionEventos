@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFORMACIÓN EVENTO</title>
+    <link rel="stylesheet" href="../../css/evento/newEvento.css">
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="shortcut icon" href="../../images/logo.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="../../images/logo.png" alt="LogoDeustoEventos">
+            <div class="dropdown">
+                <button class="dropbtn">Menú
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Opción 1</a>
+                    <a id="modificarUsuario" href="#">Ventana Principal</a>
+                    <a href="../inicio.html">LogOut</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="formbold-main-wrapper"> 
+        <div class="formbold-form-wrapper">
+            <form method="POST">
+                <div class="formbold-input-flex">
+                    <div>
+                        <input type="text" name="nombre" id="nombre" placeholder="" class="formbold-form-input"/>
+                        <label for="nombre" class="formbold-form-label"> Nombre </label>
+                    </div>
+                </div>
+
+                <div class="formbold-input-flex">
+                    <div>
+                        <input type="text" name="lugar" id="lugar" placeholder="" class="formbold-form-input"/>
+                        <label for="lugar" class="formbold-form-label"> Lugar </label>
+                    </div>
+                </div>
+
+                <div class="formbold-input-flex">
+                    <div>
+                        <input type="text" name="fecha" id="fecha" placeholder="Introduzca el número de teléfono" class="formbold-form-input" disabled/>
+                        <label for="fecha" class="formbold-form-label"> Fecha </label>
+                    </div>
+                </div>
+                <div class="formbold-input-flex"> 
+                    <div>
+                        <input type="text" name="descripcion" id="descripcion" placeholder="" class="formbold-form-input"/>
+                        <label for="descripcion" class="formbold-form-label"> Descripcion </label>
+                    </div>
+                </div>
+                <div class="formbold-input-flex"> 
+                    <div>
+                        <input type="text" name="aforo" id="aforo" placeholder="" class="formbold-form-input"/>
+                        <label for="aforo" class="formbold-form-label"> Aforo </label>
+                    </div>
+                </div>
+                <div class="formbold-input-flex"> 
+                    <div>
+                        <input type="text" name="organizador" id="organizador" placeholder="" class="formbold-form-input" />
+                        <label for="organizador" class="formbold-form-label"> Organizador </label>
+                    </div>
+                </div>
+
+                <button id = "botonEditarEvento" type="button" class="formbold-btn">
+                    Confirmar edicion
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div>
+        
+        <h1 id="titulo"></h1>
+        <p id="nombre"></p>
+        <p id="lugar"></p>
+        <p id="fecha"></p>
+        <p id="descripcion"></p>
+        <p id="aforo"></p>
+        <p id="organizador"></p>
+    </div>
+    <script src="../../js/evento/editarEvento.js"></script>
+</body>
+</html>

@@ -444,7 +444,7 @@ public class Resource {
 
 	@POST
 	@Path("/actualizarEvento")
-	public Response actualizarEvento(Evento evento) {
+	public Response actualizarEvento(Evento evento){
 		try {
 			tx.begin();
 

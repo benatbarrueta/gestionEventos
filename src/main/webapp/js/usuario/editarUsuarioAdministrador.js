@@ -7,11 +7,6 @@ const botonEditUsuario = document.getElementById('botonEditUsuario');
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get('id');
 
-
-
-
-
-
 let cargarDatosUsuario = async () => {
     const peticion = await fetch("http://localhost:8080/rest/resource/getUsuarioId/" + userId,
     {
