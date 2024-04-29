@@ -35,6 +35,10 @@ function redirectionCompra(id) {
     window.location.href = "../html/entrada/compraEntrada.html?idEvento=" + id + "&idUsuario=" + userId;
 }
 
+function redirectionResenya(id) {
+    window.location.href = "../html/resenya/tablaResenyaEvento.html?idEvento=" + id + "&idUsuario=" + userId;
+}
+
 let listarEntradas = async () => {
     const peticion = await fetch("http://localhost:8080/rest/resource/getEntradas",
         {
@@ -106,6 +110,8 @@ let listarEventos = async () => {
                     <td>
                         <span onclick = "redirectionInfoEvento(${evento.id})" id = "description" class="material-symbols-outlined button description">description</span>
                         <span onclick = "redirectionCompra(${evento.id})" id = "compra" class="material-symbols-outlined button shop">shopping_cart</span>
+                        
+                        <span onclick = "redirectionResenya(${evento.id})" id = "resenya" class="material-symbols-outlined button resenya" >add_circle</span>
                     </td>
                 <tr>`
 

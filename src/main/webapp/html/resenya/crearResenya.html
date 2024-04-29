@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/evento/newEvento.css">
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="shortcut icon" href="../../images/logo.png" type="image/x-icon">
+    <title>CREAR RESEÑA</title>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="../../images/logo.png" alt="LogoDeustoEventos">
+            <div class="dropdown">
+                <button class="dropbtn">Menú
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Opción 1</a>
+                    <a id="modificarUsuario" href="#">Modificar usuario</a>
+                    <a href="../inicio.html">LogOut</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <h1>Registro de Eventos</h1>
+    <div class="formbold-main-wrapper"> 
+        <div class="formbold-form-wrapper">
+            <form method="POST">
+                <div class="formbold-input-flex">
+                    <div>
+                        <input type="text" name="comentario" id="comentario" placeholder="Introduzca el comentario" class="formbold-form-input" />
+                        <label for="comentario" class="formbold-form-label"> Comentario </label>
+                    </div>
+                    <div>
+                        <input type="int" name="puntuacion" id="puntuacion" placeholder="Introduzca la puntuación" class="formbold-form-input" />
+                        <label for="puntuacion" class="formbold-form-label"> Puntuación </label>
+                    </div>
+                </div>
+
+                <button id = "btnCrearResenya" type="button" class="formbold-btn">
+                    Añadir Evento
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="../../js/evento/newEvento.js"></script>
+</body>
+</html>

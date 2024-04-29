@@ -690,4 +690,37 @@ public class Resource {
 		}
 	
 	}
+	
+	@GET
+	@Path("/getReseñasEvento/{id}")
+	public Response getReseñasEvento(@PathParam("id") String id) {
+		try {
+			tx.begin();
+			Evento event = null;
+
+			try {
+				event = pm.getObjectById(Evento.class, id);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			
+
+			if (event != null) {
+				logger.info("Event found: {}", event.getNombre());
+				tx.commit();
+				System.out.println(event);
+				return Response.ok(event).build();
+			} else {
+				logger.info("No events found");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	
+	}
 }
