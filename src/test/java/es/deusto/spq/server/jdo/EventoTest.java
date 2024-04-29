@@ -9,6 +9,9 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This class contains unit tests for the Evento class.
+ */
 public class EventoTest {
     
     private Evento evento;

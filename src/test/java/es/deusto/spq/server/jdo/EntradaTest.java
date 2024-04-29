@@ -5,6 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This class contains unit tests for the Entrada class.
+ * It tests the various methods and functionalities of the Entrada class.
+ */
 public class EntradaTest {
     private Entrada entrada;
 

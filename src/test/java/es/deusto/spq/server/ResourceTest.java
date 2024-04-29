@@ -24,6 +24,11 @@ import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
 
+/**
+ * This class contains unit tests for the Resource class.
+ * It tests various methods related to user registration, login, logout, account deletion,
+ * and other operations related to users and events.
+ */
 public class ResourceTest {
     private Resource resource;
 

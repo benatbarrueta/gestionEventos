@@ -7,6 +7,9 @@ import java.sql.Date;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This class contains unit tests for the Usuario class.
+ */
 public class UsuarioTest {
     
     private Usuario usuario;
