@@ -13,11 +13,13 @@ import org.junit.Test;
 public class UsuarioTest {
     
     private Usuario usuario;
+    private Usuario usuario2;
     private Date fecha = new Date(System.currentTimeMillis());
 
     @Before
     public void setUp() {
         usuario = new Usuario("test", "test", "test", "test", "test", "test", "test", TipoUsuario.CLIENTE, fecha, "1");
+        usuario2 = new Usuario("usuario2", "usuario2");
     }
 
     @Test
@@ -27,8 +29,8 @@ public class UsuarioTest {
 
     @Test
     public void testSetNombre() {
-        usuario.setNombre("test2");
-        assertEquals("test2", usuario.getNombre());
+        usuario2.setNombre("test2");
+        assertEquals("test2", usuario2.getNombre());
     }
 
     @Test
