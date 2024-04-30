@@ -30,6 +30,10 @@ import es.deusto.spq.server.jdo.Usuario;
 
 import org.apache.logging.log4j.LogManager;
 
+/**
+ * This class represents a resource in the server.
+ * It handles login, registration, user management, and event management operations.
+ */
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
@@ -50,6 +54,13 @@ public class Resource {
 		this.tx = pm.currentTransaction();
 	}
 
+	/**
+	 * This method is used to check the login status of a user.
+	 * It checks if the tokens map is empty or not, and returns the role of the user if the token is valid.
+	 * If the tokens map is empty, it returns an UNAUTHORIZED response with an error message.
+	 *
+	 * @return a Response object containing the role of the user or an error message
+	 */
 	@GET
 	@Path("/comprobarLogin")
 	public Response comprobarLogin() {
@@ -78,8 +89,13 @@ public class Resource {
 	
 	}
 
-
-
+	
+	/**
+		* Logs in a user and returns a response.
+		*
+		* @param usuario The user to be logged in.
+		* @return A response indicating the login status.
+		*/
 	@POST
 	@Path("/login")
 	public Response loginUser(Usuario usuario) {
@@ -123,6 +139,11 @@ public class Resource {
 		}
 	}
 	
+	/**
+	 * Performs a logout operation.
+	 * 
+	 * @return a Response object indicating the success or failure of the logout operation.
+	 */
 	@GET
 	@Path("/logout")
 	public Response logout() {
@@ -150,6 +171,9 @@ public class Resource {
 	
 	}
 	
+	/**
+	 * Represents the HTTP response returned by the server.
+	 */
 	@POST
 	@Path("/register")
 	public Response registerUser(Usuario usuario) {
@@ -187,6 +211,16 @@ public class Resource {
 		}
 	}
 
+	/**
+	 * Updates the role of a user based on their DNI (identification number).
+	 * 
+	 * @param dni The DNI of the user.
+	 * @param rol The new role of the user.
+	 * @return A Response object indicating the success or failure of the operation.
+	 *         If the user is found and the role is updated successfully, the response
+	 *         will have a status of 200 OK. If the user is not found, the response
+	 *         will have a status of 404 Not Found.
+	 */
 	@GET
 	@Path("/actualizarRolUsuario/{dni}/{rol}")
 	public Response actualizarRolUsuario(@PathParam("dni") String dni, @PathParam("rol") TipoUsuario rol) {
@@ -220,6 +254,14 @@ public class Resource {
 	}
 
 
+	/**
+	 * Deletes a user account based on the provided DNI (Documento Nacional de Identidad).
+	 * 
+	 * @param dni The DNI of the user to be deleted.
+	 * @return A Response object indicating the status of the operation.
+	 *         - If the user is found and successfully deleted, returns a Response with status 200 (OK).
+	 *         - If the user is not found, returns a Response with status 404 (Not Found) and an error message.
+	 */
 	@DELETE
 	@Path("/eliminarCuenta/{dni}")
 	public Response eliminarCuenta(@PathParam("dni") String dni) {
@@ -253,6 +295,11 @@ public class Resource {
 	}
 	
 
+	/**
+	 * Retrieves the list of users from the database.
+	 * 
+	 * @return a Response object containing the list of users if found, or an error message if no users are found.
+	 */
 	@GET 
 	@Path("/getUsuarios")
 	public Response getUsuarios(){
@@ -279,6 +326,12 @@ public class Resource {
 	}
 	
 	
+	/**
+	 * Retrieves the user with the specified ID.
+	 * 
+	 * @param id the ID of the user
+	 * @return a Response object containing the user if found, or an error message if not found
+	 */
 	@GET
 	@Path("/getUsuarioId/{id}")
 	public Response getUsuarioId(@PathParam("id") String id) {
@@ -312,6 +365,14 @@ public class Resource {
 	
 	}
 
+	/**
+	 * Creates a new event in the system.
+	 * 
+	 * @param evento The event object containing the details of the event to be created.
+	 * @return A Response object indicating the status of the operation.
+	 *         If the event already exists, returns an UNAUTHORIZED response with an error message.
+	 *         If the event is successfully created, returns an OK response.
+	 */
 	@POST
 	@Path("/crearEvento")
 	public Response crearEvento(Evento evento) {
@@ -348,6 +409,11 @@ public class Resource {
 		}
 	}
 
+	/**
+	 * Retrieves a list of events.
+	 * 
+	 * @return a Response object containing the list of events if found, or an unauthorized status with an error message if no events are found.
+	 */
 	@GET
 	@Path("/getEventos")
 	public Response getEventos() {
@@ -378,6 +444,12 @@ public class Resource {
 	
 	}
 
+	/**
+	 * Retrieves the event with the specified ID.
+	 * 
+	 * @param id the ID of the event to retrieve
+	 * @return a Response object containing the event if found, or an error message if not found
+	 */
 	@GET
 	@Path("/getEventoId/{id}")
 	public Response getEventos(@PathParam("id") String id) {
@@ -411,6 +483,12 @@ public class Resource {
 	
 	}
 
+	/**
+	 * Deletes an event from the server.
+	 * 
+	 * @param id the ID of the event to be deleted
+	 * @return a Response object indicating the status of the operation
+	 */
 	@DELETE
 	@Path("/eliminarEvento/{id}")
 	public Response eliminarEvento(@PathParam("id") String id) {
@@ -443,6 +521,12 @@ public class Resource {
 		}
 	}
 
+	/**
+	 * This method is used to update an Evento object and return a Response.
+	 * 
+	 * @param evento The Evento object containing the updated information.
+	 * @return A Response indicating the success or failure of the update operation.
+	 */
 	@POST
 	@Path("/actualizarEvento")
 	public Response actualizarEvento(Evento evento){
@@ -490,6 +574,17 @@ public class Resource {
 		}
 	}
 
+	/**
+	 * This method is used to handle the request for buying a ticket.
+	 * It creates a new ticket based on the provided event ID, sector, and quantity.
+	 * If the ticket already exists, it returns an unauthorized response.
+	 * Otherwise, it creates the ticket, persists it, and returns a success response.
+	 *
+	 * @param eventId   The ID of the event for which the ticket is being purchased.
+	 * @param sector    The sector of the event where the ticket will be located.
+	 * @param cantidad  The quantity of tickets being purchased.
+	 * @return          A Response object indicating the success or failure of the ticket purchase.
+	 */
 	@SuppressWarnings("null")
 	@GET
 	@Path("/comprarEntrada/{idEvento}/{sector}/{cantidad}")
@@ -566,6 +661,11 @@ public class Resource {
 
 	}
 
+	/**
+	 * Retrieves the list of Entrada objects and returns a Response object.
+	 * 
+	 * @return a Response object containing the list of Entrada objects if found, or an error message if no tickets are found
+	 */
 	@GET
 	@Path("/getEntradas")
 	public Response getEntradas() {
@@ -595,6 +695,12 @@ public class Resource {
 	
 	}
 
+	/**
+	 * Deletes an entry from the database based on the provided ID.
+	 * 
+	 * @param id the ID of the entry to be deleted
+	 * @return a Response object indicating the status of the operation
+	 */
 	@DELETE
 	@Path("/eliminarEntrada/{id}")
 	public Response eliminarEntrada(@PathParam("id") String id) {
@@ -627,6 +733,12 @@ public class Resource {
 		}
 	}
 
+	/**
+	 * Creates a new review based on the provided Resenya object.
+	 * 
+	 * @param resenya The Resenya object containing the review details.
+	 * @return A Response object indicating the status of the operation.
+	 */
 	@POST 
 	@Path("/crearReseña")
 	public Response crearReseña(Resenya resenya) {
@@ -662,6 +774,11 @@ public class Resource {
 		}
 	}
 
+	/**
+	 * Retrieves the list of reviews.
+	 * 
+	 * @return A Response object containing the list of reviews.
+	 */
 	@GET
 	@Path("/getReseñas")
 	public Response getReseñas() {
@@ -691,6 +808,12 @@ public class Resource {
 	
 	}
 	
+	/**
+	 * Retrieves the reviews of an event based on its ID.
+	 * 
+	 * @param id The ID of the event.
+	 * @return A Response object containing the reviews of the event.
+	 */
 	@GET
 	@Path("/getReseñasEvento/{id}")
 	public Response getReseñasEvento(@PathParam("id") String id) {
