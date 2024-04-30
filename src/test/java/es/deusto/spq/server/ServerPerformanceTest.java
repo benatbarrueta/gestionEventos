@@ -34,9 +34,10 @@ import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
 
 /**
- * This class represents a performance test for the server.
- * It includes test methods for login, creating a new event, and buying a ticket.
- */
+* This class represents a performance test for the server.
+* It includes test methods for login, creating a new event, and buying a ticket.
+*/
+
 @Category(PerformanceTest.class)
 public class ServerPerformanceTest {
     

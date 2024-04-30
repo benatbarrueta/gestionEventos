@@ -2,6 +2,7 @@ package es.deusto.spq.server.jdo;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -139,5 +140,12 @@ public class EventoTest {
     @Test
     public void testToString() {
         assertEquals("Evento -> nombre: test, lugar: test, fecha: " + fecha + ", descripcion: test, aforo: 0, organizador: test, sectores disponibles: [], precios disponibles: {}, entradas disponibles: {}", evento.toString());
+    }
+
+    @Test
+    public void testToStringCorto(){
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String fechaFormateada = formato.format(this.fecha);
+        assertEquals("ID: 0, nombre: test, lugar: test, fecha: " + fechaFormateada, evento.toStringCorto());
     }
 }

@@ -2,6 +2,8 @@ package es.deusto.spq.server.jdo;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,32 +13,40 @@ import org.junit.Test;
  */
 public class EntradaTest {
     private Entrada entrada;
+    private Entrada entrada2;
+
+    private Date fecha = new Date(System.currentTimeMillis());
 
     @Before
     public void setUp() {
-        entrada = new Entrada(new Usuario(), new Evento(), 0, SectoresEvento.PISTA);
+        Usuario user = new Usuario("test", "test", "test", "test", "test", "test", "test", TipoUsuario.CLIENTE, fecha, "test");
+        Evento event = new Evento("test", "test", fecha, "test", 0, 0, "test", null, null, null);
+        entrada = new Entrada(user, event, 0, SectoresEvento.PISTA);
+        entrada2 = new Entrada();
     }
 
     @Test
     public void testGetUsuario() {
-        assertEquals(new Usuario().getDni(), entrada.getUsuario().getDni());
+        assertEquals("test", entrada.getUsuario().getDni());
     }
 
     @Test
     public void testSetUsuario() {
-        entrada.getUsuario().setDni("2");;
-        assertEquals("2", entrada.getUsuario().getDni());
+        Usuario user = new Usuario("test", "test", "test", "test", "test", "test", "test", TipoUsuario.CLIENTE, fecha, "test");
+        entrada.setUsuario(user);
+        assertEquals("test", entrada.getUsuario().getDni());
     }
 
     @Test
     public void testGetEvento() {
-        assertEquals(new Evento().getNombre(), entrada.getEvento().getNombre());
+        assertEquals("test", entrada.getEvento().getNombre());
     }
 
     @Test
     public void testSetEvento() {
-        entrada.getEvento().setNombre("2");
-        assertEquals("2", entrada.getEvento().getNombre());
+        Evento event = new Evento("test", "test", fecha, "test", 0, 0, "test", null, null, null);
+        entrada.setEvento(event);
+        assertEquals("test", entrada.getEvento().getNombre());
     }
 
     @Test
@@ -46,8 +56,8 @@ public class EntradaTest {
 
     @Test
     public void testSetPrecio() {
-        entrada.setPrecio(2);
-        assertEquals(2, entrada.getPrecio());
+        entrada2.setPrecio(2);
+        assertEquals(2, entrada2.getPrecio());
     }
 
     @Test
@@ -62,11 +72,11 @@ public class EntradaTest {
 
     @Test
     public void testToString() {
-        assertEquals("Entrada 0 usuario: , evento: null", entrada.toString());
+        assertEquals("Entrada 0 usuario: test, evento: test", entrada.toString());
     }
 
     @Test
-    public void testToString2() {
-        assertEquals("Entrada 0 usuario: , evento: null", entrada.toString());
+    public void testToStringCorto() {
+        assertEquals("Entrada 0 para evento -> test", entrada.toStringCorto());
     }
 }
