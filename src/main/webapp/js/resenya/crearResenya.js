@@ -30,7 +30,7 @@ let newResenya = async () => {
     campos.usuario = userId;
     campos.evento = eventId;
 
-    const peticion = await fetch("http://localhost:8080/rest/resource/crearResenya",
+    const peticion = await fetch("http://localhost:8080/rest/resource/crearReseña",
     {
 
         method: "POST",
