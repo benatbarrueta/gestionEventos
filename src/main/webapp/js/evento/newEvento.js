@@ -1,8 +1,13 @@
 
-let boton = document.getElementById("btnNewEvento");
+const boton = document.getElementById("btnNewEvento");
+const ventanaPrincipal = document.getElementById("principalCliente");
 
 function redirectionPrincipalVendedor() {
     window.location.href = "../../html/principalVendedor.html";
+}
+
+function redirectionPrincipal(){
+    ventanaPrincipal.href = "../../html/principalVendedor.html";
 }
 
 boton.addEventListener("click", async function () {

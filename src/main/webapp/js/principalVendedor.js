@@ -1,18 +1,32 @@
 window.onload = function(){
-    listarEventos();
     listarEntradas();
+    listarEventos();
 }
 
 const botonAnyadir = document.getElementById("botonAnyadir");
+const verMasEventos = document.getElementById("botonEventos");
+const verMasEntradas = document.getElementById("botonEntradas");
 
 botonAnyadir.addEventListener('click', redirectionAnyadirEvento);
+
+verMasEventos.addEventListener('click', redirectionTablaEventos);
+
+verMasEntradas.addEventListener('click', redirectionTablaEntradas);
 
 function redirectionAnyadirEvento() {
     window.location.href = "../html/evento/newEvento.html";
 }
 
-function redirectionInfoEventoVendedor(id) {
+function redirectionEditarEventos(id) {
     window.location.href = "../html/evento/editarEvento.html?id=" + id;
+}
+
+function redirectionTablaEventos() {
+    window.location.href = "../html/evento/tablaEvento.html";
+}
+
+function redirectionTablaEntradas() {
+    window.location.href = "../html/entrada/tablaEntrada.html";
 }
 
 let listarEventos = async () => {
@@ -41,7 +55,7 @@ let listarEventos = async () => {
                         <td>${formatDate(evento.fecha, "es-ES")}</td>
                         <td>${evento.lugar}</td>
                         <td>
-                            <span onClick="redirectionInfoEventoVendedor(${evento.id})" class="material-symbols-outlined button description">description</span>
+                            <span onClick="redirectionEditarEventos(${evento.id})" class="material-symbols-outlined button description">description</span>
                             <span onClick="eliminarEvento(${evento.id})" class="material-symbols-outlined button delete">delete</span>
                         </td>
                     <tr>`
