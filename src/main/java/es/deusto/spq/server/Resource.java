@@ -741,7 +741,7 @@ public class Resource {
 	 */
 	@POST 
 	@Path("/crearReseña")
-	public Response crearReseña(Resenya resenya) {
+	public Response crearResenya(Resenya resenya) {
 		try {
 			tx.begin();
 			Resenya review = null;

@@ -21,6 +21,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import es.deusto.spq.server.jdo.Evento;
+import es.deusto.spq.server.jdo.Resenya;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
 
@@ -432,5 +433,23 @@ public class ResourceTest {
         assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
-    
+    @Test
+    public void testCrearResenya() throws Exception{
+        Resenya resenya = new Resenya();
+        resenya.setComentario("test");
+        resenya.setPuntuacion(5);
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Resenya res = spy(Resenya.class);
+        when(persistenceManager.getObjectById(Resenya.class, "0")).thenReturn(res);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.crearResenya(resenya);
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
 }
