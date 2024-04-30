@@ -781,7 +781,7 @@ public class Resource {
 	 */
 	@GET
 	@Path("/getReseñas")
-	public Response getReseñas() {
+	public Response getResenyas() {
 		try {
 			tx.begin();
 			
@@ -816,7 +816,7 @@ public class Resource {
 	 */
 	@GET
 	@Path("/getReseñasEvento/{id}")
-	public Response getReseñasEvento(@PathParam("id") String id) {
+	public Response getResenyasEvento(@PathParam("id") String id) {
 		try {
 			tx.begin();
 			Evento event = null;

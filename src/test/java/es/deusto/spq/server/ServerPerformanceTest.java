@@ -22,11 +22,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import com.github.noconnor.junitperf.JUnitPerfRule;
 import com.github.noconnor.junitperf.JUnitPerfTest;
 import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
 
+import categories.PerformanceTest;
 import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
@@ -35,6 +37,7 @@ import es.deusto.spq.server.jdo.Usuario;
  * This class represents a performance test for the server.
  * It includes test methods for login, creating a new event, and buying a ticket.
  */
+@Category(PerformanceTest.class)
 public class ServerPerformanceTest {
     
     private static final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");

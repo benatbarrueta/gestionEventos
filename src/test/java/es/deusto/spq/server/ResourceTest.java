@@ -452,4 +452,44 @@ public class ResourceTest {
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
+
+    @Test
+    public void testGetResenya() throws Exception{
+        Resenya resenya = new Resenya();
+        resenya.setComentario("test");
+        resenya.setPuntuacion(5);
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Resenya res = spy(Resenya.class);
+        when(persistenceManager.getObjectById(Resenya.class, "0")).thenReturn(res);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.getResenyasEvento("0");
+
+        // Comprobar response esperada
+        assertEquals(401, response.getStatus());
+    }
+
+    /*@Test
+    public void testGetResenyas() throws Exception{
+        Resenya resenya = new Resenya();
+        resenya.setComentario("test");
+        resenya.setPuntuacion(5);
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Resenya res = spy(Resenya.class);
+        when(persistenceManager.getObjectById(Resenya.class, "0")).thenReturn(res);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.getResenyas();
+
+        // Comprobar response esperada
+        assertEquals(401, response.getStatus());
+    }*/
 }
