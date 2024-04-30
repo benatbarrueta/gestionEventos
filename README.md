@@ -29,7 +29,7 @@ If it's required to run the integration tests, run the following command:
 
 If it's required to run the performance tests, run the following command:
 
-      mvn verify -Pperformance-tests
+      mvn verify -Pperformance-tests 
 
 To launch the server run the command
 
