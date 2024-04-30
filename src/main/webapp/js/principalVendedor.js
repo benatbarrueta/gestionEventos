@@ -1,5 +1,6 @@
 window.onload = function(){
     listarEventos();
+    listarEntradas();
 }
 
 const botonAnyadir = document.getElementById("botonAnyadir");
@@ -73,4 +74,41 @@ let eliminarEvento = async (id) => {
         });
 
     listarEventos();
+}
+
+let listarEntradas = async () => {
+    const peticion = await fetch("http://localhost:8080/rest/resource/getEntradas",
+        {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+
+    const entradas = await peticion.json();
+
+    let contenidoTabla = "";
+
+    if (entradas.length > 0) {
+        for (let entrada of entradas) {
+            let contenidoFila =
+                `<tr>
+                <td>${entrada.id}</td>
+                <td>${entrada.evento.nombre}</td>
+                <td>${entrada.precio} €</td>
+                <td>${entrada.sector}</td>
+                <td>
+                    <span onClick="eliminarEntrada(${entrada.id})" class="material-symbols-outlined button delete">delete</span>
+                </td>
+            <tr>`
+    
+            contenidoTabla += contenidoFila;
+        }
+        document.querySelector("#tablaEntrada tbody").outerHTML = contenidoTabla;
+    } else {
+        let contenidoFila = '<tr><td colspan="5">No hay entradas registradas</td></tr>'
+
+        contenidoTabla += contenidoFila;
+    }
 }

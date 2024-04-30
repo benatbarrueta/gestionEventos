@@ -428,7 +428,6 @@ public class Resource {
 			if (eventos != null) {
 				logger.info("{} events found", eventos.size());
 				tx.commit();
-				System.out.println(eventos);
 				return Response.ok(eventos).build();
 			} else {
 				logger.info("No events found");
