@@ -2,13 +2,13 @@ const urlParams = new URLSearchParams(window.location.search);
 const eventId = urlParams.get('idEvento');
 const userId = urlParams.get('idUsuario');
 
-let boton = document.getElementById("btnNewResenya");
+let botonNewResenya = document.getElementById("btnNewResenya");
 
 function redirectionResenya() {
     window.location.href = "../../html/resenya/tablaResenyaEvento.html?idEvento=" + eventId + "&idUsuario=" + userId;
 }
 
-boton = addEventListener("click", async function () {
+botonNewResenya.addEventListener("click", async function () {
     try {
         const status = await newResenya();
 
@@ -25,12 +25,12 @@ boton = addEventListener("click", async function () {
 let newResenya = async () => {
     let campos = {};
 
-    campos.texto = document.getElementById("texto").value;
+    campos.comentario = document.getElementById("comentario").value;
     campos.puntuacion = document.getElementById("puntuacion").value;
-    campos.usuario = userId;
-    campos.evento = eventId;
+    campos.idEvento = eventId;
+    campos.idUsuario = userId;
 
-    const peticion = await fetch("http://localhost:8080/rest/resource/crearReseña",
+    const peticion = await fetch("http://localhost:8080/rest/resource/crearResenya",
     {
 
         method: "POST",
