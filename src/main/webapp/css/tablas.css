@@ -8,6 +8,21 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #333;
   }
+
+  #titulo{
+    margin: 50px 100px 30px 100px;
+    text-align: justify;
+  }
+
+  #eventos {
+    margin: 0 100px 50px 100px;
+    text-align: justify;
+  }
+
+  #entradas {
+    margin: 0 100px 50px 100px;
+    text-align: justify;
+  } 
   
   table {
     text-align: center;

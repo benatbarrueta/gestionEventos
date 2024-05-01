@@ -5,27 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVENTOS</title>
     <link rel="stylesheet" href="../../css/tablas.css ">
+    <link rel="stylesheet" href="../../css/header.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="shortcut icon" href="../../images/logo.png" type="image/x-icon">
 </head>
 <body>
-    <table id="tabla">
-        <thead>
-            <tr>
-                <th colspan="6">Eventos</th>
-            </tr>
-            <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Fecha</th>
-                <th>Lugar</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
+    <header>
+        <div class="navbar">
+            <img src="../../images/logo.png" alt="LogoDeustoEventos">
+            <div class="dropdown">
+                <button class="dropbtn">Menú
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a id="paginaPrincipal" href="#">Página principal</a>
+                    <a href="../../inicio.html">LogOut</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        </tbody>
-    </table>
+    <div id="titulo">
+        <h1>EVENTOS</h1>
+    </div>
+
+    <div id="eventos">
+        <p>Esta página mostrará todos los eventos registrados en la base de datos de nuestra compañía</p>
+        
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th colspan="6">Eventos</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Lugar</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+            </tbody>
+        </table>
+    </div>
     <script src="../../js/evento/tablaEventoCliente.js"></script>
 </body>
 </html>

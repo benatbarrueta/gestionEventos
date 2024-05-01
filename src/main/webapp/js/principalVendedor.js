@@ -69,9 +69,7 @@ let listarEventos = async () => {
             }
         }
     } else {
-        let contenidoFila = '<tr><td colspan="5">No hay eventos registrados</td></tr>'
-
-        contenidoTabla += contenidoFila;
+        contenidoTabla += '<tr><td colspan="5">No hay eventos registrados</td></tr>'
     }
     
     document.querySelector("#tabla tbody").outerHTML = contenidoTabla;
@@ -119,10 +117,9 @@ let listarEntradas = async () => {
     
             contenidoTabla += contenidoFila;
         }
-        document.querySelector("#tablaEntrada tbody").outerHTML = contenidoTabla;
     } else {
-        let contenidoFila = '<tr><td colspan="5">No hay entradas registradas</td></tr>'
-
-        contenidoTabla += contenidoFila;
+        contenidoTabla += '<tr><td colspan="5">No hay entradas registradas</td></tr>'
     }
+    
+    document.querySelector("#tablaEntrada tbody").outerHTML = contenidoTabla;
 }

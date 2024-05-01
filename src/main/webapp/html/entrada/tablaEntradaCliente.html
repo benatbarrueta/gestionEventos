@@ -5,27 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ENTRADAS</title>
     <link rel="stylesheet" href="../../css/tablas.css ">
+    <link rel="stylesheet" href="../../css/header.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="shortcut icon" href="../../images/logo.png" type="image/x-icon">
 </head>
 <body>
-    <table id="tablaEntrada">
-        <thead>
-            <tr>
-                <th colspan="6">Entradas</th>
-            </tr>
-            <tr>
-                <th>#</th>
-                <th>Evento</th>
-                <th>Precio</th>
-                <th>Sector</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
+    <header>
+        <div class="navbar">
+            <img src="../../images/logo.png" alt="LogoDeustoEventos">
+            <div class="dropdown">
+                <button class="dropbtn">Menú
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a id="principalCliente" href="#">Página principal</a>
+                    <a href="../../inicio.html">LogOut</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        </tbody>
-    </table>
+    <div id="titulo">
+        <h1>ENTRADAS</h1>
+    </div>
+
+    <div id="entradas">
+        <p>Esta página muestra las entradas que hay disponibles en nuestra base de datos.</p>
+
+        <table id="tablaEntrada">
+            <thead>
+                <tr>
+                    <th colspan="6">Entradas</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Evento</th>
+                    <th>Precio</th>
+                    <th>Sector</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+            </tbody>
+        </table>
+    </div>
     <script src="../../js/entrada/tablaEntrada.js"></script>
 </body>
 </html>

@@ -2,6 +2,14 @@ window.onload = function() {
     listarEventos();
 }
 
+const principalCliente = document.getElementById("paginaPrincipal");
+
+principalCliente.addEventListener('click', redirectionPrincipalCliente);
+
+function redirectionPrincipalCliente(){
+    principalCliente.href = "../../html/principalCliente.html";
+}
+
 let listarEventos = async () => {
     const peticion = await fetch("http://localhost:8080/rest/resource/getEventos",
     {
