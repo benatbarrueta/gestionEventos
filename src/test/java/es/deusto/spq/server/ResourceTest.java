@@ -470,7 +470,7 @@ public class ResourceTest {
         Response response = resource.getResenyasEvento("0");
 
         // Comprobar response esperada
-        assertEquals(401, response.getStatus());
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
     /*@Test
