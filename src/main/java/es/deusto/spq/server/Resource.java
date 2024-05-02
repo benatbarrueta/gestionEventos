@@ -54,41 +54,6 @@ public class Resource {
 		this.tx = pm.currentTransaction();
 	}
 
-	/**
-	 * This method is used to check the login status of a user.
-	 * It checks if the tokens map is empty or not, and returns the role of the user if the token is valid.
-	 * If the tokens map is empty, it returns an UNAUTHORIZED response with an error message.
-	 *
-	 * @return a Response object containing the role of the user or an error message
-	 */
-	@GET
-	@Path("/comprobarLogin")
-	public Response comprobarLogin() {
-		try {
-			tx.begin();
-
-			if (!tokens.isEmpty()) {
-				tx.commit();
-				for (Usuario user: tokens.keySet()){
-					if (tokens.get(user) == Resource.token){
-						return Response.ok(user.getRol().toString()).build();
-					}
-				}
-				return Response.ok("").build();
-			} else {
-				logger.info("Tokens map is empty");
-				tx.rollback();
-				return Response.status(Response.Status.UNAUTHORIZED).entity("Tokens map is empty").build();
-			}
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-	
-	}
-
 	
 	/**
 		* Logs in a user and returns a response.
