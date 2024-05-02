@@ -21,7 +21,7 @@ function redirectionPrincipalUsuario() {
 }
 
 let listarResenyas = async () => {
-    const peticion = await fetch("http://localhost:8080/rest/resource/getResenyasEvento/" + eventId,
+    const peticion = await fetch("http://localhost:8080/rest/resource/getResenyas",
         {
             method: "GET",
             headers: {
@@ -33,13 +33,12 @@ let listarResenyas = async () => {
     const resenyas = await peticion.json();
 
     let contenidoTabla = "";
-    alert(resenyas.length)
     for (let resenya of resenyas) {
         let contenidoFila =
             `<tr>
             <td>${resenya.id}</td>
-            <td>${resenya.usuario.nombre}</td>
-            <td>${resenya.evento.nombre}</td>
+            <td>[Undefined]</td>
+            <td>${resenya.evento.id}</td>
             <td>${resenya.comentario}</td>
             <td>${resenya.puntuacion}</td>
             

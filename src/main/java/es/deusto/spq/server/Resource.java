@@ -761,6 +761,7 @@ public class Resource {
 				pm.makePersistent(review);
 				logger.info("Review created: {}", review);
 				tx.commit();
+				eliminarEvento("" + resenya.getEvento().getId());
 				return Response.ok().build();
 			}
 		} 

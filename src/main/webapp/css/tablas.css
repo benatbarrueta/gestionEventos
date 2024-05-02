@@ -97,6 +97,10 @@
     color: #dc2a2a;
   }
 
+  .resenya:hover {
+    color: #682adc;
+  }
+
   .formbold-btn {
     font-size: 16px;
     border-radius: 5px;
