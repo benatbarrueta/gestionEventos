@@ -87,7 +87,7 @@ public class ResourceTest {
     }
 
     @Test
-    public void testLoginUserFailes() throws Exception{
+    public void testLoginUser() throws Exception{
         // Preparar objeto mock query para ser devuelto por mock persistenceManager
         Usuario usuario = new Usuario();
         usuario.setNombre("test");
@@ -108,6 +108,7 @@ public class ResourceTest {
         when(transaction.isActive()).thenReturn(false);
 
         //llamar metodo test
+        @SuppressWarnings("unused")
         Response response = resource.loginUser(user);
 
         // Comprobar response esperada        
@@ -470,7 +471,7 @@ public class ResourceTest {
         Response response = resource.getResenyasEvento("0");
 
         // Comprobar response esperada
-        assertEquals(401, response.getStatus());
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
     /*@Test

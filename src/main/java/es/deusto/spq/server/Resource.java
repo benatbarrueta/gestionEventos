@@ -54,41 +54,6 @@ public class Resource {
 		this.tx = pm.currentTransaction();
 	}
 
-	/**
-	 * This method is used to check the login status of a user.
-	 * It checks if the tokens map is empty or not, and returns the role of the user if the token is valid.
-	 * If the tokens map is empty, it returns an UNAUTHORIZED response with an error message.
-	 *
-	 * @return a Response object containing the role of the user or an error message
-	 */
-	@GET
-	@Path("/comprobarLogin")
-	public Response comprobarLogin() {
-		try {
-			tx.begin();
-
-			if (!tokens.isEmpty()) {
-				tx.commit();
-				for (Usuario user: tokens.keySet()){
-					if (tokens.get(user) == Resource.token){
-						return Response.ok(user.getRol().toString()).build();
-					}
-				}
-				return Response.ok("").build();
-			} else {
-				logger.info("Tokens map is empty");
-				tx.rollback();
-				return Response.status(Response.Status.UNAUTHORIZED).entity("Tokens map is empty").build();
-			}
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-	
-	}
-
 	
 	/**
 		* Logs in a user and returns a response.
@@ -739,7 +704,7 @@ public class Resource {
 	 * @return A Response object indicating the status of the operation.
 	 */
 	@POST 
-	@Path("/crearReseña")
+	@Path("/crearResenya")
 	public Response crearResenya(Resenya resenya) {
 		try {
 			tx.begin();
@@ -761,6 +726,7 @@ public class Resource {
 				pm.makePersistent(review);
 				logger.info("Review created: {}", review);
 				tx.commit();
+				eliminarEvento("" + resenya.getEvento().getId());
 				return Response.ok().build();
 			}
 		} 
@@ -779,7 +745,7 @@ public class Resource {
 	 * @return A Response object containing the list of reviews.
 	 */
 	@GET
-	@Path("/getReseñas")
+	@Path("/getResenyas")
 	public Response getResenyas() {
 		try {
 			tx.begin();
@@ -814,35 +780,35 @@ public class Resource {
 	 * @return A Response object containing the reviews of the event.
 	 */
 	@GET
-	@Path("/getReseñasEvento/{id}")
+	@Path("/getResenyasEvento/{id}")
 	public Response getResenyasEvento(@PathParam("id") String id) {
 		try {
 			tx.begin();
-			Evento event = null;
+			Resenya resenya = null;
 
 			try {
-				event = pm.getObjectById(Evento.class, id);
+				resenya = pm.getObjectById(Resenya.class, id);
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
+			} 
+			
+			if (resenya != null) {
+				logger.info("Reviews found: {}", resenya.getComentario());
+				tx.commit();
+				return Response.ok(resenya).build();
+			} else {
+				logger.info("No reviews found");
+				tx.rollback();
+				return Response.status(Response.Status.UNAUTHORIZED).entity("No reviews found").build();
+				
 			}
 			
-
-			if (event != null) {
-				logger.info("Event found: {}", event.getNombre());
-				tx.commit();
-				System.out.println(event);
-				return Response.ok(event).build();
-			} else {
-				logger.info("No events found");
-				tx.rollback();
-				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
-			}
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
 			pm.close();
 		}
-	
 	}
+
 }
