@@ -51,6 +51,7 @@ public class ServerPerformanceTest {
     @Rule
     public JUnitPerfRule perfTestRule = new JUnitPerfRule(new HtmlReportGenerator("target/junitperf/report.html"));
 
+    //prepara las clases para poder hacer luego los test de performance
     @BeforeClass
     public static void prepareTests() throws Exception {
         server = Main.startServer();
@@ -76,6 +77,14 @@ public class ServerPerformanceTest {
         target = c.target(Main.BASE_URI).path("resource");
     }
 
+
+    /**
+     * This method is responsible for tearing down the server and cleaning up the database after running the tests.
+     * It shuts down the server, deletes all the persistent instances of the Usuario class from the database,
+     * and closes the PersistenceManager.
+     *
+     * @throws Exception if an error occurs during the teardown process
+     */
     @AfterClass
     public static void tearDownServer() throws Exception {
         server.shutdown();
@@ -94,6 +103,11 @@ public class ServerPerformanceTest {
         }
     }
 
+    /**
+     * Test case for the login functionality of the server.
+     * It creates a test user and sends a login request to the server.
+     * The test checks if the response status is successful.
+     */
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 1000)
     public void testLoginUser(){
@@ -106,6 +120,13 @@ public class ServerPerformanceTest {
         assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
     }
 
+    /**
+     * Test case for the method testNewEvento.
+     * 
+     * This method tests the functionality of creating a new event.
+     * It creates a new Evento object with test data and sends a POST request to the server to create the event.
+     * The method then asserts that the response status is successful.
+     */
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 1000)
     public void testNewEvento(){
@@ -118,6 +139,15 @@ public class ServerPerformanceTest {
         assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
     }
 
+    /**
+     * This method is a unit test for the "testNewEntrada" functionality.
+     * It tests the behavior of creating a new entry for an event.
+     * 
+     * The test performs the following steps:
+     * 1. Creates a new Evento object with test data.
+     * 2. Sends a GET request to the server to buy an entry for the event.
+     * 3. Asserts that the response status is successful.
+     */
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 1000)
     public void testNewEntrada(){

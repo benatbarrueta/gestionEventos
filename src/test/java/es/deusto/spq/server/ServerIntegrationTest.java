@@ -66,6 +66,12 @@ public class ServerIntegrationTest {
         target = c.target(Main.BASE_URI).path("resource");
     }
 
+    /**
+     * This method is used to tear down the server after running the integration tests.
+     * It shuts down the server, clears the database, and closes the PersistenceManager.
+     *
+     * @throws Exception if an error occurs during the tear down process
+     */
     @AfterClass
     public static void tearDownServer() throws Exception {
         server.shutdown();
@@ -86,6 +92,12 @@ public class ServerIntegrationTest {
         server.shutdown();
     }
 
+    /**
+     * This method tests the login functionality for a user.
+     * It creates a new Usuario object with the username "test" and password "test".
+     * Then, it sends a POST request to the "login" endpoint with the user object as JSON.
+     * The response is expected to have a successful status code.
+     */
     @Test
     public void testLoginUser(){
         Usuario user = new Usuario("test", "test");
@@ -97,6 +109,9 @@ public class ServerIntegrationTest {
         assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
     }
 
+    /**
+     * Test case for creating a new Evento.
+     */
     @Test
     public void testNewEvento(){
         Evento event = new Evento("testEvent", "testEvent", fecha, "testEvent", 0, 0, "testEvent", null, null, null);
@@ -108,6 +123,13 @@ public class ServerIntegrationTest {
         assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
     }
 
+    /**
+     * Test case for the method newEntrada().
+     * 
+     * This test verifies that a new entrada (ticket) can be successfully purchased for an event.
+     * It creates a new Evento object with test data and sends a GET request to the server to purchase an entrada for the event.
+     * The test asserts that the response status is successful.
+     */
     @Test
     public void testNewEntrada(){
         Evento event = new Evento("testEvent", "testEvent", fecha, "testEvent", 0, 0, "testEvent", null, null, null);
