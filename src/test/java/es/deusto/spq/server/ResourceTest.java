@@ -1,13 +1,17 @@
 package es.deusto.spq.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
 
 import javax.jdo.JDOHelper;
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
@@ -15,6 +19,7 @@ import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -56,6 +61,45 @@ public class ResourceTest {
             //inicializar objeto testado con dependencias mock
             resource = new Resource();
         }
+    }
+    
+    @Test
+    public void testRegisterUserNotFound() throws Exception {
+        // Preparar objeto mock query para ser devuelto por mock persistenceManager
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.registerUser(usuario);
+
+        ArgumentCaptor<Usuario> userCaptor = ArgumentCaptor.forClass(Usuario.class);
+        verify(persistenceManager).makePersistent(userCaptor.capture());
+        assertEquals("test", userCaptor.getValue().getNombre());
+        assertEquals("test", userCaptor.getValue().getApellidos());
+        assertEquals("test", userCaptor.getValue().getDni());
+        assertEquals("test", userCaptor.getValue().getContrasenya());
+        assertEquals(TipoUsuario.CLIENTE, userCaptor.getValue().getRol());
+        assertEquals(fecha, userCaptor.getValue().getFechaNacimiento());
+        assertEquals("test", userCaptor.getValue().getEmail());
+        assertEquals("test", userCaptor.getValue().getTelefono());
+        assertEquals("test", userCaptor.getValue().getDireccion());
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
     @Test
