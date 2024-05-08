@@ -111,27 +111,24 @@ public class Resource {
 	 */
 	@GET
 	@Path("/logout")
-	public Response logout() {
+	public Response logout(int token) {
 		try {
 			tx.begin();
 
 			tokens.clear();
-			token = 0;
 
-			if (tokens.isEmpty() && token == 0) {
+			if (tokens.isEmpty() && token == 0) {				
 				tx.commit();
-				
 				return Response.ok("true").build();
 			} else {
 				logger.info("logout has failed");
-				tx.rollback();
+				tx.commit();
 				return Response.status(Response.Status.UNAUTHORIZED).entity("false").build();
 			}
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
-			pm.close();
 		}
 	
 	}

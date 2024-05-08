@@ -64,6 +64,33 @@ public class ResourceTest {
     }
     
     @Test
+    public void testRegisterUserExisting() throws Exception {
+        // Preparar objeto mock query para ser devuelto por mock persistenceManager
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.registerUser(usuario);
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @Test
     public void testRegisterUserNotFound() throws Exception {
         // Preparar objeto mock query para ser devuelto por mock persistenceManager
         Usuario usuario = new Usuario();
@@ -99,7 +126,7 @@ public class ResourceTest {
         assertEquals("test", userCaptor.getValue().getDireccion());
 
         // Comprobar response esperada        
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        assertEquals(Response.Status.OK, response.getStatusInfo());
     }
 
     @Test
@@ -119,9 +146,6 @@ public class ResourceTest {
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
         Usuario user = spy(Usuario.class);
         when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
-
-        // preparar comportamiento de transaccion mock
-        when(transaction.isActive()).thenReturn(false);
 
         //llamar metodo test
         Response response = resource.registerUser(user);
@@ -160,12 +184,24 @@ public class ResourceTest {
     }
 
     @Test
+    public void testLogoutFails() throws Exception{
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.logout(1);
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.UNAUTHORIZED, response.getStatusInfo());
+    }
+
+    @Test
     public void testLogout() throws Exception{
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
         //llamar metodo test
-        Response response = resource.logout();
+        Response response = resource.logout(0);
 
         // Comprobar response esperada        
         assertEquals(Response.Status.OK, response.getStatusInfo());
