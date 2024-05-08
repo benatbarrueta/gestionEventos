@@ -55,7 +55,14 @@ public class Evento {
     public long getId() {
         return id;
     }
+    /**
+     * Sets the ID of the Evento.
+     * @param id
+     */
 
+    public void setId(long id) {
+        this.id = id;
+    }
     /**
      * Returns the nombre of the Evento.
      *
