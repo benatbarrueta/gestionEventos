@@ -29,6 +29,7 @@ import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.Resenya;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
+import net.bytebuddy.asm.Advice.Argument;
 
 /**
  * This class contains unit tests for the Resource class.
@@ -105,6 +106,7 @@ public class ResourceTest {
         usuario.setDireccion("test");
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+    
         when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
 
         // preparar comportamiento de transaccion mock
@@ -340,6 +342,38 @@ public class ResourceTest {
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
     }
 
+    @Test
+    public void testCrearEventoNotFound() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.crearEvento(evento);
+
+        ArgumentCaptor<Evento> eventCaptor = ArgumentCaptor.forClass(Evento.class);
+        verify(persistenceManager).makePersistent(eventCaptor.capture());
+        assertEquals("test", eventCaptor.getValue().getNombre());
+        assertEquals("test", eventCaptor.getValue().getDescripcion());
+        assertEquals(0, eventCaptor.getValue().getAforo());
+        assertEquals(10000, eventCaptor.getValue().getAforoTotal());
+        assertEquals("test", eventCaptor.getValue().getLugar());
+        assertEquals("test", eventCaptor.getValue().getOrganizador());
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
     /*@Test
     public void testGetEventos() throws Exception{
         Evento evento = new Evento();
@@ -386,6 +420,29 @@ public class ResourceTest {
 
         // Comprobar response esperada        
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    public void testGetEventoIdNotFound() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.getEventos("0");
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
     }
 
     @Test
@@ -533,6 +590,7 @@ public class ResourceTest {
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
+    
 
     @Test
     public void testGetResenya() throws Exception{

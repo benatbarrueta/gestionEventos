@@ -27,6 +27,17 @@ public class EventoTest {
     public void testGetNombre() {
         assertEquals("test", evento.getNombre());
     }
+
+    @Test
+    public void testGetId() {
+        assertEquals(0, evento.getId());
+    }
+
+    @Test
+    public void testSetId() {
+        evento.setId(1);
+        assertEquals(1, evento.getId());
+    }
     
     @Test
     public void testSetNombre() {
