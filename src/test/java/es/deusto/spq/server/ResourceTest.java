@@ -28,9 +28,9 @@ import org.mockito.MockitoAnnotations;
 import es.deusto.spq.server.jdo.Entrada;
 import es.deusto.spq.server.jdo.Evento;
 import es.deusto.spq.server.jdo.Resenya;
+import es.deusto.spq.server.jdo.SectoresEvento;
 import es.deusto.spq.server.jdo.TipoUsuario;
 import es.deusto.spq.server.jdo.Usuario;
-import net.bytebuddy.asm.Advice.Argument;
 
 /**
  * This class contains unit tests for the Resource class.
@@ -63,33 +63,6 @@ public class ResourceTest {
             //inicializar objeto testado con dependencias mock
             resource = new Resource();
         }
-    }
-    
-    @Test
-    public void testRegisterUserExisting() throws Exception {
-        // Preparar objeto mock query para ser devuelto por mock persistenceManager
-        Usuario usuario = new Usuario();
-        usuario.setNombre("test");
-        usuario.setApellidos("test");
-        usuario.setDni("test");
-        usuario.setContrasenya("test");
-        usuario.setRol(TipoUsuario.ADMINISTRADOR);
-        usuario.setFechaNacimiento(fecha);
-        usuario.setEmail("test");
-        usuario.setTelefono("test");
-        usuario.setDireccion("test");
-
-        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
-        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
-
-        // preparar comportamiento de transaccion mock
-        when(transaction.isActive()).thenReturn(false);
-
-        //llamar metodo test
-        Response response = resource.registerUser(usuario);
-
-        // Comprobar response esperada        
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
     @Test
@@ -237,6 +210,59 @@ public class ResourceTest {
         assertEquals(Response.Status.OK, response.getStatusInfo());
     }
 
+    @Test
+    public void testEliminarNotFound() throws Exception{
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, "test1")).thenReturn(user);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.eliminarCuenta(usuario.getDni());
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+    }
+
+    @Test
+    public void testEliminarCuentaFails() throws Exception{
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.eliminarCuenta(usuario.getDni());
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+    }
+
     /*@Test
     public void testGetUsuarios(){
         Usuario usuario = new Usuario();
@@ -344,6 +370,60 @@ public class ResourceTest {
 
         //Comprobar response esperada
         assertEquals(Response.Status.OK, response.getStatusInfo());
+    }
+
+    @Test
+    public void testActualizarRolUsuarioNotFound() throws Exception{
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, "test2")).thenReturn(user);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        user.setRol(TipoUsuario.USUARIO);
+        Response response = resource.actualizarRolUsuario("test", TipoUsuario.USUARIO);
+
+        //Comprobar response esperada
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+    }
+
+    @Test
+    public void testActualizarRolUsuarioFails() throws Exception{
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.actualizarRolUsuario("test", TipoUsuario.USUARIO);
+
+        //Comprobar response esperada
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
     }
 
     @Test
@@ -498,7 +578,30 @@ public class ResourceTest {
     }
 
     @Test
-    public void testActualizarEvento() throws Exception{
+    public void testEliminarEventoFails() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.eliminarEvento("0");
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+    }
+
+    @Test
+    public void testActualizarEventoNotFound() throws Exception{
         Evento evento = new Evento();
         evento.setNombre("test");
         evento.setDescripcion("test");
@@ -509,7 +612,7 @@ public class ResourceTest {
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
         Evento event = spy(Evento.class);
-        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+        when(persistenceManager.getObjectById(Evento.class, evento.getId())).thenReturn(event);
 
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
@@ -518,6 +621,30 @@ public class ResourceTest {
         event.setNombre("test2");
         event.setLugar("test2");
 
+        Response response = resource.actualizarEvento(evento);
+
+        //Comprobar response esperada
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+
+    }
+
+    @Test
+    public void testActualizarEventoFails() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
         Response response = resource.actualizarEvento(evento);
 
         //Comprobar response esperada
@@ -669,6 +796,32 @@ public class ResourceTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @SuppressWarnings("unused")
+    @Test
+    public void testComprarEntradaNotFound() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response1 = resource.comprarEntrada("0", "PISTA", "2");
+        Response response = resource.comprarEntrada("0", "PISTA", "2");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
     @Test
     public void testComprarEntradaEventoNull() throws Exception{
         Evento evento = new Evento();
@@ -731,7 +884,39 @@ public class ResourceTest {
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
         Evento event = spy(Evento.class);
-        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+        when(persistenceManager.getObjectById(Evento.class, evento.getId())).thenReturn(event);
+
+        Entrada entrada = new Entrada();
+        entrada.setUsuario(new Usuario("test", "test", "test","test","test", "test", "test", TipoUsuario.CLIENTE, fecha, "test"));
+        entrada.setEvento(evento);
+        entrada.setPrecio(2);
+        entrada.setSector(SectoresEvento.GRADA_ALTA);
+
+        Entrada ticket = spy(Entrada.class);
+        when(persistenceManager.getObjectById(Entrada.class, entrada.getId())).thenReturn(ticket);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.eliminarEntrada("" + ticket.getId());
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    public void testEliminarEntradaNotFound() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
 
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
@@ -762,6 +947,39 @@ public class ResourceTest {
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
+
+    @Test
+    public void testCrearResenyaExists() throws Exception{
+        Resenya resenya = new Resenya();
+        resenya.setComentario("test");
+        resenya.setPuntuacion(5);
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Resenya res = spy(Resenya.class);
+        when(persistenceManager.getObjectById(Resenya.class, resenya.getId())).thenReturn(res);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+    }
+
+    @Test
+    public void testCrearResenyaFails() throws Exception{
+        Resenya resenya = new Resenya();
+        resenya.setComentario("test");
+        resenya.setPuntuacion(5);
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.crearResenya(resenya);
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
     
 
     @Test
@@ -782,6 +1000,45 @@ public class ResourceTest {
 
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    public void testGetResenyafails() throws Exception{
+        Resenya resenya = new Resenya();
+        resenya.setComentario("test");
+        resenya.setPuntuacion(5);
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Resenya res = spy(Resenya.class);
+        when(persistenceManager.getObjectById(Resenya.class, "0")).thenReturn(res);
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.getResenyasEvento("5");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    public void testGetResenyaNotFound() throws Exception{
+        Resenya resenya = new Resenya();
+        resenya.setComentario("test");
+        resenya.setPuntuacion(5);
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        when(persistenceManager.getObjectById(any(), anyString())).thenThrow(new JDOObjectNotFoundException());
+
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.getResenyasEvento("0");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
     }
 
     /*@Test
