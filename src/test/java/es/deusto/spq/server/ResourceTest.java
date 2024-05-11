@@ -152,7 +152,6 @@ public class ResourceTest {
         when(transaction.isActive()).thenReturn(false);
 
         //llamar metodo test
-        @SuppressWarnings("unused")
         Response response = resource.loginUser(user);
 
         // Comprobar response esperada        

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PÁGINA PRINCIPAL</title>
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/principalAdministrador.css">
+    <link rel="stylesheet" href="../css/principalVendedor.css">
 </head>
+
 <body>
     <header>
         <div class="navbar">
@@ -15,13 +19,105 @@
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">Opción 1</a>
-                    <a id="principalCliente" href="#" >Página principal</a>
-                    <a href="../../inicio.html" >LogOut</a>
+                    <a href="../../inicio.html">LogOut</a>
                 </div>
             </div>
         </div>
     </header>
-    <h1>hoal</h1>
+    <div id="titulo">
+        <h1>Bienvenido a Deusto Eventos</h1>
+        <p>Esta página te ofrece la oportunidad única de gestionar de manera eficiente y organizada todos los eventos,
+            entradas y clientes que figuran en nuestra amplia base de datos. Con nuestra plataforma intuitiva y fácil de
+            usar, podrás acceder a información detallada sobre cada evento, administrar las entradas disponibles y
+            mantener un registro completo de tus clientes. Ya sea que estés planificando un concierto, una conferencia o
+            cualquier otro tipo de evento, nuestra herramienta te proporciona las herramientas necesarias para
+            garantizar el éxito en la gestión y coordinación de cada aspecto. ¡Simplifica tu trabajo y optimiza tus
+            resultados con nuestra plataforma!</p>
+    </div>
+
+    <div id="eventos">
+        <h2>EVENTOS</h2>
+        <p>En esta sección, te ofrecemos un exhaustivo vistazo a todos los eventos registrados en nuestra empresa.
+            Nuestra principal tarea radica en mantener un control efectivo sobre los eventos, lo cual implica la
+            eliminación de aquellos que hayan pasado. Nos comprometemos a asegurar que nuestra base de eventos esté
+            siempre
+            actualizada según las necesidades operativas y las directrices establecidas.</p>
+
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th colspan="6">Eventos</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Lugar</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+        </table>
+        <button type="button" id="botonEventos" class="boton">Ver Mas</button>
+    </div>
+
+    <div id="entradas">
+        <h2>ENTRADAS</h2>
+        <p>En esta sección, encontrarás todas las entradas disponibles para los eventos de nuestra cartelera. Desde
+            conciertos hasta obras de teatro y eventos deportivos, aquí puedes asegurar tu acceso a experiencias
+            emocionantes y memorables.</p>
+        <table id="tablaEntrada">
+            <thead>
+                <tr>
+                    <th colspan="6">Entradas</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Evento</th>
+                    <th>Precio</th>
+                    <th>Sector</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <button id= "botonEntradas" class= "boton" type="button">Ver Mas</button>
+    </div>
+
+    <div id="usuarios">
+        <h2>USUARIOS</h2>
+        <p>En esta sección, te ofrecemos un exhaustivo vistazo a todos los usuarios registrados en nuestra empresa.
+            Nuestra principal tarea radica en mantener un control efectivo sobre los usuarios, lo cual implica la
+            eliminación de aquellos que se encuentren inactivos, así como la gestión dinámica de los roles en respuesta
+            a las solicitudes que recibamos. Nos comprometemos a asegurar que nuestra base de usuarios esté siempre
+            actualizada y que los permisos y responsabilidades se asignen de manera eficiente según las necesidades
+            operativas y las directrices establecidas.</p>
+
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th colspan="8">Usuarios</th>
+                </tr>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
 </body>
+
 </html>
