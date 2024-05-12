@@ -33,18 +33,22 @@ let listarResenyas = async () => {
     const resenyas = await peticion.json();
 
     let contenidoTabla = "";
-    for (let resenya of resenyas) {
-        let contenidoFila =
-            `<tr>
-            <td>${resenya.id}</td>
-            <td>[Undefined]</td>
-            <td>${resenya.evento.id}</td>
-            <td>${resenya.comentario}</td>
-            <td>${resenya.puntuacion}</td>
-            
-        <tr>`
-
-        contenidoTabla += contenidoFila;
+    if(resenyas.length > 0) {
+        for (let resenya of resenyas) {
+            let contenidoFila =
+                `<tr>
+                <td>${resenya.id}</td>
+                <td>[Undefined]</td>
+                <td>${resenya.evento.id}</td>
+                <td>${resenya.comentario}</td>
+                <td>${resenya.puntuacion}</td>
+                
+            <tr>`
+    
+            contenidoTabla += contenidoFila;
+        }
+    } else {
+        contenidoTabla = "<tr><td colspan='6'>No hay resenyas</td></tr>";
     }
 
     document.querySelector("#tabla tbody").outerHTML = contenidoTabla;

@@ -24,24 +24,25 @@ let listarEventos = async () => {
 
     let contenidoTabla = "";
 
-    for(let evento of eventos) {
-        let contenidoFila = 
-        `<tr>
-            <td>${evento.id}</td>
-            <td>${evento.nombre}</td>
-            <td>${formatDate(evento.fecha, "es-ES")}</td>
-            <td>${evento.lugar}</td>
-            <td>
-                <i class="material-icons button edit">edit</i>
-                <i onClick="eliminarEvento(${evento.id})"class="material-icons button delete">delete</i>
-            </td>
-        <tr>`
-        function formatDate(date, locale = "en-US") {
-            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', };
-            return new Date(date).toLocaleDateString(locale, options);
-        }
+    if(eventos.length > 0) {
+        for(let evento of eventos) {
+            let contenidoFila = 
+            `<tr>
+                <td>${evento.id}</td>
+                <td>${evento.nombre}</td>
+                <td>${evento.fecha}</td>
+                <td>${evento.hora}</td>
+                <td>${evento.lugar}</td>
+                <td>
+                    <i class="material-icons button edit">edit</i>
+                    <i onClick="eliminarEvento(${evento.id})" class="material-icons button delete">delete</i>
+                </td>
+            </tr>`
 
-        contenidoTabla += contenidoFila;
+            contenidoTabla += contenidoFila;
+        }
+    } else {
+        contenidoTabla = "<tr><td colspan='6'>No hay eventos</td></tr>";
     }
 
     document.querySelector("#tabla tbody").outerHTML = contenidoTabla; 

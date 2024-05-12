@@ -49,11 +49,8 @@ let listarEntradas = async () => {
     
             contenidoTabla += contenidoFila;
         }
-    } else {
-        contenidoTabla += 
-        `<tr>
-            <td colspan="5">No hay entradas registradas</td>
-        </tr>`
+    } else{
+        contenidoTabla = "<tr><td colspan='5'>No hay entradas</td></tr>";
     }
 
     document.querySelector("#tablaEntrada tbody").outerHTML = contenidoTabla;

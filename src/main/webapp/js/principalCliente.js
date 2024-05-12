@@ -53,20 +53,25 @@ let listarEntradas = async () => {
 
     let contenidoTabla = "";
 
-    for (let entrada of entradas) {
-        let contenidoFila =
-            `<tr>
-            <td>${entrada.id}</td>
-            <td>${entrada.evento.nombre}</td>
-            <td>${entrada.precio} €</td>
-            <td>${entrada.sector}</td>
-            <td>
-                <span onClick="eliminarEntrada(${entrada.id})" class="material-symbols-outlined button delete">delete</span>
-            </td>
-        <tr>`
-
-        contenidoTabla += contenidoFila;
+    if(entradas.length > 0) {
+        for (let entrada of entradas) {
+            let contenidoFila =
+                `<tr>
+                <td>${entrada.id}</td>
+                <td>${entrada.evento.nombre}</td>
+                <td>${entrada.precio} €</td>
+                <td>${entrada.sector}</td>
+                <td>
+                    <span onClick="eliminarEntrada(${entrada.id})" class="material-symbols-outlined button delete">delete</span>
+                </td>
+            <tr>`
+    
+            contenidoTabla += contenidoFila;
+        }
+    } else {
+        contenidoTabla += '<tr><td colspan="5">No hay entradas registradas</td></tr>'
     }
+
     document.querySelector("#tablaEntrada tbody").outerHTML = contenidoTabla;
 }
 
@@ -99,29 +104,34 @@ let listarEventos = async () => {
 
     let contador = 0;
 
-    for (let evento of eventos) {
-        if (contador < 10) {
-            let contenidoFila =
-                `<tr>
-                    <td>${evento.id}</td>
-                    <td>${evento.nombre}</td>
-                    <td>${formatDate(evento.fecha, "es-ES")}</td>
-                    <td>${evento.lugar}</td>
-                    <td>
-                        <span onclick = "redirectionInfoEvento(${evento.id})" id = "description" class="material-symbols-outlined button description">description</span>
-                        <span onclick = "redirectionCompra(${evento.id})" id = "compra" class="material-symbols-outlined button shop">shopping_cart</span>
-                        <span onclick = "redirectionResenya(${evento.id})" id = "resenya" class="material-symbols-outlined button resenya" >add_circle</span>
-                    </td>
-                <tr>`
-
-            function formatDate(date, locale = "en-US") {
-                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', };
-                return new Date(date).toLocaleDateString(locale, options);
+    if(eventos.length > 0) {
+        for (let evento of eventos) {
+            if (contador < 10) {
+                let contenidoFila =
+                    `<tr>
+                        <td>${evento.id}</td>
+                        <td>${evento.nombre}</td>
+                        <td>${formatDate(evento.fecha, "es-ES")}</td>
+                        <td>${evento.lugar}</td>
+                        <td>
+                            <span onclick = "redirectionInfoEvento(${evento.id})" id = "description" class="material-symbols-outlined button description">description</span>
+                            <span onclick = "redirectionCompra(${evento.id})" id = "compra" class="material-symbols-outlined button shop">shopping_cart</span>
+                            <span onclick = "redirectionResenya(${evento.id})" id = "resenya" class="material-symbols-outlined button resenya" >add_circle</span>
+                        </td>
+                    <tr>`
+    
+                function formatDate(date, locale = "en-US") {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', };
+                    return new Date(date).toLocaleDateString(locale, options);
+                }
+                contenidoTabla += contenidoFila;
+                contador++;
             }
-            contenidoTabla += contenidoFila;
-            contador++;
         }
+    } else {
+        contenidoTabla += '<tr><td colspan="5">No hay eventos registrados</td></tr>'
     }
+
     document.querySelector("#tabla tbody").outerHTML = contenidoTabla;
 }
 
