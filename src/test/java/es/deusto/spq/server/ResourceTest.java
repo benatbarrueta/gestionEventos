@@ -64,7 +64,30 @@ public class ResourceTest {
             resource = new Resource();
         }
     }
+    @Test
+    public void testRegisterUserAlreadyExists() throws Exception {
+        // Preparar objeto mock query para ser devuelto por mock persistenceManager
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.ADMINISTRADOR);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
 
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        //llamar metodo test
+        Response response = resource.registerUser(usuario);
+
+        // Comprobar response esperada        
+        assertEquals(Response.Status.UNAUTHORIZED, response.getStatusInfo());
+    }
     @Test
     public void testRegisterUserNotFound() throws Exception {
         // Preparar objeto mock query para ser devuelto por mock persistenceManager
@@ -157,6 +180,8 @@ public class ResourceTest {
         // Comprobar response esperada        
         assertEquals(Response.Status.UNAUTHORIZED, response.getStatusInfo());
     }
+
+   
 
     @Test
     public void testLogoutFails() throws Exception{
@@ -480,6 +505,7 @@ public class ResourceTest {
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
+  
 
     /*@Test
     public void testGetEventos() throws Exception{
