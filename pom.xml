@@ -11,6 +11,7 @@
 	<name>DeustoEventos</name>
 
 	<properties>
+		<doxygen.config.file>${basedir}/src/main/resources/Doxyfile</doxygen.config.file>
 		<maven.compiler.release>8</maven.compiler.release>
 		<config.files.dir>${basedir}/src/main/resources</config.files.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -118,6 +119,15 @@
 		</resources>
 
 		<plugins>
+			<plugin>
+				<groupId>com.soebes.maven.plugins</groupId>
+				<artifactId>doxygen-maven-plugin</artifactId>
+				<version>1.1.0</version>
+				<configuration>
+					<configurationFile>${doxygen.config.file}</configurationFile>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.2.0</version>
