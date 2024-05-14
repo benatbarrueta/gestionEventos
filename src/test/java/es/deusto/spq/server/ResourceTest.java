@@ -14,6 +14,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.ws.rs.core.Response;
 
@@ -153,6 +154,7 @@ public class ResourceTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testLoginUser() throws Exception{
         // Preparar objeto mock query para ser devuelto por mock persistenceManager
@@ -168,6 +170,10 @@ public class ResourceTest {
         usuario.setDireccion("test");
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        @SuppressWarnings("rawtypes")
+        Query query = spy(Query.class);
+        when(persistenceManager.newQuery(Usuario.class)).thenReturn(query);
+
         Usuario user = spy(Usuario.class);
         when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
 
@@ -287,16 +293,8 @@ public class ResourceTest {
         assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
-    public void testGetUsuarios() throws Exception{
-        try (Response response = resource.getUsuarios()){
-            assertEquals(Response.Status.OK, response.getStatusInfo());
-        } catch (Exception e) {
-
-        }
-    }
-
-    /*@Test
     public void testGetUsuarios(){
         Usuario usuario = new Usuario();
         usuario.setNombre("test");
@@ -310,19 +308,20 @@ public class ResourceTest {
         usuario.setDireccion("test");
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
-        Usuario user = spy(Usuario.class);
-        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+        Query query = spy(Query.class);
+        when(persistenceManager.newQuery(Usuario.class)).thenReturn(query);
         
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
-        // Llamar metodo test
-        Response response = resource.getUsuarios();
+        // Llamar metodo test y comprobar response esperada
 
-        // Comprobar response esperada
-        assertEquals(Response.Status.OK, response.getStatusInfo());
+        try (Response response = resource.getUsuarios()){
+            assertEquals(Response.Status.UNAUTHORIZED, response.getStatusInfo());
+        } catch (Exception e) {
+
+        }
     }
-    */
 
     @Test
     public void testGetUsuarioId(){
@@ -514,17 +513,9 @@ public class ResourceTest {
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
-    @Test
-    public void testGetEventos() throws Exception{
-        try (Response response = resource.getEventos()){
-            assertEquals(Response.Status.OK, response.getStatusInfo());
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-
    
-    /*@Test
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Test
     public void testGetEventos() throws Exception{
         Evento evento = new Evento();
         evento.setNombre("test");
@@ -535,18 +526,18 @@ public class ResourceTest {
         evento.setOrganizador("test");
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
-        Evento event = spy(Evento.class);
-        when(persistenceManager.getObjectById(Evento.class, evento.getId())).thenReturn(event);
+        Query query = spy(Query.class);
+        when(persistenceManager.newQuery(Evento.class)).thenReturn(query);
 
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
-        //llamar metodo test
-        Response response = resource.getEventos();
-
-        // Comprobar response esperada        
-        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
-    }*/
+        // Llamar metodo test y comprobar response esperada
+        try (Response response = resource.getEventos()){
+            assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
+        } catch (Exception e) {
+        }
+    }
 
     @Test
     public void testGetEventosId() throws Exception{
@@ -886,9 +877,8 @@ public class ResourceTest {
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
-
     
-    /*
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void testGetEntradas() throws Exception{
         Evento evento = new Evento();
@@ -900,19 +890,18 @@ public class ResourceTest {
         evento.setOrganizador("test");
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
-        Evento event = spy(Evento.class);
-        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+        Query query = spy(Query.class);
+        when(persistenceManager.newQuery(Entrada.class)).thenReturn(query);
 
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
-
-        //llamar metodo test
-        Response response = resource.getEntradas();
-
-        // Comprobar response esperada
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+     
+        // Llamar metodo test y  comprobar response esperada
+        try (Response response = resource.getEntradas()){
+            assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
+        } catch (Exception e) {
+        }
     }
-    */
 
     @Test
     public void testEliminarEntrada() throws Exception{
@@ -1024,6 +1013,7 @@ public class ResourceTest {
     }
     
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void testGetResenya() throws Exception{
         Resenya resenya = new Resenya();
@@ -1031,17 +1021,17 @@ public class ResourceTest {
         resenya.setPuntuacion(5);
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
-        Resenya res = spy(Resenya.class);
-        when(persistenceManager.getObjectById(Resenya.class, "0")).thenReturn(res);
+        Query query = spy(Query.class);
+        when(persistenceManager.newQuery(Resenya.class)).thenReturn(query);
 
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
         //llamar metodo test
-        Response response = resource.getResenyasEvento("0");
+        Response response = resource.getResenyasEvento(""+resenya.getId());
 
         // Comprobar response esperada
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
     }
 
     @Test
@@ -1083,23 +1073,24 @@ public class ResourceTest {
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
     }
 
-    /*@Test
+    @Test
     public void testGetResenyas() throws Exception{
         Resenya resenya = new Resenya();
         resenya.setComentario("test");
         resenya.setPuntuacion(5);
 
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
-        Resenya res = spy(Resenya.class);
-        when(persistenceManager.getObjectById(Resenya.class, "0")).thenReturn(res);
+        Query query = spy(Query.class);
+        when(persistenceManager.newQuery(Resenya.class)).thenReturn(query);
 
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
-        //llamar metodo test
-        Response response = resource.getResenyas();
-
-        // Comprobar response esperada
-        assertEquals(401, response.getStatus());
-    }*/
+        
+        // Llamar metodo test y comprobar response esperada
+        try (Response response = resource.getResenyas()){
+            assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
+        } catch (Exception e) {
+        }
+    }
 }

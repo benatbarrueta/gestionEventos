@@ -33,9 +33,12 @@ If it's required to run the performance tests, run the following command:
 
 To launch the server run the command
 
-    mvn jetty:run
+      mvn jetty:run
 
-To launch the web client make next steps:
-      1. Open a internet navigator
-      2. Search next url --> localhost:8080/inicio.html
+To launch the web client open the link:
 
+http://localhost:8080/inicio.html
+
+If you want to see the documentation cretaed by doxygen, run the following command:
+
+      mvn  doxygen:report
