@@ -287,6 +287,15 @@ public class ResourceTest {
         assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
     }
 
+    @Test
+    public void testGetUsuarios() throws Exception{
+        try (Response response = resource.getUsuarios()){
+            assertEquals(Response.Status.OK, response.getStatusInfo());
+        } catch (Exception e) {
+
+        }
+    }
+
     /*@Test
     public void testGetUsuarios(){
         Usuario usuario = new Usuario();
@@ -505,8 +514,16 @@ public class ResourceTest {
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
-  
+    @Test
+    public void testGetEventos() throws Exception{
+        try (Response response = resource.getEventos()){
+            assertEquals(Response.Status.OK, response.getStatusInfo());
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 
+   
     /*@Test
     public void testGetEventos() throws Exception{
         Evento evento = new Evento();
