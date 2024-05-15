@@ -7,10 +7,9 @@ import javax.jdo.Query;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
- 
+
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -28,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 
 import es.deusto.spq.server.jdo.Entrada;
 import es.deusto.spq.server.jdo.Evento;
+import es.deusto.spq.server.jdo.Mensaje;
 import es.deusto.spq.server.jdo.Resenya;
 import es.deusto.spq.server.jdo.SectoresEvento;
 import es.deusto.spq.server.jdo.TipoUsuario;
@@ -37,7 +37,8 @@ import org.apache.logging.log4j.LogManager;
 
 /**
  * This class represents a resource in the server.
- * It handles login, registration, user management, and event management operations.
+ * It handles login, registration, user management, and event management
+ * operations.
  */
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)
@@ -45,17 +46,17 @@ public class Resource {
 
 	protected static final Logger logger = LogManager.getLogger();
 
-	private PersistenceManager pm=null;
-	private Transaction tx=null;
+	private PersistenceManager pm = null;
+	private Transaction tx = null;
 
 	public static Map<Usuario, Long> tokens = new HashMap<Usuario, Long>();
 	public static long token;
 	public static Usuario usuario;
+	public static Usuario usuario2;
 
-	//Credenciales de Twilio
-    public static final String ACCOUNT_SID = "ACb22cb289b26ad38d2c5ed1d0ba302f06";
-    public static final String AUTH_TOKEN = "18a51da79088cd192c44851e08653738";
-
+	// Credenciales de Twilio
+	public static final String ACCOUNT_SID = "ACb22cb289b26ad38d2c5ed1d0ba302f06";
+	public static final String AUTH_TOKEN = "18a51da79088cd192c44851e08653738";
 
 	public Resource() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
@@ -63,67 +64,62 @@ public class Resource {
 		this.tx = pm.currentTransaction();
 	}
 
-	
 	/**
-		* Logs in a user and returns a response.
-		*
-		* @param usuario The user to be logged in.
-		* @return A response indicating the login status.
-		*/
+	 * Logs in a user and returns a response.
+	 *
+	 * @param usuario The user to be logged in.
+	 * @return A response indicating the login status.
+	 */
 	@POST
 	@Path("/login")
 	public Response loginUser(Usuario usuario) {
+		Response resultado = null;
+
 		try {
 			tx.begin();
 
-			Usuario user = null;
-			try {
-				@SuppressWarnings("rawtypes")
-				Query query = pm.newQuery(Usuario.class);
-				query.setFilter("nombreUsuario == nombreUsuarioParam");
-				query.declareParameters("String nombreUsuarioParam");
-				@SuppressWarnings("unchecked")
-				List<Usuario> results = (List<Usuario>) query.execute(usuario.getNombreUsuario());
-				if (!results.isEmpty()) {
-					user = results.get(0);
+			Query<Usuario> query = pm.newQuery(Usuario.class);
+			@SuppressWarnings("unchecked")
+			List<Usuario> usuarios = (List<Usuario>) query.execute();
+			System.out.println(Resource.usuario);
+			if (usuarios != null) {
+				for (Usuario user : usuarios) {
+					if (user != null && user.getNombreUsuario().equals(usuario.getNombreUsuario()) && user.getContrasenya().equals(usuario.getContrasenya())) {
+						
+						logger.info("User {} logged in successfully!", user.getNombreUsuario());
+						long token = System.currentTimeMillis();
+						Resource.token = token;
+						Resource.tokens.put(user, token);
+						Resource.usuario = user;
+						tx.commit();
+
+						return Response.ok(Resource.usuario).build();
+
+					}
 				}
-			} catch (Exception e) {
-				logger.error("Exception: {}", e.getMessage());
-			}
-
-			if (user != null && user.getNombreUsuario().equals(usuario.getNombreUsuario()) && user.getContrasenya().equals(usuario.getContrasenya())) {
-				logger.info("User {} logged in successfully!", user.getNombreUsuario());
-				long token = System.currentTimeMillis();
-				Resource.token = token;
-				Resource.tokens.put(user, token);
-				usuario = user;
-				tx.commit();
-
-				return Response.ok(user).build();
-			
 			} else {
-				logger.info("Invalid email or password");
+				logger.info("Invalid email or password12");
 				tx.rollback();
 				return Response.status(Response.Status.UNAUTHORIZED).entity(false).build();
 			}
+
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
 		}
+		return resultado;
+
 	}
-	
-	
-	
+
 	/**
 	 * Represents the HTTP response returned by the server.
 	 */
 	@POST
 	@Path("/register")
 	public Response registerUser(Usuario usuario) {
-		try
-        {	
-            tx.begin();
+		try {
+			tx.begin();
 
 			Usuario user = null;
 			try {
@@ -138,20 +134,19 @@ public class Resource {
 				return Response.status(Response.Status.UNAUTHORIZED).entity("User already exists").build();
 			} else {
 				logger.info("Creating user: {}", user);
-				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(), usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(), TipoUsuario.CLIENTE, usuario.getFechaNacimiento(), usuario.getDni());
-				pm.makePersistent(user);					 
+				user = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getNombreUsuario(),
+						usuario.getContrasenya(), usuario.getEmail(), usuario.getDireccion(), usuario.getTelefono(),
+						TipoUsuario.CLIENTE, usuario.getFechaNacimiento(), usuario.getDni());
+				pm.makePersistent(user);
 				logger.info("User created: {}", user);
 				tx.commit();
 				return Response.ok().build();
 			}
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-      
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
 		}
 	}
 
@@ -161,7 +156,8 @@ public class Resource {
 	 * @param dni The DNI of the user.
 	 * @param rol The new role of the user.
 	 * @return A Response object indicating the success or failure of the operation.
-	 *         If the user is found and the role is updated successfully, the response
+	 *         If the user is found and the role is updated successfully, the
+	 *         response
 	 *         will have a status of 200 OK. If the user is not found, the response
 	 *         will have a status of 404 Not Found.
 	 */
@@ -197,14 +193,16 @@ public class Resource {
 		}
 	}
 
-
 	/**
-	 * Deletes a user account based on the provided DNI (Documento Nacional de Identidad).
+	 * Deletes a user account based on the provided DNI (Documento Nacional de
+	 * Identidad).
 	 * 
 	 * @param dni The DNI of the user to be deleted.
 	 * @return A Response object indicating the status of the operation.
-	 *         - If the user is found and successfully deleted, returns a Response with status 200 (OK).
-	 *         - If the user is not found, returns a Response with status 404 (Not Found) and an error message.
+	 *         - If the user is found and successfully deleted, returns a Response
+	 *         with status 200 (OK).
+	 *         - If the user is not found, returns a Response with status 404 (Not
+	 *         Found) and an error message.
 	 */
 	@DELETE
 	@Path("/eliminarCuenta/{dni}")
@@ -237,16 +235,16 @@ public class Resource {
 			pm.close();
 		}
 	}
-	
 
 	/**
 	 * Retrieves the list of users from the database.
 	 * 
-	 * @return a Response object containing the list of users if found, or an error message if no users are found.
+	 * @return a Response object containing the list of users if found, or an error
+	 *         message if no users are found.
 	 */
-	@GET 
+	@GET
 	@Path("/getUsuarios")
-	public Response getUsuarios(){
+	public Response getUsuarios() {
 		try {
 			tx.begin();
 			Query<Usuario> query = pm.newQuery(Usuario.class);
@@ -268,13 +266,13 @@ public class Resource {
 			pm.close();
 		}
 	}
-	
-	
+
 	/**
 	 * Retrieves the user with the specified ID.
 	 * 
 	 * @param id the ID of the user
-	 * @return a Response object containing the user if found, or an error message if not found
+	 * @return a Response object containing the user if found, or an error message
+	 *         if not found
 	 */
 	@GET
 	@Path("/getUsuarioId/{id}")
@@ -288,7 +286,6 @@ public class Resource {
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
 			}
-			
 
 			if (user != null) {
 				logger.info("User found: {}", user.getNombre());
@@ -306,15 +303,17 @@ public class Resource {
 			}
 			pm.close();
 		}
-	
+
 	}
 
 	/**
 	 * Creates a new event in the system.
 	 * 
-	 * @param evento The event object containing the details of the event to be created.
+	 * @param evento The event object containing the details of the event to be
+	 *               created.
 	 * @return A Response object indicating the status of the operation.
-	 *         If the event already exists, returns an UNAUTHORIZED response with an error message.
+	 *         If the event already exists, returns an UNAUTHORIZED response with an
+	 *         error message.
 	 *         If the event is successfully created, returns an OK response.
 	 */
 	@POST
@@ -329,25 +328,24 @@ public class Resource {
 				event = pm.getObjectById(Evento.class, evento.getId());
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
-			} 
+			}
 
-			if(event != null){
+			if (event != null) {
 				logger.info("Event already exists!");
 				tx.rollback();
 				return Response.status(Response.Status.UNAUTHORIZED).entity("Event already exists").build();
-			}else{
+			} else {
 				logger.info("Creating event: {}", event);
-				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(), evento.getAforo(), evento.getAforoTotal(), evento.getOrganizador(), evento.getSector(), evento.getPrecioSector(), evento.getEntradasSector());
+				event = new Evento(evento.getNombre(), evento.getLugar(), evento.getFecha(), evento.getDescripcion(),
+						evento.getAforo(), evento.getAforoTotal(), evento.getOrganizador(), evento.getSector(),
+						evento.getPrecioSector(), evento.getEntradasSector());
 				pm.makePersistent(event);
 				logger.info("Event created: {}", event);
 				tx.commit();
 				return Response.ok().build();
 			}
-		} 
-		finally 
-		{
-			if (tx.isActive()) 
-			{
+		} finally {
+			if (tx.isActive()) {
 				tx.rollback();
 			}
 		}
@@ -356,7 +354,8 @@ public class Resource {
 	/**
 	 * Retrieves a list of events.
 	 * 
-	 * @return a Response object containing the list of events if found, or an unauthorized status with an error message if no events are found.
+	 * @return a Response object containing the list of events if found, or an
+	 *         unauthorized status with an error message if no events are found.
 	 */
 	@GET
 	@Path("/getEventos")
@@ -364,10 +363,9 @@ public class Resource {
 		try {
 			tx.begin();
 			Query<Evento> query = pm.newQuery(Evento.class);
-			
+
 			@SuppressWarnings("unchecked")
 			List<Evento> eventos = (List<Evento>) query.execute();
-			
 
 			if (eventos != null) {
 				logger.info("{} events found", eventos.size());
@@ -384,14 +382,15 @@ public class Resource {
 			}
 			pm.close();
 		}
-	
+
 	}
 
 	/**
 	 * Retrieves the event with the specified ID.
 	 * 
 	 * @param id the ID of the event to retrieve
-	 * @return a Response object containing the event if found, or an error message if not found
+	 * @return a Response object containing the event if found, or an error message
+	 *         if not found
 	 */
 	@GET
 	@Path("/getEventoId/{id}")
@@ -405,7 +404,6 @@ public class Resource {
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
 			}
-			
 
 			if (event != null) {
 				logger.info("Event found: {}", event.getNombre());
@@ -423,7 +421,7 @@ public class Resource {
 			}
 			pm.close();
 		}
-	
+
 	}
 
 	/**
@@ -472,7 +470,7 @@ public class Resource {
 	 */
 	@POST
 	@Path("/actualizarEvento")
-	public Response actualizarEvento(Evento evento){
+	public Response actualizarEvento(Evento evento) {
 		try {
 			tx.begin();
 
@@ -486,7 +484,7 @@ public class Resource {
 
 			if (event != null) {
 				Response response = eliminarEvento(String.valueOf(event.getId()));
-				if(response.getStatus() == 200) {
+				if (response.getStatus() == 200) {
 					event.setNombre(evento.getNombre());
 					event.setLugar(evento.getLugar());
 					event.setFecha(evento.getFecha());
@@ -503,7 +501,8 @@ public class Resource {
 				} else {
 					logger.info("Event not found");
 					tx.rollback();
-					return Response.status(Response.Status.NOT_FOUND).entity("Event not deleted").build();}
+					return Response.status(Response.Status.NOT_FOUND).entity("Event not deleted").build();
+				}
 			} else {
 				logger.info("Event not found");
 				tx.rollback();
@@ -521,18 +520,21 @@ public class Resource {
 	 * This method is used to handle the request for buying a ticket.
 	 * It creates a new ticket based on the provided event ID, sector, and quantity.
 	 * If the ticket already exists, it returns an unauthorized response.
-	 * Otherwise, it creates the ticket, persists it, and returns a success response.
+	 * Otherwise, it creates the ticket, persists it, and returns a success
+	 * response.
 	 *
-	 * @param eventId   The ID of the event for which the ticket is being purchased.
-	 * @param sector    The sector of the event where the ticket will be located.
-	 * @param cantidad  The quantity of tickets being purchased.
-	 * @return          A Response object indicating the success or failure of the ticket purchase.
+	 * @param eventId  The ID of the event for which the ticket is being purchased.
+	 * @param sector   The sector of the event where the ticket will be located.
+	 * @param cantidad The quantity of tickets being purchased.
+	 * @return A Response object indicating the success or failure of the ticket
+	 *         purchase.
 	 */
 	@SuppressWarnings("null")
 	@GET
 	@Path("/comprarEntrada/{idEvento}/{sector}/{cantidad}")
-	public Response comprarEntrada(@PathParam("idEvento") String eventId, @PathParam("sector") String sector, @PathParam("cantidad") String cantidad) {
-		try{
+	public Response comprarEntrada(@PathParam("idEvento") String eventId, @PathParam("sector") String sector,
+			@PathParam("cantidad") String cantidad) {
+		try {
 			tx.begin();
 
 			Entrada ticket = null;
@@ -548,58 +550,141 @@ public class Resource {
 
 			System.out.println(sector);
 
-			if (SectoresEvento.VIP.toString().equals(sector.toUpperCase())){
+			if (SectoresEvento.VIP.toString().equals(sector.toUpperCase())) {
 				entrada = new Entrada(usuario, event, 100, SectoresEvento.VIP);
-			} else if (SectoresEvento.GRADA_ALTA.toString().equals(sector.toUpperCase())){
+			} else if (SectoresEvento.GRADA_ALTA.toString().equals(sector.toUpperCase())) {
 				entrada = new Entrada(usuario, event, 20, SectoresEvento.GRADA_ALTA);
-			} else if (SectoresEvento.GRADA_MEDIA.toString().equals(sector.toUpperCase())){
+			} else if (SectoresEvento.GRADA_MEDIA.toString().equals(sector.toUpperCase())) {
 				entrada = new Entrada(usuario, event, 30, SectoresEvento.GRADA_MEDIA);
-			} else if (SectoresEvento.GRADA_BAJA.toString().equals(sector.toUpperCase())){
+			} else if (SectoresEvento.GRADA_BAJA.toString().equals(sector.toUpperCase())) {
 				entrada = new Entrada(usuario, event, 40, SectoresEvento.GRADA_BAJA);
-			} else if (SectoresEvento.PISTA.toString().equals(sector.toUpperCase())){
+			} else if (SectoresEvento.PISTA.toString().equals(sector.toUpperCase())) {
 				entrada = new Entrada(usuario, event, 60, SectoresEvento.PISTA);
-			} else if (SectoresEvento.FRONT_STAGE.toString().equals(sector.toUpperCase())){
+			} else if (SectoresEvento.FRONT_STAGE.toString().equals(sector.toUpperCase())) {
 				entrada = new Entrada(usuario, event, 80, SectoresEvento.FRONT_STAGE);
 			}
 
-			try{
+			try {
 				ticket = pm.getObjectById(Entrada.class, entrada.getId());
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe){
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
 			}
 
-			if(ticket != null){
+			if (ticket != null) {
 				logger.info("Ticket already exists!");
 				tx.rollback();
 				return Response.status(Response.Status.UNAUTHORIZED).entity("Ticket already exists").build();
 			} else {
-				if (SectoresEvento.VIP.toString().equals(sector.toUpperCase())){
-					ticket = new Entrada(usuario, event, 100, SectoresEvento.VIP);
-				} else if (SectoresEvento.GRADA_ALTA.toString().equals(sector.toUpperCase())){
-					ticket = new Entrada(usuario, event, 20, SectoresEvento.GRADA_ALTA);
-				} else if (SectoresEvento.GRADA_MEDIA.toString().equals(sector.toUpperCase())){
-					ticket = new Entrada(usuario, event, 30, SectoresEvento.GRADA_MEDIA);
-				} else if (SectoresEvento.GRADA_BAJA.toString().equals(sector.toUpperCase())){
-					ticket = new Entrada(usuario, event, 40, SectoresEvento.GRADA_BAJA);
-				} else if (SectoresEvento.PISTA.toString().equals(sector.toUpperCase())){
-					ticket = new Entrada(usuario, event, 60, SectoresEvento.PISTA);
-				} else if (SectoresEvento.FRONT_STAGE.toString().equals(sector.toUpperCase())){
-					ticket = new Entrada(usuario, event, 80, SectoresEvento.FRONT_STAGE);
+				if (SectoresEvento.VIP.toString().equals(sector.toUpperCase())) {
+					ticket = new Entrada(null, event, 100, SectoresEvento.VIP);
+					Mensaje mensaje = new Mensaje();
+					if (usuario.getTelefono().contains("+34")) {
+						mensaje.setTelefono(usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada VIP para el evento " + event.getNombre()
+								+ " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					} else {
+						mensaje.setTelefono("+34" + usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada VIP para el evento " + event.getNombre()
+								+ " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					}
+				} else if (SectoresEvento.GRADA_ALTA.toString().equals(sector.toUpperCase())) {
+					ticket = new Entrada(null, event, 20, SectoresEvento.GRADA_ALTA);
+					Mensaje mensaje = new Mensaje();
+					if (usuario.getTelefono().contains("+34")) {
+						mensaje.setTelefono(usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector GRADA ALTA para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					} else {
+						mensaje.setTelefono("+34" + usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector GRADA ALTA para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					}
+				} else if (SectoresEvento.GRADA_MEDIA.toString().equals(sector.toUpperCase())) {
+					ticket = new Entrada(null, event, 30, SectoresEvento.GRADA_MEDIA);
+					Mensaje mensaje = new Mensaje();
+					if (usuario.getTelefono().contains("+34")) {
+						mensaje.setTelefono(usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector GRADA MEDIA para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					} else {
+						mensaje.setTelefono("+34" + usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector GRADA MEDIA para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					}
+				} else if (SectoresEvento.GRADA_BAJA.toString().equals(sector.toUpperCase())) {
+					ticket = new Entrada(null, event, 40, SectoresEvento.GRADA_BAJA);
+					Mensaje mensaje = new Mensaje();
+					if (usuario.getTelefono().contains("+34")) {
+						mensaje.setTelefono(usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector GRADA BAJA para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					} else {
+						mensaje.setTelefono("+34" + usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector GRADA BAJA para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					}
+				} else if (SectoresEvento.PISTA.toString().equals(sector.toUpperCase())) {
+					ticket = new Entrada(null, event, 60, SectoresEvento.PISTA);
+					Mensaje mensaje = new Mensaje();
+					if (usuario.getTelefono().contains("+34")) {
+						mensaje.setTelefono(usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector PISTA para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					} else {
+						mensaje.setTelefono("+34" + usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector PISTA para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					}
+				} else if (SectoresEvento.FRONT_STAGE.toString().equals(sector.toUpperCase())) {
+					ticket = new Entrada(null, event, 80, SectoresEvento.FRONT_STAGE);
+					Mensaje mensaje = new Mensaje();
+					if (usuario.getTelefono().contains("+34")) {
+						mensaje.setTelefono(usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector FRONT STAGE para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					} else {
+						mensaje.setTelefono("+34" + usuario.getTelefono());
+						mensaje.setMensaje("¡Hola! Has comprado una entrada en el sector FRONT STAGE para el evento "
+								+ event.getNombre() + " en la fecha " + event.getFecha() + " en " + event.getLugar()
+								+ ". ¡Disfruta del evento!");
+						sendMSG(mensaje);
+					}
 				}
-				
+
 				logger.info("Creating ticket: {}", ticket);
-				
+
 				pm.makePersistent(ticket);
 				logger.info("Ticket created: {}", ticket);
 				tx.commit();
 				return Response.ok().build();
 			}
-		}
-		finally{
-			if(tx.isActive()){
+		} finally {
+			if (tx.isActive()) {
 				tx.rollback();
 			}
-		
+
 		}
 
 	}
@@ -607,16 +692,17 @@ public class Resource {
 	/**
 	 * Retrieves the list of Entrada objects and returns a Response object.
 	 * 
-	 * @return a Response object containing the list of Entrada objects if found, or an error message if no tickets are found
+	 * @return a Response object containing the list of Entrada objects if found, or
+	 *         an error message if no tickets are found
 	 */
 	@GET
 	@Path("/getEntradas")
 	public Response getEntradas() {
 		try {
 			tx.begin();
-			
+
 			Query<Entrada> query = pm.newQuery(Entrada.class);
-			
+
 			@SuppressWarnings("unchecked")
 			List<Entrada> entradas = (List<Entrada>) query.execute();
 
@@ -635,7 +721,7 @@ public class Resource {
 			}
 			pm.close();
 		}
-	
+
 	}
 
 	/**
@@ -682,7 +768,7 @@ public class Resource {
 	 * @param resenya The Resenya object containing the review details.
 	 * @return A Response object indicating the status of the operation.
 	 */
-	@POST 
+	@POST
 	@Path("/crearResenya")
 	public Response crearResenya(Resenya resenya) {
 		try {
@@ -693,26 +779,24 @@ public class Resource {
 				review = pm.getObjectById(Resenya.class, resenya.getId());
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
-			} 
+			}
 
-			if(review != null){
+			if (review != null) {
 				logger.info("Review already exists!");
 				tx.rollback();
 				return Response.status(Response.Status.UNAUTHORIZED).entity("Review already exists").build();
-			}else{
+			} else {
 				logger.info("Creating review: {}", review);
-				review = new Resenya(resenya.getComentario(), resenya.getPuntuacion(), resenya.getUsuario(), resenya.getEvento());
+				review = new Resenya(resenya.getComentario(), resenya.getPuntuacion(), resenya.getUsuario(),
+						resenya.getEvento());
 				pm.makePersistent(review);
 				logger.info("Review created: {}", review);
 				tx.commit();
 				eliminarEvento("" + resenya.getEvento().getId());
 				return Response.ok().build();
 			}
-		} 
-		finally 
-		{
-			if (tx.isActive()) 
-			{
+		} finally {
+			if (tx.isActive()) {
 				tx.rollback();
 			}
 		}
@@ -728,9 +812,9 @@ public class Resource {
 	public Response getResenyas() {
 		try {
 			tx.begin();
-			
+
 			Query<Resenya> query = pm.newQuery(Resenya.class);
-			
+
 			@SuppressWarnings("unchecked")
 			List<Resenya> reseñas = (List<Resenya>) query.execute();
 
@@ -749,9 +833,9 @@ public class Resource {
 			}
 			pm.close();
 		}
-	
+
 	}
-	
+
 	/**
 	 * Retrieves the reviews of an event based on its ID.
 	 * 
@@ -769,8 +853,8 @@ public class Resource {
 				resenya = pm.getObjectById(Resenya.class, id);
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
-			} 
-			
+			}
+
 			if (resenya != null) {
 				logger.info("Reviews found: {}", resenya.getComentario());
 				tx.commit();
@@ -779,9 +863,9 @@ public class Resource {
 				logger.info("No reviews found");
 				tx.rollback();
 				return Response.status(Response.Status.UNAUTHORIZED).entity("No reviews found").build();
-				
+
 			}
-			
+
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -790,20 +874,19 @@ public class Resource {
 		}
 	}
 
-
-	@GET
-	@Path("/sendMSG/{numero}/{mensaje}")
-	public Response sendMSG(@PathParam("numero") String numero,@PathParam("mensaje") String mensaje) {
+	@POST
+	@Path("/sendMSG")
+	public Response sendMSG(Mensaje mensaje) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		try {
-       		@SuppressWarnings("unused")
+			@SuppressWarnings("unused")
 			Message message = Message.creator(
-                new PhoneNumber("whatsapp:" + numero),
-                new PhoneNumber("whatsapp:+14155238886"), // Este es el número de Twilio sandbox para WhatsApp
-                mensaje)
-                .create();
+					new PhoneNumber("whatsapp:" + mensaje.getTelefono()),
+					new PhoneNumber("whatsapp:+14155238886"), // Este es el número de Twilio sandbox para WhatsApp
+					mensaje.getMensaje())
+					.create();
 
-        		logger.info("Msg sended to: {}",numero);
+			logger.info("Msg sended to: {}", mensaje.getTelefono());
 			return Response.ok().build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error sending message").build();
