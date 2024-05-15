@@ -43,9 +43,7 @@ jobs:
       run: sudo apt-get install -y doxygen
 
     - name: Generate Doxygen documentation
-      run: |
-        cd src/main/java/resources
-        doxygen Doxyfile
+      run: mvn doxygen:report
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4
