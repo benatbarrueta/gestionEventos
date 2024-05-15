@@ -27,7 +27,7 @@ let listarUsuarios = async () => {
                 <td>${usuario.apellidos}</td>
                 <td>${usuario.email}</td>
                 <td>${usuario.telefono}</td>
-                <td>${rol}</td>
+                <td>${usuario.rol}</td>
                 <td>
                     <i onClick="redirectionEditarRolUsuario(${usuario.dni})"class="material-icons button edit">edit</i>
                     <i onClick="eliminarUsuario(${usuario.dni})"class="material-icons button delete">delete</i>

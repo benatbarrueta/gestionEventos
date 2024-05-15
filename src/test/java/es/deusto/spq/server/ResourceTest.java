@@ -1073,6 +1073,7 @@ public class ResourceTest {
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void testGetResenyas() throws Exception{
         Resenya resenya = new Resenya();
