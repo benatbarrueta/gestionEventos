@@ -10,6 +10,7 @@ import java.util.Map;
  
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -18,6 +19,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 import org.apache.logging.log4j.Logger;
 
@@ -46,6 +51,10 @@ public class Resource {
 	public static Map<Usuario, Long> tokens = new HashMap<Usuario, Long>();
 	public static long token;
 	public static Usuario usuario;
+
+	//Credenciales de Twilio
+    public static final String ACCOUNT_SID = "ACb22cb289b26ad38d2c5ed1d0ba302f06";
+    public static final String AUTH_TOKEN = "18a51da79088cd192c44851e08653738";
 
 
 	public Resource() {
@@ -104,34 +113,7 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * Performs a logout operation.
-	 * 
-	 * @return a Response object indicating the success or failure of the logout operation.
-	 */
-	@GET
-	@Path("/logout")
-	public Response logout(int token) {
-		try {
-			tx.begin();
-
-			tokens.clear();
-
-			if (tokens.isEmpty() && token == 0) {				
-				tx.commit();
-				return Response.ok("true").build();
-			} else {
-				logger.info("logout has failed");
-				tx.commit();
-				return Response.status(Response.Status.UNAUTHORIZED).entity("false").build();
-			}
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		}
 	
-	}
 	
 	/**
 	 * Represents the HTTP response returned by the server.
@@ -805,6 +787,26 @@ public class Resource {
 				tx.rollback();
 			}
 			pm.close();
+		}
+	}
+
+
+	@GET
+	@Path("/sendMSG/{numero}/{mensaje}")
+	public Response sendMSG(@PathParam("numero") String numero,@PathParam("mensaje") String mensaje) {
+		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		try {
+       		@SuppressWarnings("unused")
+			Message message = Message.creator(
+                new PhoneNumber("whatsapp:" + numero),
+                new PhoneNumber("whatsapp:+14155238886"), // Este es el número de Twilio sandbox para WhatsApp
+                mensaje)
+                .create();
+
+        		logger.info("Msg sended to: {}",numero);
+			return Response.ok().build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error sending message").build();
 		}
 	}
 
