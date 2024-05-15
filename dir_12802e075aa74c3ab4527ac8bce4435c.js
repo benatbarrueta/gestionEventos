@@ -6,6 +6,9 @@ var dir_12802e075aa74c3ab4527ac8bce4435c =
     [ "Evento.java", "_evento_8java.html", [
       [ "Evento", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_evento.html", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_evento" ]
     ] ],
+    [ "Mensaje.java", "_mensaje_8java.html", [
+      [ "Mensaje", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_mensaje.html", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_mensaje" ]
+    ] ],
     [ "Resenya.java", "_resenya_8java.html", [
       [ "Resenya", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_resenya.html", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_resenya" ]
     ] ],

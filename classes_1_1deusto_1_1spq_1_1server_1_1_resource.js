@@ -17,6 +17,6 @@ var classes_1_1deusto_1_1spq_1_1server_1_1_resource =
     [ "getUsuarioId", "classes_1_1deusto_1_1spq_1_1server_1_1_resource.html#ab325249851d4921d6497b6030a67577d", null ],
     [ "getUsuarios", "classes_1_1deusto_1_1spq_1_1server_1_1_resource.html#a092ac6fab49fe8feead5d697cfdc3643", null ],
     [ "loginUser", "classes_1_1deusto_1_1spq_1_1server_1_1_resource.html#a4a28f434e713d55f0c989a4c87966fb2", null ],
-    [ "logout", "classes_1_1deusto_1_1spq_1_1server_1_1_resource.html#aa2569b052c22a95bb57acd11f9fe9335", null ],
-    [ "registerUser", "classes_1_1deusto_1_1spq_1_1server_1_1_resource.html#abae4dbaf9a0235118013b69da97cbc04", null ]
+    [ "registerUser", "classes_1_1deusto_1_1spq_1_1server_1_1_resource.html#abae4dbaf9a0235118013b69da97cbc04", null ],
+    [ "sendMSG", "classes_1_1deusto_1_1spq_1_1server_1_1_resource.html#a0a6a0e0d15c9944085b2ccc3aba9f31f", null ]
 ];
