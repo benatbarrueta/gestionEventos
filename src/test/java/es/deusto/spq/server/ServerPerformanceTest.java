@@ -148,7 +148,8 @@ public class ServerPerformanceTest {
      * 2. Sends a GET request to the server to buy an entry for the event.
      * 3. Asserts that the response status is successful.
      */
-    @Test
+
+@Test
     @JUnitPerfTest(threads = 10, durationMs = 1000)
     public void testNewEntrada(){
         Evento event = new Evento("testEvent", "testEvent", fecha, "testEvent", 0, 0, "testEvent", null, null, null);
