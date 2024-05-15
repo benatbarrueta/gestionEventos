@@ -1,0 +1,27 @@
+var classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario =
+[
+    [ "Usuario", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a2b31001a2f3c5004e167c01a35f32cb0", null ],
+    [ "Usuario", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#aa12c930b36d99fd9bcf7d4b4bfbb2a6f", null ],
+    [ "Usuario", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a225b9577261f78fb01062965b84e102c", null ],
+    [ "getApellidos", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#afa55be37f188940884445b73cfbec324", null ],
+    [ "getContrasenya", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#aad82e76b1d40bb45ed2f4479feb8fd0b", null ],
+    [ "getDireccion", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a5a10eb102656e4857b207c4623494594", null ],
+    [ "getDni", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a3d85591b198e953d68af1e66f7c7df41", null ],
+    [ "getEmail", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a515d308b3cb67fa2140f5e42879a1fae", null ],
+    [ "getFechaNacimiento", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#aaef60cf10d83185bc24dac8daf228145", null ],
+    [ "getNombre", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a1684cd309edf34c9ba1c6acded100ffb", null ],
+    [ "getNombreUsuario", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a81d5a149849aeabab2bfac8ed1198067", null ],
+    [ "getRol", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#aebab7aa1d1033344e197388c7283fc3d", null ],
+    [ "getTelefono", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#ae7b723eeb24d00ba3d6541e7c8ddcf34", null ],
+    [ "setApellidos", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a405a1ce1cd48edd4c93481ed7567e043", null ],
+    [ "setContrasenya", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a57bbcfda0d2fbb62ef854cff3479d579", null ],
+    [ "setDireccion", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#aeebc8e13314496417682349a4760263b", null ],
+    [ "setDni", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a9b6813b3f871fa61687abd9d7a553fab", null ],
+    [ "setEmail", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#aec2094f32437c596cc6bd516e84206fe", null ],
+    [ "setFechaNacimiento", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#af830a14d5eca4dacb6b462e1bcb44751", null ],
+    [ "setNombre", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a586ad337ac2b9304867ccf37e2ffc086", null ],
+    [ "setNombreUsuario", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a5b1799d2bc7aa921c6d8d79ffda287ad", null ],
+    [ "setRol", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a50a7c643f527f2b30ae22959854049b6", null ],
+    [ "setTelefono", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a19e8644c0861431215d71638288a8943", null ],
+    [ "toString", "classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#a0775f5f7c1c7e47a565b86b510dbacc2", null ]
+];
