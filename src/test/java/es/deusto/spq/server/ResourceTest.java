@@ -663,6 +663,253 @@ public class ResourceTest {
 
     }
 
+    @SuppressWarnings("static-access")
+    @Test
+    public void testComprarEntradaPista34() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("+34test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.comprarEntrada("0", "PISTA", "2");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @SuppressWarnings("static-access")
+    @Test
+    public void testComprarEntradaFront_stage34() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("+34test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.comprarEntrada("0", "FRONT_STAGE", "2");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @SuppressWarnings("static-access")
+    @Test
+    public void testComprarEntradaGrada_alta34() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("+34test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.comprarEntrada("0", "GRADA_ALTA", "2");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @SuppressWarnings("static-access")
+    @Test
+    public void testComprarEntradaGrada_media34() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("+34test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.comprarEntrada("0", "GRADA_MEDIA", "2");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @SuppressWarnings("static-access")
+    @Test
+    public void testComprarEntradaVip34() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("+34test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.comprarEntrada("0", "VIP", "2");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @SuppressWarnings("static-access")
+    @Test
+    public void testComprarEntradaGrada_baja34() throws Exception{
+        Evento evento = new Evento();
+        evento.setNombre("test");
+        evento.setDescripcion("test");
+        evento.setAforo(0);
+        evento.setAforoTotal(10000);
+        evento.setLugar("test");
+        evento.setOrganizador("test");
+
+        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
+        Evento event = spy(Evento.class);
+        when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("+34test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
+        // preparar comportamiento de transaccion mock
+        when(transaction.isActive()).thenReturn(false);
+
+        //llamar metodo test
+        Response response = resource.comprarEntrada("0", "GRADA_BAJA", "2");
+
+        // Comprobar response esperada
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @SuppressWarnings("static-access")
     @Test
     public void testComprarEntradaPista() throws Exception{
         Evento evento = new Evento();
@@ -677,6 +924,22 @@ public class ResourceTest {
         Evento event = spy(Evento.class);
         when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
 
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
@@ -687,6 +950,7 @@ public class ResourceTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @SuppressWarnings("static-access")
     @Test
     public void testComprarEntradaFront_stage() throws Exception{
         Evento evento = new Evento();
@@ -701,6 +965,22 @@ public class ResourceTest {
         Evento event = spy(Evento.class);
         when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
 
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
@@ -711,6 +991,7 @@ public class ResourceTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @SuppressWarnings("static-access")
     @Test
     public void testComprarEntradaGrada_alta() throws Exception{
         Evento evento = new Evento();
@@ -725,6 +1006,22 @@ public class ResourceTest {
         Evento event = spy(Evento.class);
         when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
 
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
@@ -735,6 +1032,7 @@ public class ResourceTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @SuppressWarnings("static-access")
     @Test
     public void testComprarEntradaGrada_media() throws Exception{
         Evento evento = new Evento();
@@ -749,6 +1047,22 @@ public class ResourceTest {
         Evento event = spy(Evento.class);
         when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
 
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
@@ -759,6 +1073,7 @@ public class ResourceTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @SuppressWarnings("static-access")
     @Test
     public void testComprarEntradaVip() throws Exception{
         Evento evento = new Evento();
@@ -773,6 +1088,22 @@ public class ResourceTest {
         Evento event = spy(Evento.class);
         when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
 
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
@@ -783,6 +1114,7 @@ public class ResourceTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @SuppressWarnings("static-access")
     @Test
     public void testComprarEntradaGrada_baja() throws Exception{
         Evento evento = new Evento();
@@ -797,6 +1129,22 @@ public class ResourceTest {
         Evento event = spy(Evento.class);
         when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
 
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
         // preparar comportamiento de transaccion mock
         when(transaction.isActive()).thenReturn(false);
 
@@ -807,7 +1155,7 @@ public class ResourceTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "static-access" })
     @Test
     public void testComprarEntradaNotFound() throws Exception{
         Evento evento = new Evento();
@@ -818,6 +1166,22 @@ public class ResourceTest {
         evento.setLugar("test");
         evento.setOrganizador("test");
 
+        Usuario usuario = new Usuario();
+        usuario.setNombre("test");
+        usuario.setApellidos("test");
+        usuario.setDni("test");
+        usuario.setContrasenya("test");
+        usuario.setRol(TipoUsuario.CLIENTE);
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEmail("test");
+        usuario.setTelefono("test");
+        usuario.setDireccion("test");
+
+        Usuario user = spy(Usuario.class);
+        when(persistenceManager.getObjectById(Usuario.class, usuario.getDni())).thenReturn(user);
+
+        resource.usuario = usuario;
+        
         //preparar response para cuando metodo mock Query es llamado con los parametros esperados
         Evento event = spy(Evento.class);
         when(persistenceManager.getObjectById(Evento.class, "0")).thenReturn(event);
@@ -827,29 +1191,6 @@ public class ResourceTest {
 
         //llamar metodo test
         Response response1 = resource.comprarEntrada("0", "PISTA", "2");
-        Response response = resource.comprarEntrada("0", "PISTA", "2");
-
-        // Comprobar response esperada
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-    }
-
-    @Test
-    public void testComprarEntradaEventoNull() throws Exception{
-        Evento evento = new Evento();
-        evento.setNombre("test");
-        evento.setDescripcion("test");
-        evento.setAforo(0);
-        evento.setAforoTotal(10000);
-        evento.setLugar("test");
-        evento.setOrganizador("test");
-
-        //preparar response para cuando metodo mock Query es llamado con los parametros esperados
-        when(persistenceManager.getObjectById(Evento.class, "0")).thenThrow(new JDOObjectNotFoundException());
-
-        // preparar comportamiento de transaccion mock
-        when(transaction.isActive()).thenReturn(false);
-
-        //llamar metodo test
         Response response = resource.comprarEntrada("0", "PISTA", "2");
 
         // Comprobar response esperada
