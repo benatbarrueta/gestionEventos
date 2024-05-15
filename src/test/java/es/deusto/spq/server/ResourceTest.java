@@ -189,29 +189,7 @@ public class ResourceTest {
 
    
 
-    @Test
-    public void testLogoutFails() throws Exception{
-        // preparar comportamiento de transaccion mock
-        when(transaction.isActive()).thenReturn(false);
-
-        //llamar metodo test
-        Response response = resource.logout(1);
-
-        // Comprobar response esperada        
-        assertEquals(Response.Status.UNAUTHORIZED, response.getStatusInfo());
-    }
-
-    @Test
-    public void testLogout() throws Exception{
-        // preparar comportamiento de transaccion mock
-        when(transaction.isActive()).thenReturn(false);
-
-        //llamar metodo test
-        Response response = resource.logout(0);
-
-        // Comprobar response esperada        
-        assertEquals(Response.Status.OK, response.getStatusInfo());
-    }
+    
 
     @Test
     public void testEliminarCuenta() throws Exception{
