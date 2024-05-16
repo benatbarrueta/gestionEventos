@@ -727,7 +727,7 @@ public class ResourceTest {
         usuario.setRol(TipoUsuario.CLIENTE);
         usuario.setFechaNacimiento(fecha);
         usuario.setEmail("test");
-        usuario.setTelefono("+34test");
+        usuario.setTelefono("+34688812275");
         usuario.setDireccion("test");
 
         Usuario user = spy(Usuario.class);
@@ -1330,6 +1330,8 @@ public class ResourceTest {
         // Comprobar response esperada
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
+
+    
     
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -1413,4 +1415,5 @@ public class ResourceTest {
         } catch (Exception e) {
         }
     }
+
 }
