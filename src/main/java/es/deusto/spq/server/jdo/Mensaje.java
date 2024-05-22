@@ -32,6 +32,6 @@ public class Mensaje {
 
     @Override
     public String toString() {
-        return "Mensaje --> telefono='" + telefono + ": '" + mensaje + '\'';
+        return "Mensaje: " + mensaje + " para telefono: " + telefono;
     }
 }
