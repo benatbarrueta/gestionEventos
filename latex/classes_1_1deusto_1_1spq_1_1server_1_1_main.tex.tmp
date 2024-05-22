@@ -1,0 +1,83 @@
+\hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_main}{}\doxysection{es.\+deusto.\+spq.\+server.\+Main Class Reference}
+\label{classes_1_1deusto_1_1spq_1_1server_1_1_main}\index{es.deusto.spq.server.Main@{es.deusto.spq.server.Main}}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Http\+Server \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_main_acff2ade4e7b4e7974053e4c2b2f503a7}{start\+Server}} ()
+\item 
+static void \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_main_acfd7bd44499e7a6462271fd5aefee074}{main}} (String\mbox{[}$\,$\mbox{]} args)  throws IOException 
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static final String \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_main_aaec03f6dfec6da3b8968a4eb0ade1308}{BASE\+\_\+\+URI}} = \char`\"{}http\+://localhost\+:8080/rest/\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_main}{Main}} class represents the entry point of the application. It starts the HTTP server and provides methods to start and stop the server. 
+
+Definition at line 14 of file Main.\+java.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_main_acfd7bd44499e7a6462271fd5aefee074}\label{classes_1_1deusto_1_1spq_1_1server_1_1_main_acfd7bd44499e7a6462271fd5aefee074}} 
+\index{es.deusto.spq.server.Main@{es.deusto.spq.server.Main}!main@{main}}
+\index{main@{main}!es.deusto.spq.server.Main@{es.deusto.spq.server.Main}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily static void es.\+deusto.\+spq.\+server.\+Main.\+main (\begin{DoxyParamCaption}\item[{String\mbox{[}$\,$\mbox{]}}]{args }\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [static]}}
+
+The main method of the application. It starts the HTTP server, prints the server information, and waits for user input to stop the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The command line arguments. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & If an I/O error occurs. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 35 of file Main.\+java.
+
+Here is the call graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_main_acff2ade4e7b4e7974053e4c2b2f503a7}\label{classes_1_1deusto_1_1spq_1_1server_1_1_main_acff2ade4e7b4e7974053e4c2b2f503a7}} 
+\index{es.deusto.spq.server.Main@{es.deusto.spq.server.Main}!startServer@{startServer}}
+\index{startServer@{startServer}!es.deusto.spq.server.Main@{es.deusto.spq.server.Main}}
+\doxysubsubsection{\texorpdfstring{startServer()}{startServer()}}
+{\footnotesize\ttfamily static Http\+Server es.\+deusto.\+spq.\+server.\+Main.\+start\+Server (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Starts the HTTP server with the configured resource packages.
+
+\begin{DoxyReturn}{Returns}
+The started Http\+Server instance. 
+\end{DoxyReturn}
+
+
+Definition at line 23 of file Main.\+java.
+
+Here is the caller graph for this function\+:
+% FIG 1
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_main_aaec03f6dfec6da3b8968a4eb0ade1308}\label{classes_1_1deusto_1_1spq_1_1server_1_1_main_aaec03f6dfec6da3b8968a4eb0ade1308}} 
+\index{es.deusto.spq.server.Main@{es.deusto.spq.server.Main}!BASE\_URI@{BASE\_URI}}
+\index{BASE\_URI@{BASE\_URI}!es.deusto.spq.server.Main@{es.deusto.spq.server.Main}}
+\doxysubsubsection{\texorpdfstring{BASE\_URI}{BASE\_URI}}
+{\footnotesize\ttfamily final String es.\+deusto.\+spq.\+server.\+Main.\+BASE\+\_\+\+URI = \char`\"{}http\+://localhost\+:8080/rest/\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 16 of file Main.\+java.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/es/deusto/spq/server/\mbox{\hyperlink{_main_8java}{Main.\+java}}\end{DoxyCompactItemize}

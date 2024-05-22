@@ -1,0 +1,514 @@
+\hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource}{}\doxysection{es.\+deusto.\+spq.\+server.\+Resource Class Reference}
+\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource}\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+
+
+Collaboration diagram for es.\+deusto.\+spq.\+server.\+Resource\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a46d2d25355fdbc4143383b83b7ea404f}{Resource}} ()
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a4a28f434e713d55f0c989a4c87966fb2}{login\+User}} (\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}} \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a4667d41404671d374259c4b43501c2cf}{usuario}})
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_abae4dbaf9a0235118013b69da97cbc04}{register\+User}} (\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}} \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a4667d41404671d374259c4b43501c2cf}{usuario}})
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a46d6d567bda11fe9f4643bab1011da19}{actualizar\+Rol\+Usuario}} (@Path\+Param(\char`\"{}dni\char`\"{}) String dni, @Path\+Param(\char`\"{}rol\char`\"{}) Tipo\+Usuario rol)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_afe2f0c62f1ee43dddab8e52042a41a82}{eliminar\+Cuenta}} (@Path\+Param(\char`\"{}dni\char`\"{}) String dni)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a092ac6fab49fe8feead5d697cfdc3643}{get\+Usuarios}} ()
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ab325249851d4921d6497b6030a67577d}{get\+Usuario\+Id}} (@Path\+Param(\char`\"{}id\char`\"{}) String id)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1296325c519c30d9facede04638cc3b8}{crear\+Evento}} (\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_evento}{Evento}} evento)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a960efe238b00371e0652da907e76c1dd}{get\+Eventos}} ()
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1df13bff8e01028923ab7d4765f3dd2b}{get\+Eventos}} (@Path\+Param(\char`\"{}id\char`\"{}) String id)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_afa0395688dbdc65b826f506a1b864b23}{eliminar\+Evento}} (@Path\+Param(\char`\"{}id\char`\"{}) String id)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ac04f10251fa0a59780a1bc2816924ff7}{actualizar\+Evento}} (\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_evento}{Evento}} evento)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ae01adbcaf25858c21d32df97ac215d89}{comprar\+Entrada}} (@Path\+Param(\char`\"{}id\+Evento\char`\"{}) String event\+Id, @Path\+Param(\char`\"{}sector\char`\"{}) String sector, @Path\+Param(\char`\"{}cantidad\char`\"{}) String cantidad)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aac8b77838b2b7a1ce508b20fe03bcea2}{get\+Entradas}} ()
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1b09486b20defd936e18ae78ee697f9a}{eliminar\+Entrada}} (@Path\+Param(\char`\"{}id\char`\"{}) String id)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aea3e30fe7ed3d5a78ed01ba6290cbf13}{crear\+Resenya}} (\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_resenya}{Resenya}} resenya)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a493b9719c3e80a163dc9e06970ae8e3e}{get\+Resenyas}} ()
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ad496d0854663b6adc6a4ca278edaa710}{get\+Resenyas\+Evento}} (@Path\+Param(\char`\"{}id\char`\"{}) String id)
+\item 
+Response \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a0a6a0e0d15c9944085b2ccc3aba9f31f}{send\+MSG}} (\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_mensaje}{Mensaje}} mensaje)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static Map$<$ \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}}, Long $>$ \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a5e080940175739c89a39fdb7a95c499d}{tokens}} = new Hash\+Map$<$\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}}, Long$>$()
+\item 
+static long \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a0a4e27a1bdd42615ba060a53e60bd283}{token}}
+\item 
+static \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}} \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a4667d41404671d374259c4b43501c2cf}{usuario}}
+\item 
+static \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}} \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a9d833ab2b7544275bae4f657959efbd6}{usuario2}}
+\item 
+static final String \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a2bff0459f8ec4617e2e3eea9ab7665bd}{ACCOUNT\+\_\+\+SID}} = \char`\"{}ACb22cb289b26ad38d2c5ed1d0ba302f06\char`\"{}
+\item 
+static final String \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aa779fafda99524e414fc25e2c99ff277}{AUTH\+\_\+\+TOKEN}} = \char`\"{}18a51da79088cd192c44851e08653738\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static final Logger \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1a5b31603778b2212fe3943020f230f0}{logger}} = Log\+Manager.\+get\+Logger()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class represents a resource in the server. It handles login, registration, user management, and event management operations. 
+
+Definition at line 45 of file Resource.\+java.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a46d2d25355fdbc4143383b83b7ea404f}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a46d2d25355fdbc4143383b83b7ea404f}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!Resource@{Resource}}
+\index{Resource@{Resource}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{Resource()}{Resource()}}
+{\footnotesize\ttfamily es.\+deusto.\+spq.\+server.\+Resource.\+Resource (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 61 of file Resource.\+java.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ac04f10251fa0a59780a1bc2816924ff7}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ac04f10251fa0a59780a1bc2816924ff7}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!actualizarEvento@{actualizarEvento}}
+\index{actualizarEvento@{actualizarEvento}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{actualizarEvento()}{actualizarEvento()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+actualizar\+Evento (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_evento}{Evento}}}]{evento }\end{DoxyParamCaption})}
+
+This method is used to update an Evento object and return a Response.
+
+
+\begin{DoxyParams}{Parameters}
+{\em evento} & The Evento object containing the updated information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Response indicating the success or failure of the update operation. 
+\end{DoxyReturn}
+
+
+Definition at line 473 of file Resource.\+java.
+
+Here is the call graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a46d6d567bda11fe9f4643bab1011da19}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a46d6d567bda11fe9f4643bab1011da19}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!actualizarRolUsuario@{actualizarRolUsuario}}
+\index{actualizarRolUsuario@{actualizarRolUsuario}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{actualizarRolUsuario()}{actualizarRolUsuario()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+actualizar\+Rol\+Usuario (\begin{DoxyParamCaption}\item[{@Path\+Param(\char`\"{}dni\char`\"{}) String}]{dni,  }\item[{@Path\+Param(\char`\"{}rol\char`\"{}) Tipo\+Usuario}]{rol }\end{DoxyParamCaption})}
+
+Updates the role of a user based on their DNI (identification number).
+
+
+\begin{DoxyParams}{Parameters}
+{\em dni} & The DNI of the user. \\
+\hline
+{\em rol} & The new role of the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Response object indicating the success or failure of the operation. If the user is found and the role is updated successfully, the response will have a status of 200 OK. If the user is not found, the response will have a status of 404 Not Found. 
+\end{DoxyReturn}
+
+
+Definition at line 166 of file Resource.\+java.
+
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ae01adbcaf25858c21d32df97ac215d89}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ae01adbcaf25858c21d32df97ac215d89}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!comprarEntrada@{comprarEntrada}}
+\index{comprarEntrada@{comprarEntrada}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{comprarEntrada()}{comprarEntrada()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+comprar\+Entrada (\begin{DoxyParamCaption}\item[{@Path\+Param(\char`\"{}id\+Evento\char`\"{}) String}]{event\+Id,  }\item[{@Path\+Param(\char`\"{}sector\char`\"{}) String}]{sector,  }\item[{@Path\+Param(\char`\"{}cantidad\char`\"{}) String}]{cantidad }\end{DoxyParamCaption})}
+
+This method is used to handle the request for buying a ticket. It creates a new ticket based on the provided event ID, sector, and quantity. If the ticket already exists, it returns an unauthorized response. Otherwise, it creates the ticket, persists it, and returns a success response.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Id} & The ID of the event for which the ticket is being purchased. \\
+\hline
+{\em sector} & The sector of the event where the ticket will be located. \\
+\hline
+{\em cantidad} & The quantity of tickets being purchased. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Response object indicating the success or failure of the ticket purchase. 
+\end{DoxyReturn}
+
+
+Definition at line 535 of file Resource.\+java.
+
+Here is the call graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1296325c519c30d9facede04638cc3b8}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1296325c519c30d9facede04638cc3b8}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!crearEvento@{crearEvento}}
+\index{crearEvento@{crearEvento}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{crearEvento()}{crearEvento()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+crear\+Evento (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_evento}{Evento}}}]{evento }\end{DoxyParamCaption})}
+
+Creates a new event in the system.
+
+
+\begin{DoxyParams}{Parameters}
+{\em evento} & The event object containing the details of the event to be created. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Response object indicating the status of the operation. If the event already exists, returns an UNAUTHORIZED response with an error message. If the event is successfully created, returns an OK response. 
+\end{DoxyReturn}
+
+
+Definition at line 321 of file Resource.\+java.
+
+Here is the call graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aea3e30fe7ed3d5a78ed01ba6290cbf13}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aea3e30fe7ed3d5a78ed01ba6290cbf13}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!crearResenya@{crearResenya}}
+\index{crearResenya@{crearResenya}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{crearResenya()}{crearResenya()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+crear\+Resenya (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_resenya}{Resenya}}}]{resenya }\end{DoxyParamCaption})}
+
+Creates a new review based on the provided Resenya object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em resenya} & The Resenya object containing the review details. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Response object indicating the status of the operation. 
+\end{DoxyReturn}
+
+
+Definition at line 773 of file Resource.\+java.
+
+Here is the call graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_afe2f0c62f1ee43dddab8e52042a41a82}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_afe2f0c62f1ee43dddab8e52042a41a82}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!eliminarCuenta@{eliminarCuenta}}
+\index{eliminarCuenta@{eliminarCuenta}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{eliminarCuenta()}{eliminarCuenta()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+eliminar\+Cuenta (\begin{DoxyParamCaption}\item[{@Path\+Param(\char`\"{}dni\char`\"{}) String}]{dni }\end{DoxyParamCaption})}
+
+Deletes a user account based on the provided DNI (Documento Nacional de Identidad).
+
+
+\begin{DoxyParams}{Parameters}
+{\em dni} & The DNI of the user to be deleted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Response object indicating the status of the operation.
+\begin{DoxyItemize}
+\item If the user is found and successfully deleted, returns a Response with status 200 (OK).
+\item If the user is not found, returns a Response with status 404 (Not Found) and an error message. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+Definition at line 209 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1b09486b20defd936e18ae78ee697f9a}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1b09486b20defd936e18ae78ee697f9a}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!eliminarEntrada@{eliminarEntrada}}
+\index{eliminarEntrada@{eliminarEntrada}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{eliminarEntrada()}{eliminarEntrada()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+eliminar\+Entrada (\begin{DoxyParamCaption}\item[{@Path\+Param(\char`\"{}id\char`\"{}) String}]{id }\end{DoxyParamCaption})}
+
+Deletes an entry from the database based on the provided ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the ID of the entry to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a Response object indicating the status of the operation 
+\end{DoxyReturn}
+
+
+Definition at line 735 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_afa0395688dbdc65b826f506a1b864b23}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_afa0395688dbdc65b826f506a1b864b23}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!eliminarEvento@{eliminarEvento}}
+\index{eliminarEvento@{eliminarEvento}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{eliminarEvento()}{eliminarEvento()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+eliminar\+Evento (\begin{DoxyParamCaption}\item[{@Path\+Param(\char`\"{}id\char`\"{}) String}]{id }\end{DoxyParamCaption})}
+
+Deletes an event from the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the ID of the event to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a Response object indicating the status of the operation 
+\end{DoxyReturn}
+
+
+Definition at line 435 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aac8b77838b2b7a1ce508b20fe03bcea2}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aac8b77838b2b7a1ce508b20fe03bcea2}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!getEntradas@{getEntradas}}
+\index{getEntradas@{getEntradas}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{getEntradas()}{getEntradas()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+get\+Entradas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retrieves the list of Entrada objects and returns a Response object.
+
+\begin{DoxyReturn}{Returns}
+a Response object containing the list of Entrada objects if found, or an error message if no tickets are found 
+\end{DoxyReturn}
+
+
+Definition at line 700 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a960efe238b00371e0652da907e76c1dd}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a960efe238b00371e0652da907e76c1dd}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!getEventos@{getEventos}}
+\index{getEventos@{getEventos}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{getEventos()}{getEventos()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+get\+Eventos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retrieves a list of events.
+
+\begin{DoxyReturn}{Returns}
+a Response object containing the list of events if found, or an unauthorized status with an error message if no events are found. 
+\end{DoxyReturn}
+
+
+Definition at line 362 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1df13bff8e01028923ab7d4765f3dd2b}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1df13bff8e01028923ab7d4765f3dd2b}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!getEventos@{getEventos}}
+\index{getEventos@{getEventos}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{getEventos()}{getEventos()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+get\+Eventos (\begin{DoxyParamCaption}\item[{@Path\+Param(\char`\"{}id\char`\"{}) String}]{id }\end{DoxyParamCaption})}
+
+Retrieves the event with the specified ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the ID of the event to retrieve \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a Response object containing the event if found, or an error message if not found 
+\end{DoxyReturn}
+
+
+Definition at line 397 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a493b9719c3e80a163dc9e06970ae8e3e}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a493b9719c3e80a163dc9e06970ae8e3e}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!getResenyas@{getResenyas}}
+\index{getResenyas@{getResenyas}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{getResenyas()}{getResenyas()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+get\+Resenyas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retrieves the list of reviews.
+
+\begin{DoxyReturn}{Returns}
+A Response object containing the list of reviews. 
+\end{DoxyReturn}
+
+
+Definition at line 812 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ad496d0854663b6adc6a4ca278edaa710}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ad496d0854663b6adc6a4ca278edaa710}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!getResenyasEvento@{getResenyasEvento}}
+\index{getResenyasEvento@{getResenyasEvento}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{getResenyasEvento()}{getResenyasEvento()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+get\+Resenyas\+Evento (\begin{DoxyParamCaption}\item[{@Path\+Param(\char`\"{}id\char`\"{}) String}]{id }\end{DoxyParamCaption})}
+
+Retrieves the reviews of an event based on its ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the event. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Response object containing the reviews of the event. 
+\end{DoxyReturn}
+
+
+Definition at line 847 of file Resource.\+java.
+
+Here is the call graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ab325249851d4921d6497b6030a67577d}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_ab325249851d4921d6497b6030a67577d}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!getUsuarioId@{getUsuarioId}}
+\index{getUsuarioId@{getUsuarioId}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{getUsuarioId()}{getUsuarioId()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+get\+Usuario\+Id (\begin{DoxyParamCaption}\item[{@Path\+Param(\char`\"{}id\char`\"{}) String}]{id }\end{DoxyParamCaption})}
+
+Retrieves the user with the specified ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the ID of the user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a Response object containing the user if found, or an error message if not found 
+\end{DoxyReturn}
+
+
+Definition at line 279 of file Resource.\+java.
+
+Here is the call graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a092ac6fab49fe8feead5d697cfdc3643}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a092ac6fab49fe8feead5d697cfdc3643}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!getUsuarios@{getUsuarios}}
+\index{getUsuarios@{getUsuarios}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{getUsuarios()}{getUsuarios()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+get\+Usuarios (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retrieves the list of users from the database.
+
+\begin{DoxyReturn}{Returns}
+a Response object containing the list of users if found, or an error message if no users are found. 
+\end{DoxyReturn}
+
+
+Definition at line 247 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a4a28f434e713d55f0c989a4c87966fb2}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a4a28f434e713d55f0c989a4c87966fb2}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!loginUser@{loginUser}}
+\index{loginUser@{loginUser}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{loginUser()}{loginUser()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+login\+User (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}}}]{usuario }\end{DoxyParamCaption})}
+
+Logs in a user and returns a response.
+
+
+\begin{DoxyParams}{Parameters}
+{\em usuario} & The user to be logged in. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A response indicating the login status. 
+\end{DoxyReturn}
+
+
+Definition at line 75 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_abae4dbaf9a0235118013b69da97cbc04}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_abae4dbaf9a0235118013b69da97cbc04}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!registerUser@{registerUser}}
+\index{registerUser@{registerUser}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{registerUser()}{registerUser()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+register\+User (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}}}]{usuario }\end{DoxyParamCaption})}
+
+Represents the HTTP response returned by the server. 
+
+Definition at line 120 of file Resource.\+java.
+
+Here is the call graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a0a6a0e0d15c9944085b2ccc3aba9f31f}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a0a6a0e0d15c9944085b2ccc3aba9f31f}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!sendMSG@{sendMSG}}
+\index{sendMSG@{sendMSG}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{sendMSG()}{sendMSG()}}
+{\footnotesize\ttfamily Response es.\+deusto.\+spq.\+server.\+Resource.\+send\+MSG (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_mensaje}{Mensaje}}}]{mensaje }\end{DoxyParamCaption})}
+
+
+
+Definition at line 879 of file Resource.\+java.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a2bff0459f8ec4617e2e3eea9ab7665bd}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a2bff0459f8ec4617e2e3eea9ab7665bd}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!ACCOUNT\_SID@{ACCOUNT\_SID}}
+\index{ACCOUNT\_SID@{ACCOUNT\_SID}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{ACCOUNT\_SID}{ACCOUNT\_SID}}
+{\footnotesize\ttfamily final String es.\+deusto.\+spq.\+server.\+Resource.\+ACCOUNT\+\_\+\+SID = \char`\"{}ACb22cb289b26ad38d2c5ed1d0ba302f06\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 58 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aa779fafda99524e414fc25e2c99ff277}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_aa779fafda99524e414fc25e2c99ff277}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!AUTH\_TOKEN@{AUTH\_TOKEN}}
+\index{AUTH\_TOKEN@{AUTH\_TOKEN}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{AUTH\_TOKEN}{AUTH\_TOKEN}}
+{\footnotesize\ttfamily final String es.\+deusto.\+spq.\+server.\+Resource.\+AUTH\+\_\+\+TOKEN = \char`\"{}18a51da79088cd192c44851e08653738\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 59 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1a5b31603778b2212fe3943020f230f0}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a1a5b31603778b2212fe3943020f230f0}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!logger@{logger}}
+\index{logger@{logger}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{logger}{logger}}
+{\footnotesize\ttfamily final Logger es.\+deusto.\+spq.\+server.\+Resource.\+logger = Log\+Manager.\+get\+Logger()\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 47 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a0a4e27a1bdd42615ba060a53e60bd283}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a0a4e27a1bdd42615ba060a53e60bd283}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!token@{token}}
+\index{token@{token}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{token}{token}}
+{\footnotesize\ttfamily long es.\+deusto.\+spq.\+server.\+Resource.\+token\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 53 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a5e080940175739c89a39fdb7a95c499d}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a5e080940175739c89a39fdb7a95c499d}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!tokens@{tokens}}
+\index{tokens@{tokens}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{tokens}{tokens}}
+{\footnotesize\ttfamily Map$<$\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}}, Long$>$ es.\+deusto.\+spq.\+server.\+Resource.\+tokens = new Hash\+Map$<$\mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}}, Long$>$()\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 52 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a4667d41404671d374259c4b43501c2cf}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a4667d41404671d374259c4b43501c2cf}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!usuario@{usuario}}
+\index{usuario@{usuario}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{usuario}{usuario}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}} es.\+deusto.\+spq.\+server.\+Resource.\+usuario\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 54 of file Resource.\+java.
+
+\mbox{\Hypertarget{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a9d833ab2b7544275bae4f657959efbd6}\label{classes_1_1deusto_1_1spq_1_1server_1_1_resource_a9d833ab2b7544275bae4f657959efbd6}} 
+\index{es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}!usuario2@{usuario2}}
+\index{usuario2@{usuario2}!es.deusto.spq.server.Resource@{es.deusto.spq.server.Resource}}
+\doxysubsubsection{\texorpdfstring{usuario2}{usuario2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario}{Usuario}} es.\+deusto.\+spq.\+server.\+Resource.\+usuario2\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 55 of file Resource.\+java.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/es/deusto/spq/server/\mbox{\hyperlink{_resource_8java}{Resource.\+java}}\end{DoxyCompactItemize}

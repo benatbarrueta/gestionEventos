@@ -1,0 +1,16 @@
+digraph "es.deusto.spq.server.Resource.comprarEntrada"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="es.deusto.spq.server.Resource.comprar\lEntrada",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="es.deusto.spq.server.jdo.\lEntrada.getId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_entrada.html#aad018380011fc0eab9af229e1dfcc6a6",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="es.deusto.spq.server.jdo.\lUsuario.getTelefono",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_usuario.html#ae7b723eeb24d00ba3d6541e7c8ddcf34",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="es.deusto.spq.server.jdo.\lMensaje.setMensaje",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_mensaje.html#ab70b92ee15f2f6461913035b03383fc6",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="es.deusto.spq.server.jdo.\lMensaje.setTelefono",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classes_1_1deusto_1_1spq_1_1server_1_1jdo_1_1_mensaje.html#a848d2db2c0d7b01557448f77008473b4",tooltip=" "];
+}
